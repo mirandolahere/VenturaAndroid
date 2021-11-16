@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="label_text" format="string" />
+    <declare-styleable name="SpinnerLabeled">
+        <attr name="label_text" />
+        <attr name="hide_line" format="boolean" />
+        <attr name="selected_color" format="string" />
+        <attr name="android:textSize" />
+    </declare-styleable>
+</resources>

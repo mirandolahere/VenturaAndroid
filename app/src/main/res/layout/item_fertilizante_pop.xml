@@ -1,0 +1,89 @@
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="15dp"
+    android:layout_marginTop="15dp"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tvTituloPop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar Químico"
+        android:textColor="@color/verdeVentura"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        />
+    <LinearLayout
+        android:id="@+id/llBuscador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTituloPop"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Buscar por nombre o título"
+            android:textSize="12dp"
+            />
+        <EditText
+            android:id="@+id/etBuscador"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etEmail"
+            android:background="@drawable/edtx_personal_list"
+            android:drawablePadding="8dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textAllCaps="false"
+            android:textColorHint="@color/marcaHeader"
+            android:textStyle="bold"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlDetalle"
+        android:layout_below="@+id/llBuscador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <RelativeLayout
+        android:id="@+id/rlButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/rlDetalle"
+        android:layout_marginBottom="30dp">
+        <Button
+            android:id="@+id/btnPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Aceptar"
+            android:textSize="13sp"
+            android:background="@drawable/btn_personal_guardar"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pgbLaborRealizada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

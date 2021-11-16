@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp"
+    android:paddingTop="10sp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvTituloPersonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:text="Inicio de sesión"
+        android:textSize="25dp" />
+
+
+    <LinearLayout
+        android:id="@+id/rlSincronizador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTituloPersonal"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datos maestros"
+          android:layout_marginRight="10dp"/>
+        <Button
+            android:id="@+id/etSincroPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etEmail"
+            android:background="@drawable/btn_sincro_disable"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:text="Sincronizar"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="13sp"/>
+        <ProgressBar
+            android:id="@+id/pgbDatos"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/ivPersonalCheck"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ic_check"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSincronizacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aceptar"
+        android:layout_below="@+id/rlSincronizador"
+        android:textColor="@color/white"
+        android:enabled="false"
+        android:background="@drawable/btn_sincro_disable"/>
+
+
+
+
+
+    <ProgressBar
+        android:id="@+id/pgbPendienteRealizada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

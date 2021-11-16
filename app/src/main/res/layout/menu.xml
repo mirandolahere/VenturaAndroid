@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent" android:layout_width="match_parent">
+
+<item android:title="Redes sociales">
+    <menu>
+        <item
+            android:id="@+id/nav_share"
+            android:title="Compártenos" />
+        <item
+            android:id="@+id/nav_send"
+            android:title="Envíanos un email" />
+    </menu>
+</item>
+
+<item android:title="Otras apps">
+    <menu>
+        <item
+            android:id="@+id/app1"
+            android:title="Estados para WhatsApp" />
+        <item
+            android:id="@+id/app2"
+            android:title="Cánticos Atleti" />
+    </menu>
+</item>
+
+<item android:title="Tutoriales Android">
+    <menu>
+        <item
+            android:id="@+id/item_tutoriales"
+            android:title="Android Studio Faqs" />
+    </menu>
+</item>
+
+</menu>

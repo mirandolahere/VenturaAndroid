@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerPersonal"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10sp">
+
+
+    <TextView
+        android:id="@+id/tvTituloPersonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:text="Datos del personal"
+        android:textColor="@color/celesteVentura"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:id="@+id/lltitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTituloPersonal"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Código Personal"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:text="Fecha de nacimiento"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lltitulo"
+        android:orientation="horizontal"
+        android:id="@+id/llPrimero"
+        android:paddingBottom="10dp"
+        >
+
+        <EditText
+            android:id="@+id/etCodigoPersona"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:enabled="false"
+            android:background="@drawable/edtx_personal_list_disabled"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/etFecha"
+            android:layout_width="match_parent"
+            android:drawableEnd="@drawable/ic_date"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginStart="5dp"
+            android:paddingEnd="10dp"
+            android:focusable="false"
+            android:clickable="true"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lltituloDos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llPrimero"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Primer nombre"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:text="Segundo nombre"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lltituloDos"
+        android:orientation="horizontal"
+        android:id="@+id/llSegundo"
+        android:paddingBottom="10dp"
+
+        >
+
+        <EditText
+            android:id="@+id/etPrimerNombre"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry"/>
+
+        <EditText
+            android:id="@+id/etSegundoNombre"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginStart="5dp"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lltituloTres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llSegundo"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:text="Apellido paterno"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:layout_marginStart="5dp"
+            android:text="Apellido materno"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lltituloTres"
+        android:orientation="horizontal"
+        android:id="@+id/tercero"
+        android:paddingBottom="10dp"
+
+        >
+
+        <EditText
+            android:id="@+id/etPrimerApellido"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:background="@drawable/edtx_personal_list"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp"
+            tools:ignore="RtlSymmetry"/>
+
+        <EditText
+            android:id="@+id/etSegunApellido"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:background="@drawable/edtx_personal_list"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            tools:ignore="RtlSymmetry"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lltituloCuatro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tercero"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/marcaHeader"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Tipo de documento de identidad"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:text="N° documento de identidad"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lltituloCuatro"
+        android:orientation="horizontal"
+        android:id="@+id/llcuartos"
+        android:paddingBottom="10dp"
+
+        >
+
+        <Spinner
+            android:id="@+id/splDocumento"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/top_shadow_gradient"
+            android:textSize="13sp"
+            style="@style/SpinnerTheme"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:paddingStart="13dp"/>
+
+        <EditText
+            android:id="@+id/etNumeroDocumento"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:background="@drawable/edtx_personal_list"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:inputType="number"
+            android:layout_marginStart="5dp"
+            tools:ignore="RtlSymmetry"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llcuartos"
+        android:orientation="vertical"
+        android:id="@+id/lltituloCinco"
+        android:paddingBottom="10dp"
+
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Labor por defecto"
+            android:textColor="@color/marcaHeader"
+            tools:ignore="RtlSymmetry" />
+
+        <Spinner
+            android:id="@+id/etLaborDefecto"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/top_shadow_gradient"
+            style="@style/SpinnerTheme"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lltituloCinco"
+        android:orientation="vertical"
+        android:id="@+id/llSexto"
+        android:gravity="left"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:text="Tipo Empleado"
+            android:textColor="@color/marcaHeader"
+            tools:ignore="RtlSymmetry" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llSeptimo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/llSexto">
+        <Spinner
+            android:id="@+id/splTipoEmpleado"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            style="@style/SpinnerTheme"
+
+            android:background="@drawable/top_shadow_gradient"
+            android:paddingStart="13dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/idAgregarContactos"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_add"
+                android:text="Agregar Contacto"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llTituloEmpleado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llSeptimo"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/naranjaVentura"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Código de proveedor"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:textSize="11sp"
+            android:textColor="@color/naranjaVentura"
+            android:text="Nombre proveedor"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llTipoEmpleado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
+        android:layout_below="@+id/llTituloEmpleado">
+        <Spinner
+            android:id="@+id/splCodigo"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            style="@style/SpinnerTheme"
+            android:background="@drawable/top_shadow_gradient"
+            android:paddingStart="13dp"/>
+
+        <Spinner
+            android:id="@+id/splNombre"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            style="@style/SpinnerTheme"
+            android:layout_marginStart="5dp"
+            android:focusable="false"
+            android:background="@drawable/top_shadow_gradient"
+            android:paddingStart="13dp"/>
+    </LinearLayout>
+    <!--PRIMER PERSONAL1-->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvContactos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llTipoEmpleado"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="80dp"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rlButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp">
+        <Button
+            android:id="@+id/btnPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_personal"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="64dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</RelativeLayout>
+</ScrollView>

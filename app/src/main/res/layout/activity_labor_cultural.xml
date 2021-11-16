@@ -1,0 +1,243 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlLabor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp"
+    android:paddingTop="10sp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvTituloPersonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:text="Labores culturales"
+        android:textColor="@color/plomo"
+        android:textSize="22sp"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/rlCabecera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTituloPersonal"
+        android:background="@drawable/border_cabecera"
+        android:paddingLeft="20dp"
+        android:paddingTop="28dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="25dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvCodigoPEP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Código PEP"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/etCodigoPEP"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvCodigoPEP"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/edtx_personal_list"
+            android:enabled="false"
+            android:paddingStart="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCampania"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etCodigoPEP"
+            android:layout_weight="1"
+            android:text="Campaña"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/etCampania"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvCampania"
+            android:layout_marginEnd="5dp"
+            android:enabled="false"
+            android:background="@drawable/edtx_personal_list"
+            android:paddingStart="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tvCultivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etCampania"
+            android:layout_weight="1"
+            android:text="Cultivo"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/etCultivo"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvCultivo"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/edtx_personal_list"
+            android:paddingStart="13sp"
+            android:enabled="false"
+            android:textColor="@color/marcaHeader"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tvVariedad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etCultivo"
+            android:layout_weight="1"
+            android:text="Variedad"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/etVariedad"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tvVariedad"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/edtx_personal_list"
+            android:paddingStart="13sp"
+            android:enabled="false"
+            android:textColor="@color/marcaHeader"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llCabecera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingRight="10dp"
+
+        android:layout_marginTop="50dp"
+        >
+        <TextView
+            android:id="@+id/tvInformacionPEP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:paddingHorizontal="8dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/celesteVentura"
+            android:text="Información PEP"/>
+        <ImageView
+            android:id="@+id/ivExpand"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/tvInformacionPEP"
+            android:textSize="18sp"
+            android:paddingTop="5dp"
+            android:src="@drawable/ic_up"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/rlBuscador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlCabecera"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etBuscador"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etEmail"
+            android:background="@drawable/edtx_personal_list"
+            android:drawablePadding="8dp"
+            android:hint="Buscar"
+            android:inputType="text"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textAllCaps="false"
+            android:textColorHint="@color/marcaHeader"
+            android:textStyle="bold"
+            android:textSize="13sp"/>
+        <Spinner
+            android:id="@+id/spnEtapa"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etEmail"
+            android:background="@drawable/edtx_personal_list"
+            android:drawablePadding="8dp"
+            android:hint="Buscar"
+            android:inputType="text"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:paddingStart="13sp"
+            android:textAllCaps="false"
+            android:textColorHint="@color/marcaHeader"
+            android:textStyle="bold"
+            android:textSize="13sp"/>
+            <ImageView
+                android:id="@+id/ivPersonalAdd"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/ic_add"
+                android:textColor="@android:color/black" />
+            </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSeleccione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="bold"
+        android:layout_below="@+id/rlBuscador"
+        android:text="Seleccione"
+        android:textColor="@color/celesteVentura"
+        android:textSize="15sp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLaborCultural"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvSeleccione"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+
+
+
+
+    <ProgressBar
+        android:id="@+id/pgbLaborRealizada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1b3862</color>
+    <color name="colorPrimaryDark">#1b3862</color>
+    <!--<color name="colorAccent">#D81B60</color>-->
+    <color name="colorAccent">#1b3862</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="marcaHeader">#AAAAAA</color>
+    <color name="borderet">#D4D4D4</color>
+    <color name="naranjaVentura">#FFA131</color>
+
+    <color name="backgroundLogin"> #F9F9F9</color>
+    <color name="marcaPrimary"> #F1F0F0</color>
+    <color name="enabled"> #D9D9D9</color>
+
+    <color name="celesteVentura"> #1487C9</color>
+    <color name="rojoLogOut"> #EC6A6A</color>
+    <color name="amarilloVentura"> #F9B122</color>
+    <color name="verdeVentura"> #2BBD6F</color>
+    <color name="plomo"> #484B4A</color>
+
+</resources>

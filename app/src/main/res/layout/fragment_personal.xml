@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlFragmentPersonal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp"
+    android:paddingTop="10sp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvTituloPersonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:text="Personal"
+        android:textSize="25dp" />
+
+
+    <LinearLayout
+        android:id="@+id/rlBuscador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTituloPersonal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etBuscador"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etEmail"
+            android:background="@drawable/edtx_personal_list"
+            android:drawablePadding="8dp"
+            android:hint="Ingresar código completo"
+            android:drawableStart="@drawable/ic_search"
+            android:inputType="text"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textAllCaps="false"
+            android:textColorHint="@color/marcaHeader"
+            android:textStyle="bold"
+            android:textSize="13sp"/>
+
+    <ImageView
+        android:id="@+id/ivPersonalAdd"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/ic_add"
+        android:textColor="@android:color/black" />
+    </LinearLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/rlBuscador"
+        android:layout_marginTop="15dp"
+
+        android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvInspecciones"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlBuscador"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="110dp" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+    <ProgressBar
+        android:id="@+id/pgbPendienteRealizada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

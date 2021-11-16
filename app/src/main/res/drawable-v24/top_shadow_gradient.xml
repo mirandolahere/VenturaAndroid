@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- solids that simulate shadow !-->
+    <item>
+        <shape>
+            <solid android:color="@color/marcaPrimary" />
+            <padding
+                android:left="1.5dp"
+                android:top="1.5dp" />
+            <corners  android:radius="50dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/marcaPrimary" />
+            <padding
+                android:left="1.5dp"
+                android:top="1.5dp" />
+            <corners  android:radius="50dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/marcaPrimary" />
+            <padding
+                android:left="1.5dp"
+                android:top="1.5dp" />
+            <corners  android:radius="50dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/marcaPrimary" />
+            <padding
+                android:left="1.5dp"
+                android:top="1.5dp" />
+            <corners  android:radius="50dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <solid android:color="@color/marcaPrimary" />
+            <padding
+                android:left="1.5dp"
+                android:top="1.5dp" />
+            <corners  android:radius="50dp"/>
+        </shape>
+    </item>
+
+    <!-- main background !-->
+    <item>
+        <shape>
+            <solid android:color="@color/marcaPrimary" />
+            <corners  android:radius="50dp"/>
+        </shape>
+    </item>
+
+
+</layer-list>

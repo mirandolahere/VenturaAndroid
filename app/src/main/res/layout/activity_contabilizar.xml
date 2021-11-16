@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:excludeFromRecents="true"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@android:color/transparent"
+    android:layout_margin="2dp"
+    >
+
+        <RelativeLayout
+        android:id="@+id/rlDetalleItem"
+        android:background="@drawable/border_corners_elevation_bottom"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvMessageDialog"
+            android:layout_marginTop="20dp"
+            android:text="Contabilizador"
+            android:textAlignment="center"
+            android:textColor="@color/amarilloVentura"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+        </TextView>
+        <RelativeLayout
+            android:id="@+id/rlTexto"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/tvMessageDialog"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/texto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:textColor="@color/marcaHeader"
+                android:text="1. Al ejecutar el sincronizador todos los documentos en estado pendientes serán enviados a SAP"
+                android:layout_marginBottom="20dp">
+
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_below="@+id/texto"
+                android:textColor="@color/marcaHeader"
+                android:layout_marginRight="25dp"
+                android:text="2. Si se desea anular los documentos enviados que no pertenecen al día de hoy se tendrá que realizar desde SAP.">
+
+
+            </TextView>
+        </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlTexto"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="25dp"
+
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                >
+                <Button
+                    android:id="@+id/btnAceptar"
+                    android:layout_below="@+id/rlTexto"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:layout_marginRight="5dp"
+
+                    android:text="Aceptar"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_personal"
+                    android:textColor="@android:color/white"
+                    android:layout_centerHorizontal="true"/>
+                <Button
+                    android:id="@+id/btnClose"
+                    android:layout_below="@+id/rlTexto"
+                    android:layout_width="150dp"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:text="Cancelar"
+                    android:background="@drawable/border_bottom_menu"
+                    android:textColor="@color/rojoLogOut"
+                    android:layout_centerHorizontal="true"/>
+            </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

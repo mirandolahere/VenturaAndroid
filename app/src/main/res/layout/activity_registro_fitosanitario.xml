@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlLaborPersonal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp"
+    android:paddingTop="10sp"
+    android:background="@color/white"
+    android:layout_marginTop="5dp">
+
+
+    <LinearLayout
+        android:id="@+id/llPersonal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlCabecera"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvTituloPersonal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textStyle="bold"
+            android:text="Registro fitosanitario"
+            android:textColor="@color/verdeVentura"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llPersonal"
+        android:orientation="vertical"
+        android:id="@+id/llPrimerGrupo"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Código PEP"
+            android:textColor="@color/marcaHeader"/>
+        <EditText
+            android:id="@+id/tvCodigoPEPFIT"
+           android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:background="@drawable/edtx_personal_list_disabled"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSegundoGrupo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llPrimerGrupo"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fecha"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"/>
+
+        <EditText
+            android:id="@+id/tvFechaFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:focusable="false"
+            android:background="@drawable/edtx_personal_list_disabled"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llSegundoGrupo"
+        android:orientation="vertical"
+        android:id="@+id/llTercerGrupo"
+        android:paddingBottom="10dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Etapa"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"/>
+
+        <Spinner
+            android:id="@+id/etEtapaFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            style="@style/SpinnerTheme"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/top_shadow_gradient"
+           />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llTercerGrupo"
+        android:orientation="horizontal"
+        android:id="@+id/llGrupoCuatro"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Código de fertilizante"
+            android:textColor="@color/marcaHeader" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Descripción de fertilizante"
+            android:textColor="@color/marcaHeader" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llGrupoCinco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoCuatro"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+
+        >
+        <EditText
+            android:id="@+id/etCodigoFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginEnd="5dp"
+            android:clickable="true"
+            android:paddingStart="13sp"
+            android:focusable="false"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/etDescripcionFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:focusable="false"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/edtx_personal_list_disabled"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llGrupoSeis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoCinco"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:id="@+id/tvCantidadUnidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cantidad"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:text="Dosis" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llGrupoSiete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoSeis"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <EditText
+            android:id="@+id/etCantidadFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:inputType="number"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp" />
+
+        <EditText
+            android:id="@+id/etDosisFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:inputType="number"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llGrupoOcho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoSiete"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cantidad / Ha"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:text="Unidad de medida / Ha" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llGrupoNueve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoOcho"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        >
+
+        <EditText
+            android:id="@+id/etCantidadHAFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:inputType="number"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp" />
+
+        <EditText
+            android:id="@+id/etUnidadHAFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:inputType="number"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llGrupoDiez"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoNueve"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Volumen de caldo / Ha"
+            android:textColor="@color/marcaHeader"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:textSize="11sp"
+            android:textColor="@color/marcaHeader"
+            android:text="Almacén" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llGrupoOnce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoDiez"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        >
+
+        <EditText
+            android:id="@+id/etVolumenFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:inputType="number"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="13sp" />
+
+        <Spinner
+            android:id="@+id/etAlmacenFIT"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:paddingStart="13sp"
+            android:textSize="13sp"
+            android:inputType="number"
+            android:textColor="@color/marcaHeader"
+            android:textStyle="bold"
+            android:background="@drawable/edtx_personal_list"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llDistribucionLotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llGrupoOnce"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Distribución de lotes"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/celesteVentura"
+            android:paddingBottom="10dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/llLote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+
+            <TextView
+                android:id="@+id/tvCantidadDisponible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cantidad disponible"
+                android:textColor="@color/marcaHeader"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:textSize="11sp"
+                android:textColor="@color/marcaHeader"
+                android:text="Cantidad total utilizada" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llGrupoSeis"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <EditText
+                android:id="@+id/etCantidadDisponible"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:textSize="13sp"
+                android:textColor="@color/marcaHeader"
+                android:textStyle="bold"
+                android:inputType="number"
+                android:background="@drawable/edtx_personal_list"
+                android:layout_marginEnd="5dp"
+                android:paddingStart="13sp" />
+
+            <EditText
+                android:id="@+id/etCantidadTotal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:paddingStart="13sp"
+                android:textSize="13sp"
+                android:inputType="number"
+                android:textColor="@color/marcaHeader"
+                android:textStyle="bold"
+                android:background="@drawable/edtx_personal_list"
+                android:layout_marginStart="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llLote2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lote"
+                android:textColor="@color/marcaHeader"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:textSize="11sp"
+                android:textColor="@color/marcaHeader"
+                android:text="Cantidad" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llLote3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llGrupoSeis"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+            <Spinner
+                android:id="@+id/etLoteFIT"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:paddingStart="13sp"
+                android:textSize="13sp"
+                android:inputType="number"
+                android:textColor="@color/marcaHeader"
+                android:textStyle="bold"
+                android:background="@drawable/edtx_personal_list"
+                android:layout_marginStart="5dp" />
+
+            <EditText
+                android:id="@+id/etCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:paddingStart="13sp"
+                android:textSize="13sp"
+                android:inputType="number"
+                android:textColor="@color/marcaHeader"
+                android:textStyle="bold"
+                android:background="@drawable/edtx_personal_list"
+                android:layout_marginStart="5dp" />
+        </LinearLayout>
+
+        <Button
+            android:paddingTop="10dp"
+            android:id="@+id/btnGuardarLote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_login"
+            android:textColor="@color/white"
+            android:paddingBottom="10dp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llTables"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:layout_below="@+id/llDistribucionLotes"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#"
+                android:layout_weight="1"
+                android:textColor="@color/celesteVentura"
+                android:textSize="12sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lote"
+                android:layout_weight="1"
+                android:textColor="@color/celesteVentura"
+                android:textSize="12sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cantidad"
+                android:layout_weight="1"
+                android:textColor="@color/celesteVentura"
+                android:textSize="12sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_weight="1"
+                android:textColor="@color/celesteVentura"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tbLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/edtx_personal_list_disabled"
+            >
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rlButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/llTables"
+        android:layout_marginBottom="30dp">
+        <Button
+            android:id="@+id/btnPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_personal_guardar"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pgbLaborRealizada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>
+</ScrollView>

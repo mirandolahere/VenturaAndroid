@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:excludeFromRecents="true"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@android:color/transparent"
+    android:layout_margin="2dp"
+    >
+
+        <RelativeLayout
+        android:id="@+id/rlDetalleItem"
+        android:background="@drawable/border_corners_elevation_bottom"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <RelativeLayout
+            android:id="@+id/rlTexto"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_below="@+id/tvMessageDialog"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/texto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:textColor="@color/marcaHeader"
+                android:text="¿Está seguro que desea ejecutar el proceso?"
+                android:layout_marginBottom="20dp">
+
+            </TextView>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlTexto"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="25dp"
+
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                >
+                <Button
+                    android:id="@+id/btnAceptar"
+                    android:layout_below="@+id/rlTexto"
+                    android:layout_width="150dp"
+                    android:layout_height="25dp"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:layout_marginRight="5dp"
+
+                    android:text="Si"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_personal_guardar"
+                    android:textColor="@android:color/white"
+                    android:layout_centerHorizontal="true"/>
+                <Button
+                    android:id="@+id/btnClose"
+                    android:layout_below="@+id/rlTexto"
+                    android:layout_width="150dp"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:text="No"
+                    android:background="@drawable/border_bottom_menu"
+                    android:textColor="@color/rojoLogOut"
+                    android:layout_centerHorizontal="true"/>
+            </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bottom 2dp Shadow -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/marcaHeader" />
+            <item android:drawable="@color/marcaHeader" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <!-- White Top color -->
+    <item android:bottom="3dp" android:right="1dp" android:left="1dp">
+        <shape  android:shape="rectangle">
+            <solid android:color="#F5F1F0" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    <!-- <item android:drawable="@color/marcaPrimary"
+         android:width="200dp"
+         android:height="300dp"
+         android:left="20px"
+         android:right="20px"
+         android:gravity="center"
+         />-->
+
+
+
+
+</layer-list>

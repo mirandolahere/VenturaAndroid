@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:layout_gravity="center"
+    >
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/logo_login"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <RelativeLayout
+        android:id="@+id/rlGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        android:background="@drawable/border_corners_login"
+        android:gravity="center"
+        android:paddingLeft="20sp"
+        android:paddingTop="30sp"
+        android:paddingRight="20sp"
+        android:paddingBottom="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/titulo"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tituloOlvide"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/titulo"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingTop="14dp"
+            android:text="@string/textContrasenia"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/tituloOlvide"
+            android:background="@drawable/edtx_login_background"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="8dp"
+            android:hint="@string/usuarioHint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:visibility="gone"
+            android:paddingStart="13sp"
+            android:textAllCaps="false"
+            android:textColorHint="@color/marcaHeader"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/spEmpresa"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etEmail"
+            android:background="@drawable/edtx_login_background"
+            android:drawableStart="@drawable/ic_lock"
+            android:paddingStart="13sp"
+            android:hint="Empresa"
+            android:drawablePadding="8dp"
+            android:textColorHint="@color/marcaHeader"
+            android:textStyle="bold"
+            android:enabled="false"
+            android:textSize="13sp"
+            android:layout_marginBottom="25sp"
+            />
+
+        <EditText
+            android:id="@+id/etUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="25sp"
+            android:layout_below="@+id/spEmpresa"
+            android:background="@drawable/edtx_login_background"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="8dp"
+            android:hint="@string/usuarioHint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="13sp"
+            android:textAllCaps="false"
+            android:textColorHint="@color/marcaHeader"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/etUsuario"
+            android:background="@drawable/edtx_login_background"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="8dp"
+            android:hint="@string/contrasenaHint"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingStart="13sp"
+            android:textColorHint="@color/marcaHeader"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+        <Button
+            android:id="@+id/btnIngresar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/etPassword"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btn_login"
+            android:isScrollContainer="true"
+            android:text="@string/ingresar"
+            android:textAllCaps="false"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/btnIngresar"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_login"
+            android:isScrollContainer="true"
+            android:text="Enviar"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvOlvidarContraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnEnviar"
+            android:gravity="right"
+            android:paddingTop="10dp"
+            android:text="@string/olvidaste"
+            android:textColor="@color/marcaHeader"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvOlvidarContraseña"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"
+            android:text="@string/cancelar"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btnVincular"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_vincular"
+        android:isScrollContainer="true"
+        android:text="Conectar"
+        android:textSize="22sp"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Ventura</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="todo">TODO</string>
+    <string name="textContrasenia">Ingresa tu usuario para enviarte un enlace al correo asociado para que puedas reestablecer tu contraseña.</string>
+    <string name="titulo">Recuperar contraseña</string>
+
+    <string name="usuarioHint">Usuario</string>
+    <string name="emailHint">Correo electrónico</string>
+    <string name="contrasenaHint">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="olvidaste">¿Olvidaste tu contraseña?</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="alert_message">Alert Message</string>
+
+
+
+    <string name="open_drawer">open</string>
+    <string name="close_drawer">close</string>
+    <string name="sincronizando">Sincronizando</string>
+
+
+    <string-array name="Documentos">
+        <item>DNI</item>
+        <item>Carnet de Extranjeria</item>
+        <item>RUC</item>
+        <item>Pasaporte</item>
+        <item>Cédula Diplomatica</item>
+        <item>Otros</item>
+
+    </string-array>
+
+    <string-array name="Empleado">
+        <item>Planilla</item>
+        <item>Tercero</item>
+    </string-array>
+
+    <string-array name="Empresas">
+        <item>Sociedad</item>
+    </string-array>
+    <string-array name="Parentesco">
+        <item>Hermanos</item>
+        <item>Esposa</item>
+        <item>Madre</item>
+        <item>Padre</item>
+        <item>Hijos</item>
+        <item>Esposo</item>
+        <item>Tia</item>
+        <item>Tio</item>
+
+    </string-array>
+</resources>
