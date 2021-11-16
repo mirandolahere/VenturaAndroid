@@ -145,8 +145,6 @@ LoginActivity : AppCompatActivity() {
                 R.layout.spinner_list, Empresas)
         adapter.setDropDownViewResource(R.layout.spinner_list)
         spEmpresa.isEnabled = false
-
-
     }
     fun checkInternet() : Boolean
     {
