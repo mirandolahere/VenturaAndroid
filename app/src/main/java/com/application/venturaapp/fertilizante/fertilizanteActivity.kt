@@ -1,11 +1,16 @@
 package com.application.venturaapp.fertilizante
+import android.app.Activity
+import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -18,22 +23,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.venturaapp.R
 import com.application.venturaapp.fertilizante.adapter.FertilizantePEPAdapter
 import com.application.venturaapp.fertilizante.listener.VSAGRRFERItemListener
-import com.application.venturaapp.fitosanitario.adapter.FitosanitarioPEPAdapter
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFER
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFIT
-import com.application.venturaapp.fitosanitario.listener.VSAGRRFITItemListener
+import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
+import com.application.venturaapp.fitosanitario.entity.VS_AGR_DSCOCollection
+import com.application.venturaapp.helper.AlertActivity
 import com.application.venturaapp.helper.Constants
 import com.application.venturaapp.helper.TipoDocumento
 import com.application.venturaapp.home.HomeActivity
 import com.application.venturaapp.laborCultural.entity.EtapaProduccionListResponse
+import com.application.venturaapp.laborCultural.entity.LaborCulturalListResponse
 import com.application.venturaapp.laborCultural.laborCulturaViewModel
+import com.application.venturaapp.laborCultural.laborCulturalPersonalActivity
 import com.application.venturaapp.preference.PreferenceManager
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_labor_cultural.*
 import kotlinx.android.synthetic.main.activity_labor_cultural.etBuscador
 import kotlinx.android.synthetic.main.activity_labor_cultural.pgbLaborRealizada
 import kotlinx.android.synthetic.main.activity_labor_cultural.rvLaborCultural
 import kotlinx.android.synthetic.main.activity_labor_cultural.tvTituloPersonal
 import okhttp3.Cache
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.jvm.internal.Intrinsics
 
 
 class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
@@ -44,21 +54,29 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
     private var codigoCampania = ""
     private var DocEntryPEP = ""
     lateinit var httpCacheDirectory : Cache
-
+    private var DocEntryCosecha = 0
     private var Cultivo = ""
+    private var FECHA = ""
+    private var CODARTIUCLO = ""
+    private var DESCRIPCIONARTICULO = ""
+    private var ALMACEN = ""
+
     private var Variedad = ""
     private  var tipoCampania = ""
     lateinit var pref: PreferenceManager
     lateinit var fertilizanteViewModels: fertilizanteViewModel
     lateinit var laborViewModels: laborCulturaViewModel
 
-    var laborList  = arrayListOf<VSAGRRFER>()
+    var VS_AGR_DSCOCollection  = arrayListOf<VS_AGR_DSCOCollection>()
+
+    var laborList  = arrayListOf<VSAGRRCOS>()
     lateinit var etapa  : java.util.ArrayList<String>
     lateinit var etapaList  : java.util.ArrayList<EtapaProduccionListResponse>
     var Descripcion: String = ""
     var CodeEtapa: String = ""
+    private val REQUEST_ACTIVITY = 100
 
-    private val REQUEST_ACTIVITY_FRAGMENT = 110
+    private val REQUEST_ACTIVITY_ELIMINAR = 110
     private val REQUEST_ACTIVITY_DETALLE = 120
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +85,7 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
 
         httpCacheDirectory = Cache(cacheDir, cacheSize)
         setContentView(R.layout.activity_labor_cultural)
-        tvTituloPersonal.text = "Consumo de fertilizantes"
+        tvTituloPersonal.text = "Cosecha"
         pref = PreferenceManager(this)
         fertilizanteViewModels = ViewModelProviders.of(this).get(fertilizanteViewModel::class.java)
         laborViewModels = ViewModelProviders.of(this).get(laborCulturaViewModel::class.java)
@@ -76,70 +94,34 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
         setCabecera()
         setUpViews()
         setUpObservers()
-        EtapaListar()
+        listaCosecha()
+
+        //EtapaListar()
 
     }
-    fun Spinner()
-    {
-        val adapter = this?.let {
-            ArrayAdapter(
-                it,
-                R.layout.spinner, etapa
-            )
-        }
+    fun listaCosecha(){
 
-        if (adapter != null) {
-            adapter.setDropDownViewResource(R.layout.spinner_list)
-            spnEtapa.adapter = adapter
+        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaCosecha(it,CodigoPEP,codigoCampania,httpCacheDirectory, this) }
 
-            spnEtapa.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View, position: Int, id: Long
-                ) {
-
-                    Descripcion = etapa.get(position)
-                    Log.d("JSONPERSONAL",Descripcion)
-
-                    for( item in etapaList)
-                    {
-                        if(item.U_VS_AGR_DSEP == Descripcion)
-                        {
-                            CodeEtapa = item.U_VS_AGR_CDEP
-                            Log.d("JSONPERSONAL",CodeEtapa)
-
-                        }
-                    }
-                    filter(etBuscador.text.toString())
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
-            }
-        }
     }
+
     private fun filter(s: String)
     {
-        val filter: ArrayList<VSAGRRFER> = ArrayList()
-        Log.d("item.U_VS_AGR_DSCA",Descripcion)
+        val filter: ArrayList<VS_AGR_DSCOCollection> = ArrayList()
+        for (item in laborList.iterator()) {
+            for(i in item.VS_AGR_DSCOCollection)
+            if (item.U_VS_AGR_FERG == s)
+                filter.add(i)
 
-        for (item in laborList) {
-
-            if ( (item.EtapaNombre == Descripcion )|| (Descripcion =="Todas" ) ) {
-
-                filter.add(item)
-            }
         }
-        rvLaborCultural.adapter = (FertilizantePEPAdapter(this,filter))
+
+        rvLaborCultural.adapter = (FertilizantePEPAdapter(this, filter, laborList))
         rvLaborCultural.layoutManager = LinearLayoutManager(this)
 
 
     }
     fun initViews() {
-        spnEtapa.visibility = View.VISIBLE
-        etBuscador.visibility = View.GONE
+
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setLogo(R.drawable.logo_isotipo)
@@ -152,18 +134,6 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
             DocEntryPEP = intent.getSerializableExtra("DOCENTRYPEP").toString()
 
 
-            /* var peopleClass = gson.fromJson(people.toString(), PersonalDato::class.java)
-            if (peopleClass != null && accion == 1) {
-                MostrarDatos(peopleClass)
-            }
-            if (peopleClass != null && accion == 2) {
-                ActualizarDatos(peopleClass)
-
-            }
-        }
-        if(intent.getSerializableExtra("ACCION") == 0) {
-            Nuevo()
-        }*/
 
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -204,79 +174,45 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
     }
 
     fun setUpObservers(){
-        laborViewModels.etapaResult.observe(this, Observer {
+        laborViewModels.respondeDeleteCosechaResult.observe(this, Observer {
             it?.let {
-                etapaList = it as java.util.ArrayList<EtapaProduccionListResponse>
-                etapa = java.util.ArrayList<String>()
-                etapa.add("Todas")
-
-                for (item in it) {
-                    etapa.add(item.U_VS_AGR_DSEP)
-                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
-                }
-                Spinner()
-                LaborListar()
-
+                pref.saveString(Constants.MESSAGE_ALERT, it.toString())
+                startActivityForResult(
+                    Intent(
+                        this@fertilizanteActivity,
+                        AlertActivity::class.java
+                    ), REQUEST_ACTIVITY
+                )
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         })
-        fertilizanteViewModels.VSAGRFER.observe(this, Observer {
+        laborViewModels.responseCosechaResult.observe(this, Observer {
             it?.let { it1 ->
-                /* val personal = PersonalDB.getDatabase(getApplication()).personalDao()
-                 val list: List<LaborCulturalRoom>? = personal?.getLaborPorPEP(CodigoPEP)
 
-                 if (list != null) {
-                     for(item in list) {
-
-                         var laborroom : LaborCulturalListResponse =
-                             LaborCulturalListResponse(0,
-                             0,0,0,"","","","","",item.id.toString(),"",
-                             "","","","","","","","","",
-                             "","","","",item.U_VS_AGR_CDCA,item.U_VS_AGR_CDPP,
-                             item.U_VS_AGR_CDEP,item.U_VS_AGR_ACTV,"","","",
-                                 item.U_VS_AGR_FERG,0,null
-                             )
-                         laborList.add(laborroom)
-                     }
-                 }
-                 */
-               /* var totalJornales = 0
-                var index = 0
-                for (item in laborList) {
-                    if(item.VS_AGR_DCULCollection?.size!=0 && item.VS_AGR_DCULCollection != null) {
-                        for (detail in item.VS_AGR_DCULCollection!!) {
-                            totalJornales += detail.U_VS_AGR_TOJR
-                        }
-
-                        var personal : List<LaborCulturalDetalleRoom>? = laborViewModels.getLaborDetalleRoom(item.DocEntry.toInt())
-                        if (personal != null) {
-                            for(item in personal)
-                            {
-                                totalJornales += item.U_VS_AGR_TOJR
-                            }
-                        }
-                    }
-
-                    laborList.get(index).TOTALJORNALES = totalJornales
-                    index++
-                    totalJornales = 0
-                }
-                */
-                laborList = it1 as ArrayList<VSAGRRFER>
-
+                laborList = it1 as ArrayList<VSAGRRCOS>
                 laborList.sortByDescending { it.U_VS_AGR_FERG }
+                var position = 0
 
-                for (item in laborList) {
-                    for(etapa in etapaList)
+                for ((i,item) in laborList.withIndex()) {
+                    for((index,etapa) in item.VS_AGR_DSCOCollection.withIndex())
                     {
-                        item.EtapaNombre = etapa.U_VS_AGR_DSEP
+                        VS_AGR_DSCOCollection.add(etapa)
+                        if(laborList[i].DocEntry == laborList[index].DocEntry)
+                            laborList[i].position =  index
                     }
-                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                 }
+
+                FECHA = laborList[0].U_VS_AGR_FERG
+                CODARTIUCLO = laborList[0].U_VS_AGR_CDAT
+                DESCRIPCIONARTICULO = laborList[0].U_VS_AGR_DSAT
+                ALMACEN = laborList[0].U_VS_AGR_CDAL
+
 
                 /* Spinner()*/
 
 
-                rvLaborCultural.adapter = (FertilizantePEPAdapter(this, laborList))
+
+                rvLaborCultural.adapter = (FertilizantePEPAdapter(this, VS_AGR_DSCOCollection, laborList))
                 rvLaborCultural.layoutManager = LinearLayoutManager(this)
 
                 pgbLaborRealizada.visibility = View.GONE
@@ -294,38 +230,29 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
         rlLabor.setOnClickListener {
             hideSoftKeyboard()
         }
+
         ivPersonalAdd.setOnClickListener {
 
             /*startActivity(Intent(this@personalFragment, personalAdd::class.java))
             finish()*/
-            /*val intent = Intent(this, addLaborCulturalActivity::class.java)
+
+            val intent = Intent(this, cosechaAgregarActivity::class.java)
             intent.putExtra("CODIGOPEP", CodigoPEP)
             intent.putExtra("CULTIVO", Cultivo)
-            intent.putExtra("VARIEDAD", Variedad)
             intent.putExtra("CAMPANIA", Campania)
-            intent.putExtra("CODIGOCAMPANIA", codigoCampania)
-            intent.putExtra("TIPOCAMPANIA", tipoCampania)
-            intent.putExtra("DOCENTRYPEP", DocEntryPEP)
+            intent.putExtra("FECHA", FECHA)
+            intent.putExtra("ARTICULO", CODARTIUCLO)
+            intent.putExtra("CODIGOCAMPANIA",codigoCampania)
+            intent.putExtra("DESCRIPCION", DESCRIPCIONARTICULO)
+            intent.putExtra("ALMACEN", ALMACEN)
+            intent.putExtra("ESTADO", 1)
 
-
-
-            startActivity(intent)*/
+            startActivityForResult(intent, REQUEST_ACTIVITY)
+        }
+        etBuscador.setOnClickListener {
+            fecha()
 
         }
-        etBuscador.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-                //filter(s.toString());
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-
             llCabecera.setOnClickListener {
             when(tvCampania.visibility)
             {
@@ -353,53 +280,153 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
 
         }
     }
-    /*private fun filter(s: String)
-    {
-        val filter: java.util.ArrayList<LaborCulturalListResponse> = java.util.ArrayList()
+    fun fecha(){
+        val mcurrentTime: Calendar = Calendar.getInstance()
+        Intrinsics.checkNotNullExpressionValue(mcurrentTime, "Calendar.getInstance()")
+        val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener
+        { view, year, monthOfYear, dayOfMonth ->
 
-        for (item in laborList) {
-            if (item.U_VS_AGR_CDEP.toLowerCase().contains(s.toLowerCase())) {
-                filter.add(item)
+            val dayFormateada: String
+            val monthFormateada: String
+            val monthSelect = monthOfYear + 1
+            dayFormateada = if (dayOfMonth < 10) {
+                "0$dayOfMonth"
+            } else {
+                dayOfMonth.toString()
             }
-        }
-        rvLaborCultural.adapter = (laborCulturalPEPAdapter(this, filter))
-        rvLaborCultural.layoutManager = LinearLayoutManager(this)
+            monthFormateada = if (monthSelect < 10) {
+                "0$monthSelect"
+            } else {
+                monthSelect.toString()
+            }
+            val fechaBusqueda = "$year-$monthFormateada-$dayFormateada"
+            etBuscador.setText(
+                fechaBusqueda
+            )
+            if (!Intrinsics.areEqual(
+                    fechaBusqueda,
+                    ""
+                )
+            ) {
+                filter(fechaBusqueda)
+            }
+        }, mcurrentTime.get(1), mcurrentTime.get(2), mcurrentTime.get(5)
+        )
+        datePickerDialog.setTitle("Seleccione la fecha")
+        datePickerDialog.show()
+    }
 
-    }*/
-    private fun LaborListar() {
-        pref.getString(Constants.B1SESSIONID)?.let { fertilizanteViewModels.listaFertilizante(it, CodigoPEP,httpCacheDirectory, this) }
-    }
-    private fun EtapaListar() {
-        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listEtapa(it,CodigoPEP,httpCacheDirectory, this) }
-    }
     fun hideSoftKeyboard() {
         currentFocus?.let {
             val inputMethodManager = ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
-    override fun laborItemClickListener(position: VSAGRRFER?) {
+    override fun laborItemClickListener(position: VS_AGR_DSCOCollection ,  vsagrrcos : VSAGRRCOS) {
 
-        /*var gson =  Gson()
+        var gson =  Gson()
         var jsonClass = gson.toJson(position)
+        var jsonClassDetalle = gson.toJson(vsagrrcos)
 
-        val intent = Intent(this, laborCulturalDetalleActivity::class.java)
+        val intent = Intent(this, cosechaAgregarActivity::class.java)
         intent.putExtra("CODIGOPEP", CodigoPEP)
         intent.putExtra("CAMPANIA", Campania)
         intent.putExtra("CULTIVO", Cultivo)
         intent.putExtra("VARIEDAD", Variedad)
         intent.putExtra("CODIGOCAMPANIA", codigoCampania)
         intent.putExtra("DOCENTRYPEP", DocEntryPEP)
+        intent.putExtra("CODIGOCAMPANIA",codigoCampania)
+        intent.putExtra("FECHA", FECHA)
+        intent.putExtra("ARTICULO", CODARTIUCLO)
+        intent.putExtra("DESCRIPCION", DESCRIPCIONARTICULO)
+        intent.putExtra("ALMACEN", ALMACEN)
+        intent.putExtra("ESTADO", 0)
 
 
         if (position != null) {
-            intent.putExtra("FECHA", position.U_VS_AGR_FERG)
-                intent.putExtra("ETAPA", position.U_VS_AGR_CDEP)
             intent.putExtra("TIPOCAMPANIA", tipoCampania)
             intent.putExtra("DOCENTRY", position.DocEntry)
+            intent.putExtra("REFENCIA", vsagrrcos.U_VS_AGR_TOAT)
+            intent.putExtra("OPERACION", vsagrrcos.U_VS_AGR_CLAS)
+            intent.putExtra("MEDIDA", vsagrrcos.U_VS_AGR_UMAT)
+
+            intent.putExtra("TOTAL", position.U_VS_AGR_TOAT)
+
+            intent.putExtra("OBJECT", jsonClass)
+            intent.putExtra("OBJECTPERSONA", jsonClassDetalle)
+
             startActivityForResult(intent, REQUEST_ACTIVITY_DETALLE)
 
-        }*/
+        }
+
+    }
+
+    override fun laborUpdateClickListener(position: VS_AGR_DSCOCollection ,  vsagrrcos : VSAGRRCOS) {
+
+        var gson =  Gson()
+        var jsonClass = gson.toJson(position)
+        var jsonClassDetalle = gson.toJson(vsagrrcos)
+
+        val intent = Intent(this, cosechaAgregarActivity::class.java)
+        intent.putExtra("CODIGOPEP", CodigoPEP)
+        intent.putExtra("CAMPANIA", Campania)
+        intent.putExtra("CULTIVO", Cultivo)
+        intent.putExtra("VARIEDAD", Variedad)
+        intent.putExtra("CODIGOCAMPANIA", codigoCampania)
+        intent.putExtra("DOCENTRYPEP", DocEntryPEP)
+        intent.putExtra("CODIGOCAMPANIA",codigoCampania)
+        intent.putExtra("FECHA", FECHA)
+        intent.putExtra("ARTICULO", CODARTIUCLO)
+        intent.putExtra("DESCRIPCION", DESCRIPCIONARTICULO)
+        intent.putExtra("ALMACEN", ALMACEN)
+        intent.putExtra("ESTADO", 2)
+        intent.putExtra("LINEID", position.LineId)
+
+
+        if (position != null) {
+            intent.putExtra("TIPOCAMPANIA", tipoCampania)
+            intent.putExtra("DOCENTRY", position.DocEntry)
+            intent.putExtra("REFENCIA", vsagrrcos.U_VS_AGR_TOAT)
+            intent.putExtra("OPERACION", vsagrrcos.U_VS_AGR_TOAT)
+            intent.putExtra("MEDIDA", position.U_VS_AGR_TOAT)
+
+            intent.putExtra("TOTAL", position.U_VS_AGR_TOAT)
+
+            intent.putExtra("OBJECT", jsonClass)
+            intent.putExtra("OBJECTPERSONA", jsonClassDetalle)
+
+            startActivityForResult(intent, REQUEST_ACTIVITY_DETALLE)
+
+        }
+
+
+    }
+
+    override fun laborDeleteClickListener(position: VS_AGR_DSCOCollection ,  vsagrrcos : VSAGRRCOS) {
+        val intent = Intent(this, cosechaAgregarActivity::class.java)
+
+        if(checkInternet()) {
+
+            DocEntryCosecha=  vsagrrcos.DocEntry
+            intent.putExtra("ESTADO", 3)
+
+            pref.saveString(Constants.MESSAGE_ALERT, "¿Desea eliminar esta cosecha?")
+            startActivityForResult(
+                Intent(
+                    this@fertilizanteActivity,
+                    AlertActivity::class.java
+                ), REQUEST_ACTIVITY_ELIMINAR
+            )
+        }else
+        {
+            val builder =  android.app.AlertDialog.Builder(this)
+
+            builder.setTitle("Eliminar cosecha")
+            builder.setMessage("Operación no permitida de modo offline.")
+            builder.show()
+        }
+
+
 
     }
     override fun onBackPressed() {
@@ -408,23 +435,57 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
         startActivity(myIntent)
 
     }
+    fun checkInternet() : Boolean
+    {
+        val ConnectionManager = this?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = ConnectionManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("ELIMINAR", requestCode.toString())
         Log.d("ELIMINAR", resultCode.toString())
 
         when (requestCode) {
-           /* REQUEST_ACTIVITY_FRAGMENT -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    setResult(RESULT_OK)
-                    finish()
-                }*/
+                REQUEST_ACTIVITY -> {
+                    if (resultCode == Activity.RESULT_CANCELED) {
+                        startActivity(intent)
+                        listaCosecha()
 
+                    }
+                    if (resultCode == Activity.RESULT_OK) {
+                        startActivity(intent)
+                    }
+                }
+            REQUEST_ACTIVITY_DETALLE -> {
+                if (resultCode == Activity.RESULT_CANCELED) {
+                    startActivity(intent)
+                    listaCosecha()
+
+                }
+                if (resultCode == Activity.RESULT_OK) {
+                    startActivity(intent)
+                }
+            }
+            REQUEST_ACTIVITY_ELIMINAR -> {
+                if (resultCode == Activity.RESULT_CANCELED) {
+
+
+                }
+                if (resultCode == Activity.RESULT_OK) {
+                    pref.getString(Constants.B1SESSIONID)?.let {
+                        laborViewModels.deleteCosecha(
+                            it,
+                            DocEntryCosecha,
+                            httpCacheDirectory,
+                            this
+                        )
+                    }
+                }
 
             }
-
         }
-
-
+    }
 }
 

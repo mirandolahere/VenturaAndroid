@@ -28,7 +28,7 @@ class FertilizanteAdapter(internal var listener: FitosanitarioItemListener, pers
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_labor_cultural, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_fertilizante, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -55,8 +55,6 @@ class FertilizanteAdapter(internal var listener: FitosanitarioItemListener, pers
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItem(name: PEPDato, position: Int) {
-            txtJornales.visibility=View.GONE
-            tvJornales.visibility = View.GONE
             var simpleFormat = DateTimeFormatter.ISO_DATE;
             var convertedDate = LocalDate.parse(name.UpdateDate, simpleFormat)
             val mes: String

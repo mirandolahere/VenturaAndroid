@@ -229,7 +229,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
             }
             })
-        personalViewModels.personalResult.observe(this, Observer {
+     /*   personalViewModels.personalResult.observe(this, Observer {
             it?.let {
                 if (it.size != 0) {
                     val codeList = java.util.ArrayList<String>()
@@ -275,7 +275,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                 }
 
             }
-        })
+        }) */
         personalViewModels.laborResult.observe(this, Observer {
             it?.let {
                 if (it.size != 0) {
@@ -413,7 +413,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                     Log.d("VALORTABLA", jornales.toString())
                     Log.d("VALORTABLA", hrs.toString())
 
-                    tableDinamica()
+                    //tableDinamica()
                     personalListar()
 
                 } else
@@ -440,39 +440,20 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                     }
                 }
 
-                    var jornal:Int=0
-                    var hr :Int = 0
-                Log.d("ORDEN", labores.toString())
-                for(labor in labores)
-                {
-                    Log.d("ORDEN", labor)
 
-                    for (item in laborPorCodeDetalleList) {
-                        Log.d("TABADINAMICA", item.toString())
+                 for (item in laborPorCodeDetalleList) {
 
-                        if (labor == item.U_VS_AGR_CDLC) {
-                            jornal+=item.U_VS_AGR_TOJR
-                            hr+=item.U_VS_AGR_TOHX
-                        }
-
-                    }
-
-                   jornales.add(jornal)
-                   hrs.add(hr)
-                    jornal = 0
-                    hr = 0
-                }
+                     if (item.U_VS_AGR_ESTA == "P")
+                         ivSincronizacion.visibility = View.VISIBLE
+                 }
 
 
-                if (laborPorCodeDetalleList.size != 0) {
-                    Log.d("VALORTABLA", jornales.toString())
-                    Log.d("VALORTABLA", hrs.toString())
+                rvLaborCultural.adapter = (laborCulturalDetalleAdapter(this, laborPorCodeDetalleList))
+                rvLaborCultural.layoutManager = LinearLayoutManager(this)
 
-                    tableDinamica()
-                    personalListar()
 
-                } else
-                    pgbLaborRealizada.visibility = View.GONE
+
+                pgbLaborRealizada.visibility = View.GONE
 
             }
         })
@@ -822,7 +803,6 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
             /*startActivity(Intent(this@personalFragment, personalAdd::class.java))
             finish()*/
-            Log.d("PERSONALLISTA0", personalExistente.toString())
             var gson =  Gson()
             var jsonClass = gson.toJson(personalExistente)
 
@@ -836,7 +816,6 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
             intent.putExtra("DOCENTRY", DocEntry)
 
             intent.putExtra("ESTADO", 1)
-            intent.putStringArrayListExtra("OBJECT", personalExistente)
 
             startActivityForResult(intent, REQUEST_ACTIVITY)
 
@@ -925,7 +904,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
         rvLaborCultural.layoutManager = LinearLayoutManager(this)
     }
     private fun LaborListar() {
-        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaLaborCultural(it, CodigoPEP,httpCacheDirectory,this) }
+        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaLaborCultural(it, CodigoPEP,Campania,httpCacheDirectory,this) }
     }
 
     override fun laborItemClickListener(position: LaborCulturalDetalleResponse?) {
@@ -1016,6 +995,8 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
             REQUEST_ACTIVITY -> {
                 if (resultCode == Activity.RESULT_CANCELED) {
                    startActivity(intent)
+                    LaboresListar()
+
                 }
                 if (resultCode == Activity.RESULT_OK) {
                     startActivity(intent)

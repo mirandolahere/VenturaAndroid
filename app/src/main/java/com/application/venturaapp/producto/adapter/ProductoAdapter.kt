@@ -19,7 +19,7 @@ class ProductoAdapter(
     etapa: String
 ) : RecyclerView.Adapter<ProductoAdapter.ViewHolder>() {
 
-    private val options =  ArrayList(laborLista)
+    private val options = ArrayList(laborLista)
     val etapa = etapa
     private var lastSelectedPosition = -1
 
@@ -45,15 +45,15 @@ class ProductoAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var rbSelected: RadioButton = itemView.findViewById(R.id.rbSelected)
-        var tvCodigoSelected: TextView = itemView.findViewById(R.id.tvCodigoSelected)
+        //  var rbSelected: RadioButton = itemView.findViewById(R.id.rbSelected)
+        //  var tvCodigoSelected: TextView = itemView.findViewById(R.id.tvCodigoSelected)
 
 
         @SuppressLint("ResourceAsColor")
         fun bindItem(name: Producto, position: Int) {
-          tvCodigoSelected.setText("Codigo")
+            // tvCodigoSelected.setText("Codigo")
 
-            rbSelected.setOnClickListener {
+            /*  rbSelected.setOnClickListener {
                 lastSelectedPosition = getAdapterPosition();
                 listener.laborItemClickListener(name)
 
@@ -61,6 +61,7 @@ class ProductoAdapter(
             }
 
 
+        }*/
         }
     }
 }

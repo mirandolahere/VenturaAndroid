@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.application.venturaapp.R
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFER
 import com.application.venturaapp.fitosanitario.entity.VSAGRRFIT
 import com.application.venturaapp.fitosanitario.listener.VSAGRRFITItemListener
 import java.time.LocalDate

@@ -354,7 +354,7 @@ class addLaborCulturalActivity  : AppCompatActivity()  {
     }
     fun validarLaborOf()
     {
-        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaLaborCultural(it, CodigoPEP,httpCacheDirectory, this) }
+        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaLaborCultural(it, CodigoPEP,Campania,httpCacheDirectory, this) }
 
        
     }

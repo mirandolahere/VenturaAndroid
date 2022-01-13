@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.2861111111111111" />
+        <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.24074074074074073" />
+        <entry key="app/src/main/res/layout/activity_cosecha_articulo.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_labor_cultural.xml" value="0.17572463768115942" />
+        <entry key="app/src/main/res/layout/activity_labor_cultural_detalle.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_labor_cultural_personal.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_personal_add.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_labor_cultural.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_personal.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/item_fertilizante.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_fertilizante_detalle.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_labor_cultural.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_labor_cultural_pep.xml" value="0.496227525067166" />
+        <entry key="app/src/main/res/layout/item_labor_detalle.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_personal.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/menu.xml" value="0.17572463768115942" />
+        <entry key="app/src/main/res/layout/menu_main.xml" value="0.17572463768115942" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

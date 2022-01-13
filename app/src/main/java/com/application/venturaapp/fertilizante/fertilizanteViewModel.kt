@@ -6,8 +6,7 @@ import android.os.AsyncTask
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFER
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFIT
+import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
 import com.application.venturaapp.helper.Helper
 import com.application.venturaapp.laborCultural.entity.*
 import com.application.venturaapp.tables.LaborCulturalDetalleRoom
@@ -18,7 +17,7 @@ import okhttp3.Cache
 class fertilizanteViewModel (application: Application) : AndroidViewModel(application)  {
 
     val fertilizanteDataModel: fertilizanteDataModel =  fertilizanteDataModel()
-    val VSAGRFER: MutableLiveData<List<VSAGRRFER>> = MutableLiveData()
+    val VSAGRFER: MutableLiveData<List<VSAGRRCOS>> = MutableLiveData()
 
 
 

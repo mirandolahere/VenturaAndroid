@@ -3,7 +3,7 @@ package com.application.venturaapp.fertilizante
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.application.venturaapp.fitosanitario.entity.GeneralResponse
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFER
+import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
 import com.application.venturaapp.helper.ErrorBody
 import com.application.venturaapp.home.fragment.entities.*
 import com.application.venturaapp.login.LoginDataModel
@@ -21,8 +21,8 @@ class fertilizanteDataModel () {
     private val loginApiService = RetrofitClient.getApiService()
     val messageLiveData = MutableLiveData<String>()
     val responseLiveData = MutableLiveData<List<PEPDato>>()
-    val responseVSAGRFERLiveData = MutableLiveData<List<VSAGRRFER>>()
-    val listFitosanitario =  arrayListOf<VSAGRRFER>()
+    val responseVSAGRFERLiveData = MutableLiveData<List<VSAGRRCOS>>()
+    val listFitosanitario =  arrayListOf<VSAGRRCOS>()
 
     lateinit var pref: PreferenceManager
     val codeError = MutableLiveData<Int>()
@@ -30,8 +30,8 @@ class fertilizanteDataModel () {
 
     fun listFertilizante(sessionid:String,codigoPEP : String, httpCacheDirectory: Cache, context: Context) {
         val call =  RetrofitClient.getApiService(httpCacheDirectory, context)?.listPEPFertilizante(sessionid)
-        call?.enqueue(object : Callback<GeneralResponse<VSAGRRFER>> {
-            override fun onResponse(call: Call<GeneralResponse<VSAGRRFER>>, response: Response<GeneralResponse<VSAGRRFER>>) {
+        call?.enqueue(object : Callback<GeneralResponse<VSAGRRCOS>> {
+            override fun onResponse(call: Call<GeneralResponse<VSAGRRCOS>>, response: Response<GeneralResponse<VSAGRRCOS>>) {
                 if (response.isSuccessful) {
                     //responseLiveData.value = response.body()?.datos
                     for(item in response.body()?.datos!!)
@@ -56,7 +56,7 @@ class fertilizanteDataModel () {
                 }
             }
 
-            override fun onFailure(call: Call<GeneralResponse<VSAGRRFER>>, t: Throwable) {
+            override fun onFailure(call: Call<GeneralResponse<VSAGRRCOS>>, t: Throwable) {
                 t.printStackTrace()
                 messageLiveData.value = "Falla en la conexión"
             }

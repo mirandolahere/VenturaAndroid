@@ -38,6 +38,7 @@ import com.application.venturaapp.retrofit.NetworkBroadcastReceiver
 import com.application.venturaapp.tables.LaborCulturalDetalleRoom
 import com.application.venturaapp.tables.LaborCulturalRoom
 import com.application.venturaapp.tables.PersonalDatoRoom
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_labor_cultural.*
 import kotlinx.android.synthetic.main.fragment_labor_cultural.etBuscador
@@ -64,6 +65,26 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
     lateinit var campaniasList  : ArrayList<Campania>
     var CodeCampania: String = ""
     var Descripcion: String = ""
+
+    lateinit var fundoList: ArrayList<Fundo>
+    lateinit var lotesList: ArrayList<Lote>
+    lateinit var sectorList: ArrayList<Sector>
+
+    lateinit var lotesCollection : ArrayList<Sector>
+
+
+    var fundo = arrayListOf<String>()
+    var sector = arrayListOf<String>()
+    var lotes = arrayListOf<String>()
+
+    var CodeFundo = ""
+    var DescripcionFundo = ""
+    var CodeSector = ""
+    var DescripcionSector = ""
+    var CodeLote = ""
+    var DescripcionLote = ""
+
+
     var indice = 0
     lateinit var httpCacheDirectory : Cache
     lateinit var broadcast : BroadcastReceiver
@@ -81,8 +102,8 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
             }
         }
-            val intent = Intent(activity, fertilizanteActivity::class.java)
-            intent.putExtra("CODIGOPEP",labor.Code)
+        val intent = Intent(activity, fertilizanteActivity::class.java)
+        intent.putExtra("CODIGOPEP",labor.Code)
         intent.putExtra("CAMPAÑA",labor.U_VS_AGR_DSCA)
         intent.putExtra("CODIGOCAMPANIA",labor.U_VS_AGR_CDCA)
 
@@ -111,7 +132,6 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
         setUpViews()
         setUpObservers()
-        laborListar()
         campaniaListar()
 
     }
@@ -163,17 +183,84 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
     }
     private fun setUpObservers() {
+        laborCulturalViewModels.laborResult.observe(this, Observer {
+            it?.let {
+                laborList = java.util.ArrayList()
+                laborList = it as java.util.ArrayList<LaborCulturalListResponse>
+                InsertarJornal(it)
+
+
+            }
+        })
         laborViewModels.laborResult.observe(this, Observer {
             it?.let {
-                Log.d("PRUEBA","PRUEBA1")
 
-                laborLista = it as ArrayList<PEPDato>
+                if (it.size != 0)
+                {
+                    val codeList = java.util.ArrayList<String>()
 
-                rvLaborCultural.adapter = (FertilizanteAdapter(this, laborLista))
-                rvLaborCultural.layoutManager = LinearLayoutManager(activity)
-                pgbLaborRealizada.visibility = View.GONE
+                    var peps = PEPDato("","",0,"","","","","","","","","","","","",
+                        "",0.0,0.0,"","","","","","","","",
+                        "","","","","","",
+                        "","","","","","",
+                        "","","","","","",
+                        "","","","","","",
+                        "","","","")
+                    for(item in campaniasList.iterator()){
+
+                        if(item.VS_AGR_CAPPCollection.size!=0) {
+                            for (pep in item.VS_AGR_CAPPCollection.iterator()) {
+                                peps.Code = pep.U_VS_AGR_CDPP
+                                peps.Name = pep.U_VS_AGR_DSPP
+                                peps.U_VS_AGR_CDFD = pep.U_VS_AGR_CDFD
+                                peps.U_VS_AGR_DSFD = pep.U_VS_AGR_DSFD
+                                peps.U_VS_AGR_CDSC = pep.U_VS_AGR_CDSC
+                                peps.U_VS_AGR_DSSC = pep.U_VS_AGR_DSSC
+                                peps.U_VS_AGR_CDLT = pep.U_VS_AGR_CDLT
+                                peps.U_VS_AGR_CDCL = item.U_VS_AGR_CDCL
+                                peps.U_VS_AGR_CDVA = item.U_VS_AGR_CDVA
+                                peps.U_VS_AGR_DSVA = item.U_VS_AGR_DSVA
+                                peps.U_VS_AGR_CDAT = item.U_VS_AGR_CDAT
+                                peps.U_VS_AGR_DSAT = item.U_VS_AGR_DSAT
+                                peps.U_VS_AGR_CDCA = item.Code
+                                peps.U_VS_AGR_DSCA = item.Name
+                                peps.UpdateDate = item.UpdateDate
+                                laborLista.add(peps)
+                                peps = PEPDato("","",0,"","","","","","","","","","","","",
+                                    "",0.0,0.0,"","","","","","","","",
+                                    "","","","","","",
+                                    "","","","","","",
+                                    "","","","","","",
+                                    "","","","","","",
+                                    "","","","")
 
 
+                            }
+
+                        }
+                    }
+
+                  //  laborLista = it as java.util.ArrayList<PEPDato>
+                    enableViews(true)
+                    for (item in it) {
+                        codeList.add(item.Code)
+                        //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                    }
+                    rvLaborCultural.layoutManager = LinearLayoutManager(activity)
+                    pgbLaborRealizada.visibility = View.GONE
+
+                    LaborListar()
+
+
+                }
+                else
+                {
+                    pgbLaborRealizada.visibility = View.GONE
+                    enableViews(true)
+
+                    Snackbar.make(requireActivity().window.decorView.findViewById(android.R.id.content),
+                        "No se encontró información", Snackbar.LENGTH_SHORT)
+                }
 
 
 
@@ -189,11 +276,43 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
                     campanias.add(item.Name)
                     //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                 }
-                Spinner()
-
+                fundoListar()
 
             }
         })
+        laborViewModels.fundoResult.observe(this, Observer {
+            it?.let {
+
+                fundo = java.util.ArrayList<String>()
+                fundoList = it as java.util.ArrayList<Fundo>
+                fundo.add("Todas")
+                for (item in it) {
+                    fundo.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
+                Spinner()
+                laborListar()
+
+            }
+        })
+
+
+        laborViewModels.sectorResult.observe(this, Observer {
+            it?.let {
+
+                sector = java.util.ArrayList<String>()
+                sectorList = it as java.util.ArrayList<Sector>
+                lotesCollection = it
+                sector.add("Todas")
+
+                for (item in it) {
+                    sector.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
+                spinnerSector()
+            }
+        })
+
 
         laborViewModels.messageResult.observe(this, Observer {
             it?.let {
@@ -223,20 +342,124 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
             }
         })
     }
+    private fun LaborListar() {
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborCulturalViewModels.listaLaborJornalCultural(
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
+    private fun spinnerSector() {
+        val adapterSector = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, sector
+            )
+        }
+
+        if (adapterSector != null) {
+            adapterSector.setDropDownViewResource(R.layout.spinner_list)
+            splSector.adapter = adapterSector
+
+            splSector.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionSector = sector.get(position)
+
+                    for( item in sectorList)
+                    {
+                        if(item.Name == DescripcionSector)
+                        {
+                            CodeSector = item.Code
+                            lotesListar()
+
+                        }
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
+
+    fun lotesListar(){
+
+        lotes.clear()
+        for(item in lotesCollection){
+            if(item.Code == CodeSector){
+
+                lotesList = item.VS_AGR_LOTECollection as java.util.ArrayList<Lote>
+
+                for(item in item.VS_AGR_LOTECollection){
+                    lotes.add(item.U_VS_AGR_DSLT)
+                }
+
+                loteSpinner()
+            }
+        }
+    }
+
+    private fun loteSpinner() {
+        val adapterLote = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, lotes
+            )
+        }
+
+        if (adapterLote != null) {
+            adapterLote.setDropDownViewResource(R.layout.spinner_list)
+            splLote.adapter = adapterLote
+
+            splLote.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionLote = lotes.get(position)
+
+                    for( item in lotesList)
+                    {
+                        if(item.U_VS_AGR_DSLT == DescripcionSector)
+                        {
+                            CodeLote = item.Code
+
+                        }
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
     fun InsertarJornal(list: ArrayList<LaborCulturalListResponse>)
     {
-        var index=0
+      /*  var index=0
         var jornales=0
         for(pep in laborLista)
         {
             for(labor in  list)
             {
                 if(pep.Code == labor.U_VS_AGR_CDPP)
-                {  Log.d("JORNALESSSS",pep.Code +" "+ labor.U_VS_AGR_CDPP)
+                {
                     for(detalle in labor?.VS_AGR_DCULCollection!!)
                     {
                         jornales+=detalle.U_VS_AGR_TOJR
-                        Log.d("JORNALESSSS", jornales.toString())
+
 
                     }
                 }
@@ -247,9 +470,11 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
             jornales=0
         }
         jornales = 0
-        index=0
+        index=0 */
         rvLaborCultural.adapter = (FertilizanteAdapter(this,laborLista))
         rvLaborCultural.layoutManager = LinearLayoutManager(activity)
+        pgbLaborRealizada.visibility = View.GONE
+
         for((index,item) in laborList.withIndex())
         {
            item.TOTALJORNALES = 0
@@ -258,50 +483,86 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
 
     }
-     fun Spinner()
-     {
-         val adapter = context?.let {
-             ArrayAdapter(
-                 it,
-                 R.layout.spinner, campanias
-             )
-         }
+    fun Spinner()
+    {
+        val adapter = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, campanias
+            )
+        }
 
-         if (adapter != null) {
-             adapter.setDropDownViewResource(R.layout.spinner_list)
-             splCampaniasVigentes.adapter = adapter
+        val adapterFundo = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, fundo
+            )
+        }
 
-             splCampaniasVigentes.onItemSelectedListener = object :
-                 AdapterView.OnItemSelectedListener {
-                 override fun onItemSelected(
-                     parent: AdapterView<*>,
-                     view: View, position: Int, id: Long
-                 ) {
+        if (adapter != null) {
+            adapter.setDropDownViewResource(R.layout.spinner_list)
+            splCampaniasVigentes.adapter = adapter
 
-                     Descripcion = campanias.get(position)
-                     Log.d("JSONPERSONAL",Descripcion)
+            splCampaniasVigentes.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
 
-                     for( item in campaniasList)
-                     {
-                         if(item.Name == Descripcion)
-                         {
-                             CodeCampania = item.Code
-                             Log.d("JSONPERSONAL",CodeCampania)
+                    Descripcion = campanias.get(position)
+                    //Log.d("JSONPERSONAL",Descripcion)
 
-                         }
-                     }
-                        filter(etBuscador.text.toString())
-                 }
+                    for( item in campaniasList)
+                    {
+                        if(item.Name == Descripcion)
+                        {
+                            CodeCampania = item.Code
+                            Log.d("JSONPERSONAL",CodeCampania)
 
-                 override fun onNothingSelected(parent: AdapterView<*>) {
-                     // write code to perform some action
-                 }
-             }
-         }
+                        }
+                    }
+                }
 
-     }
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+
+        if (adapterFundo != null) {
+            adapterFundo.setDropDownViewResource(R.layout.spinner_list)
+            splFundo.adapter = adapterFundo
+
+            splFundo.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionFundo = fundo.get(position)
+
+                    for( item in fundoList)
+                    {
+                        if(item.Name == DescripcionFundo)
+                        {
+                            CodeFundo = item.Code
+                            sectorListar()
+
+                        }
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+
+    }
     private fun onInit() {
-
+        fbAdd.visibility =View.GONE
         laborViewModels = ViewModelProviders.of(this).get(laborViewModel::class.java)
         personalViewModels = ViewModelProviders.of(this).get(personalViewModel::class.java)
         fertilizanteViewModels = ViewModelProviders.of(this).get(fertilizanteViewModel::class.java)
@@ -309,7 +570,7 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         pref = PreferenceManager(view!!.context)
-        tvTitulo.text = "CON CONSUMO DE FERTILIZANTES"
+        tvTitulo.text = "COSECHA"
         builder = AlertDialog.Builder(view!!.context)
         builder.setCancelable(false)
 
@@ -324,6 +585,19 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
         pref.getString(Constants.B1SESSIONID)?.let {
             activity?.let { it1 ->
                 laborViewModels.listaLaborCultural(
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
+    fun sectorListar(){
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarSector(
+                    CodeFundo,
                     it,
                     httpCacheDirectory,
                     it1
@@ -384,6 +658,19 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
         pref.getString(Constants.B1SESSIONID)?.let {
             activity?.let { it1 ->
                 laborViewModels.consultarCampania(
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
+
+    private fun fundoListar() {
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarFundo(
                     it,
                     httpCacheDirectory,
                     it1

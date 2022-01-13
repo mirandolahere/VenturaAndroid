@@ -4,6 +4,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -73,7 +74,7 @@ class laborCulturalAdapter(internal var listener: LaborItemListener, personalLis
             tvCodigo.text = name.Code
             Campaña1.text = name.U_VS_AGR_DSCA
             tvJornales.text = name.TotalJornales.toString()
-            item.setOnClickListener {
+             item.setOnClickListener {
                 listener.laborItemClickListener(name)
             }
         }

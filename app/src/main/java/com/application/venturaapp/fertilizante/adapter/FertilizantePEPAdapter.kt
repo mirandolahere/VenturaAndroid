@@ -11,30 +11,32 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.application.venturaapp.R
 import com.application.venturaapp.fertilizante.listener.VSAGRRFERItemListener
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFER
-import com.application.venturaapp.fitosanitario.entity.VSAGRRFIT
-import com.application.venturaapp.fitosanitario.listener.VSAGRRFITItemListener
+import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
+import com.application.venturaapp.fitosanitario.entity.VS_AGR_DSCOCollection
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
 
 
-class FertilizantePEPAdapter(internal var listener: VSAGRRFERItemListener, laborLista: ArrayList<VSAGRRFER>
-                    ) : RecyclerView.Adapter<FertilizantePEPAdapter.ViewHolder>() {
+class FertilizantePEPAdapter(
+    internal var listener: VSAGRRFERItemListener,
+    laborLista: ArrayList<VS_AGR_DSCOCollection>,
+    vsagrrcos: ArrayList<VSAGRRCOS>
+) : RecyclerView.Adapter<FertilizantePEPAdapter.ViewHolder>() {
 
     private val options =  ArrayList(laborLista)
-
+    private val options2 =  vsagrrcos
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_labor_cultural_pep, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_fertilizante_detalle, viewGroup, false)
         return ViewHolder(view)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(viewHolder: FertilizantePEPAdapter.ViewHolder, i: Int) {
         val name = options[i]
-
-        viewHolder.bindItem(name, i)
+        val options2 = options2[i]
+        viewHolder.bindItem(name,options2, i)
     }
 
     override fun getItemCount(): Int {
@@ -43,45 +45,39 @@ class FertilizantePEPAdapter(internal var listener: VSAGRRFERItemListener, labor
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvFecha: TextView = itemView.findViewById(R.id.tvFecha)
         var tvCodigo: TextView = itemView.findViewById(R.id.tvCodigo)
-        var tvEtapa: TextView = itemView.findViewById(R.id.tvEtapa)
-        var tvJornales: TextView = itemView.findViewById(R.id.tvJornales)
-        var textoJornales: TextView = itemView.findViewById(R.id.textoJornales)
+        var tvArticulo: TextView = itemView.findViewById(R.id.tvArticuloNombre)
 
-        var itemView: LinearLayout = itemView.findViewById(R.id.llItem)
+        var textoJornales: TextView = itemView.findViewById(R.id.tvCampaña)
+
         var ivView: ImageView = itemView.findViewById(R.id.ivView)
+        var ivEdit: ImageView = itemView.findViewById(R.id.ivEdit)
+        var ivDelete: ImageView = itemView.findViewById(R.id.ivDelete)
+     /*   var itemView: LinearLayout = itemView.findViewById(R.id.llItem)
+        var ivView: ImageView = itemView.findViewById(R.id.ivView)*/
 
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bindItem(name: VSAGRRFER, position: Int) {
-            tvCodigo.text = name.U_VS_AGR_CDPP
-            tvEtapa.text = name.EtapaNombre
+        fun bindItem(name: VS_AGR_DSCOCollection, vsagrrcos:VSAGRRCOS, position: Int) {
+            tvArticulo.text = vsagrrcos.U_VS_AGR_CDAT
+            tvCodigo.text = vsagrrcos.U_VS_AGR_FERG
+            textoJornales.text = name.U_VS_AGR_TOAT.toString()
 
-            tvJornales.visibility = View.GONE
-            textoJornales.visibility = View.GONE
-
-            var simpleFormat = DateTimeFormatter.ISO_DATE;
-            var convertedDate = LocalDate.parse(name.U_VS_AGR_FERG, simpleFormat)
-            val mes: String
-            val dia: String
-
-            if (convertedDate.monthValue < 10)
-                mes = "0" + convertedDate.monthValue
-            else
-                mes = convertedDate.monthValue.toString()
-
-            if (convertedDate.dayOfMonth < 10)
-                dia = "0" + convertedDate.dayOfMonth
-            else
-                dia = convertedDate.dayOfMonth.toString()
-            val fecha: String = dia + "-" + mes + "-" + convertedDate.year.toString()
-
-            tvFecha.text = fecha
-       //     tvJornales.text = name
             ivView.setOnClickListener {
-                listener.laborItemClickListener(name)
+                listener.laborItemClickListener(name, vsagrrcos)
             }
+
+            ivEdit.setOnClickListener {
+                listener.laborUpdateClickListener(name, vsagrrcos)
+            }
+
+            ivDelete.setOnClickListener {
+                listener.laborDeleteClickListener(name, vsagrrcos)
+            }
+       //     tvJornales.text = name
+          /*  ivView.setOnClickListener {
+                listener.laborItemClickListener(name, vsagrrcos)
+            } */
         }
     }
 }

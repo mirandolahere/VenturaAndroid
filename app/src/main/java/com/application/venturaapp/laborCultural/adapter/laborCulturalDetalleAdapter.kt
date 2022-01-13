@@ -15,6 +15,8 @@ import com.application.venturaapp.home.listener.LaborItemListener
 import com.application.venturaapp.laborCultural.entity.LaborCulturalDetalleResponse
 import com.application.venturaapp.laborCultural.entity.LaborCulturalListResponse
 import com.application.venturaapp.laborCultural.listener.LaborDetalleItemListener
+import java.lang.NullPointerException
+import java.lang.StringBuilder
 import kotlin.collections.ArrayList
 
 
@@ -53,12 +55,37 @@ class laborCulturalDetalleAdapter(internal var listener: LaborDetalleItemListene
 
         @SuppressLint("ResourceAsColor")
         fun bindItem(name: LaborCulturalDetalleResponse, position: Int) {
-            tvCodigo.text = name.U_VS_AGR_CDPS
+            tvCodigo.text = name.U_VS_AGR_CDLC
             tvJornalValor.text = name.U_VS_AGR_TOJR.toString()
-            tvValorHora.text = name.U_VS_AGR_TOHX.toString()
-            tvNombres.text = name.Nombre.toString()
 
-            when(name.U_VS_AGR_ESTA)
+            if (!(name.U_VS_AGR_HRFN == null || name.U_VS_AGR_HRIN == null)) {
+                val textView = tvNombres
+                val append = StringBuilder().append("Jornada : ")
+                val u_vs_agr_hrin: String = name.U_VS_AGR_HRIN
+                if (u_vs_agr_hrin != null) {
+                    val append2: StringBuilder = append.append(
+                        u_vs_agr_hrin.removeRange(5,7).toString()
+                    ).append(" - ")
+                    val u_vs_agr_hrfn: String = name.U_VS_AGR_HRFN
+                    if (u_vs_agr_hrfn != null) {
+                        textView.setText(
+                            append2.append(
+                                u_vs_agr_hrfn.removeRange(
+                                    5,8
+                                ).toString()
+                            ).toString()
+                        )
+                    } else {
+                        throw NullPointerException("null cannot be cast to non-null type kotlin.CharSequence")
+                    }
+                } else {
+                    throw NullPointerException("null cannot be cast to non-null type kotlin.CharSequence")
+                }
+            }
+          //  tvValorHora.text = name.U_VS_AGR_TOHX.toString()
+           // tvNombres.text = name.Nombre.toString()
+
+          /*  when(name.U_VS_AGR_ESTA)
             {
                 "P" -> {tvEstado.text ="(Pendiente)"
                         tvEstado.setTextColor(Color.parseColor("#F9B122"))
@@ -71,7 +98,7 @@ class laborCulturalDetalleAdapter(internal var listener: LaborDetalleItemListene
 
                     ivView.visibility = View.VISIBLE}
 
-            }
+            }*/
 
 
             ivView.setOnClickListener {

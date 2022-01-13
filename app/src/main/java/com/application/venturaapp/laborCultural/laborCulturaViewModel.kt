@@ -6,12 +6,13 @@ import android.os.AsyncTask
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.application.venturaapp.fitosanitario.entity.UnidadMedida
+import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
 import com.application.venturaapp.helper.Helper
 import com.application.venturaapp.laborCultural.entity.*
 import com.application.venturaapp.tables.LaborCulturalDetalleRoom
 import com.application.venturaapp.tables.LaborCulturalRoom
 import com.application.venturaapp.tables.PersonalDB
-import com.application.venturaapp.tables.PersonalDatoRoom
 import com.google.gson.JsonObject
 import okhttp3.Cache
 
@@ -22,12 +23,19 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     val etapaResult: MutableLiveData<List<EtapaProduccionListResponse>> = MutableLiveData()
     val laborResponseResult: MutableLiveData<LaborCulturalListResponse> = MutableLiveData()
     val laborPorCodeResult: MutableLiveData<LaborCulturalListResponse> = MutableLiveData()
+    val unidadMedidadLiveData: MutableLiveData<List<UnidadMedida>> = MutableLiveData()
+
     val laborPorCodeResultDelete: MutableLiveData<LaborCulturalListResponse> = MutableLiveData()
 
     val messageUpdateResult: MutableLiveData<String> = MutableLiveData()
     val sendResult: MutableLiveData<SendResponse> = MutableLiveData()
     val ReverificarResult: MutableLiveData<ContActualizacionResponse> = MutableLiveData()
     val responseLaborPlanificadaResult: MutableLiveData<List<VSAGRDPCLResponse>> = MutableLiveData()
+
+    val responseCosechaResult: MutableLiveData<List<VSAGRRCOS>> = MutableLiveData()
+    val responseAddCosechaResult: MutableLiveData<VSAGRRCOS> = MutableLiveData()
+    val respondeDeleteCosechaResult: MutableLiveData<String> = MutableLiveData()
+
 
     val verificarResult: MutableLiveData<ContActualizacionResponse> = MutableLiveData()
     val messageResult: MutableLiveData<String> = MutableLiveData()
@@ -145,6 +153,12 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
 
             }
         }
+        laborsDataModel.responseUnidadMedidaLiveData.observeForever {
+            it?.let {
+                unidadMedidadLiveData.value = it
+
+            }
+        }
         laborsDataModel.responseLaborPorCodeLiveDataDelete.observeForever {
             it?.let {
                 laborPorCodeResultDelete.value = it
@@ -187,6 +201,37 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
                 }
             }
         }
+
+        laborsDataModel.responseCosechaLiveData.observeForever {
+            it?.let {
+                if (it != null) {
+                    responseCosechaResult.value = it
+                } else {
+                    messageResult.value = "No se encontraron datos."  //it.mensaje
+                }
+            }
+        }
+
+
+        laborsDataModel.responseAddCosechaLiveData.observeForever {
+            it?.let {
+                if (it != null) {
+                    responseAddCosechaResult.value = it
+                } else {
+                    messageResult.value = "No se encontraron datos."  //it.mensaje
+                }
+                onRetrieveLoginUserFinish()
+
+            }
+        }
+
+        laborsDataModel.responseDeleteCosechaLiveData.observeForever {
+            it?.let {
+                    respondeDeleteCosechaResult.value = it
+                onRetrieveLoginUserFinish()
+
+            }
+        }
     }
     private fun onRetrieveLoginUserFinish() {
         pgbVisibility.value = View.GONE
@@ -194,11 +239,11 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     private fun onRetrieveLoginUser() {
         pgbVisibility.value = View.VISIBLE
     }
-    fun listaLaborCultural(sessionid:String,code: String,
+    fun listaLaborCultural(sessionid:String,code: String, campania:String,
                            httpCacheDirectory: Cache,
                            context:Context) {
         onRetrieveLoginUser()
-        listaLaborCulturalTask(this, sessionid,code,httpCacheDirectory,context).execute()
+        listaLaborCulturalTask(this, sessionid,code,campania,httpCacheDirectory,context).execute()
     }
     fun listaLaborJornalCultural(
         sessionid: String,
@@ -225,6 +270,48 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
 
         listaDetalleLaborCulturalDeleteTask(this, sessionid,code,httpCacheDirectory,context).execute()
     }
+    fun listaCosecha(sessionid:String, code:String, campania: String,
+                     httpCacheDirectory: Cache,
+                     context:Context){
+        onRetrieveLoginUser()
+
+        consultarCosechaTask(this, sessionid,code,campania,httpCacheDirectory,context).execute()
+
+    }
+    fun addCosecha(
+        sessionid: String,
+        body: JsonObject,
+        httpCacheDirectory: Cache,
+        context: Context
+    ){
+        onRetrieveLoginUser()
+
+        addCosechaTask(this, sessionid,body,httpCacheDirectory,context).execute()
+
+    }
+    fun putCosecha(
+        sessionid: String,
+        code: Int?,
+        body: JsonObject,
+        httpCacheDirectory: Cache,
+        context: Context
+    ){
+        onRetrieveLoginUser()
+
+       putCosechaTask(this, sessionid,code, body,httpCacheDirectory,context).execute()
+
+    }
+    fun deleteCosecha(
+        sessionid: String,
+        code: Int,
+        httpCacheDirectory: Cache,
+        context: Context
+    ){
+        onRetrieveLoginUser()
+
+        deleteCosechaTask(this, sessionid,code,httpCacheDirectory,context).execute()
+
+    }
     fun listEtapa(sessionid:String, code:String,
                   httpCacheDirectory: Cache,
                   context:Context) {
@@ -240,6 +327,12 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
                          context:Context) {
         laborPlanificadaTask(this, sessionid,code,etapa,httpCacheDirectory,context).execute()
     }
+
+    fun unidadMedida(sessionid:String,httpCacheDirectory: Cache,
+                         context:Context) {
+        unidadMedidaTask(this, sessionid,httpCacheDirectory,context).execute()
+    }
+
     fun validar(sessionid:String, code:String) {
         validarTask(this, sessionid,code).execute()
     }
@@ -292,6 +385,7 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     }
     private class listaLaborCulturalTask internal constructor(private var viewModel: laborCulturaViewModel
                                                                 , private var sessionid: String, private var code: String,
+                                                              private var campania:String,
                                                               private var httpCacheDirectory: Cache,  private var context: Context)
         : AsyncTask<Void, Void, Boolean>() {
 
@@ -304,7 +398,7 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
 
             super.onPostExecute(aBoolean)
            // if (aBoolean == true)
-                viewModel.laborsDataModel.listLaborCultural(sessionid,code,httpCacheDirectory,context)
+                viewModel.laborsDataModel.listLaborCultural(sessionid,code, campania, httpCacheDirectory,context)
            /* else
                 viewModel.messageResult.setValue("No tienes acceso a internet")*/
         }
@@ -409,6 +503,92 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
                 viewModel.messageResult.setValue("No tienes acceso a internet")*/
         }
     }
+
+    private class addCosechaTask internal constructor(private var viewModel: laborCulturaViewModel,
+                                                            private var sessionid: String,
+                                                            private var body: JsonObject,
+                                                            private var httpCacheDirectory: Cache,  private var context: Context)
+        : AsyncTask<Void, Void, Boolean>() {
+
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return Helper.isOnline()
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+
+            super.onPostExecute(aBoolean)
+            //if (aBoolean == true)
+            viewModel.laborsDataModel.addCosecha(sessionid,body,httpCacheDirectory,context)
+            /*else
+                viewModel.messageResult.setValue("No tienes acceso a internet")*/
+        }
+    }
+
+    private class putCosechaTask internal constructor(private var viewModel: laborCulturaViewModel,
+                                                      private var sessionid: String,
+                                                      private var code:Int?,
+                                                      private var body: JsonObject,
+                                                      private var httpCacheDirectory: Cache,  private var context: Context)
+        : AsyncTask<Void, Void, Boolean>() {
+
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return Helper.isOnline()
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+
+            super.onPostExecute(aBoolean)
+            //if (aBoolean == true)
+            viewModel.laborsDataModel.putCosecha(sessionid,code,body,httpCacheDirectory,context)
+            /*else
+                viewModel.messageResult.setValue("No tienes acceso a internet")*/
+        }
+    }
+
+    private class deleteCosechaTask internal constructor(private var viewModel: laborCulturaViewModel,
+                                                      private var sessionid: String,
+                                                      private var code: Int,
+                                                      private var httpCacheDirectory: Cache,  private var context: Context)
+        : AsyncTask<Void, Void, Boolean>() {
+
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return Helper.isOnline()
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+
+            super.onPostExecute(aBoolean)
+            //if (aBoolean == true)
+            viewModel.laborsDataModel.deleteCosecha(sessionid,code,httpCacheDirectory,context)
+            /*else
+                viewModel.messageResult.setValue("No tienes acceso a internet")*/
+        }
+    }
+
+    private class consultarCosechaTask internal constructor(private var viewModel: laborCulturaViewModel,
+                                                          private var sessionid: String,
+                                                          private var code: String,
+                                                            private var campania: String,
+                                                          private var httpCacheDirectory: Cache,  private var context: Context)
+        : AsyncTask<Void, Void, Boolean>() {
+
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return Helper.isOnline()
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+
+            super.onPostExecute(aBoolean)
+            //if (aBoolean == true)
+            viewModel.laborsDataModel.listCosecha(sessionid,code,campania,httpCacheDirectory,context)
+            /*else
+                viewModel.messageResult.setValue("No tienes acceso a internet")*/
+        }
+    }
     private class  validarTask   constructor(private var viewModel: laborCulturaViewModel,
                                                           private var sessionid: String,
                                                           private var code: String)
@@ -487,6 +667,26 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
                 viewModel.laborsDataModel.laboresPlanificadas(sessionid,code,etapa, httpCacheDirectory,context)
            /* else
                 viewModel.messageResult.setValue("No tienes acceso a internet")*/
+        }
+    }
+
+    private class  unidadMedidaTask internal constructor(private var viewModel: laborCulturaViewModel,
+                                                             private var sessionid: String,
+                                                             private var httpCacheDirectory: Cache,  private var context: Context)
+        : AsyncTask<Void, Void, Boolean>() {
+
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return Helper.isOnline()
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+
+            super.onPostExecute(aBoolean)
+            // if (aBoolean == true)
+            viewModel.laborsDataModel.unidadMedida(sessionid,httpCacheDirectory,context)
+            /* else
+                 viewModel.messageResult.setValue("No tienes acceso a internet")*/
         }
     }
 }

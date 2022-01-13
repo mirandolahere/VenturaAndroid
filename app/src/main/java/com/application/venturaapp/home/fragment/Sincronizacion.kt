@@ -52,12 +52,12 @@ class Sincronizacion : AppCompatActivity() {
         pref.getString(Constants.B1SESSIONID)?.let { laborCulturalViewModels.listEtapa(it,code, httpCacheDirectory, this) }
 
     }
-    private fun LaborPorPEPListar(code: String) {
+  /*  private fun LaborPorPEPListar(code: String) {
         pgbDatos.visibility = View.VISIBLE
 
         pref.getString(Constants.B1SESSIONID)?.let { laborCulturalViewModels.listaLaborCultural(it, code,
             httpCacheDirectory, this) }
-    }
+    } */
     private fun LaboresListar() {
         pgbDatos.visibility = View.VISIBLE
 
@@ -156,7 +156,7 @@ class Sincronizacion : AppCompatActivity() {
                 var i = 0
                 while (i<it.size)
                 {
-                    LaborPorPEPListar(it[i].Code)
+                   // LaborPorPEPListar(it[i].Code)
                     listaEtapa(it[i].Code)
                     laborPlanificada(it[i].Code)
 

@@ -42,20 +42,20 @@ class FitosanitarioProductoAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvCodigoSelected: TextView = itemView.findViewById(R.id.tvCodigoSelected)
-        var rbSelected: RadioButton = itemView.findViewById(R.id.rbSelected)
+      //  var tvCodigoSelected: TextView = itemView.findViewById(R.id.tvCodigoSelected)
+     //   var rbSelected: RadioButton = itemView.findViewById(R.id.rbSelected)
 
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItem(name: VSAGRFEQU, position: Int) {
-            tvCodigoSelected.text = name.Name
+       //     tvCodigoSelected.text = name.Name
 
-            rbSelected.setOnClickListener {
+          /*  rbSelected.setOnClickListener {
                 lastSelectedPosition = adapterPosition;
                 notifyDataSetChanged()
 
                 listener.laborItemClickListener(name)
-            }
+            }*/
         }
     }
 }

@@ -68,7 +68,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
     lateinit var personalLista: java.util.ArrayList<PersonalDato>
     lateinit var pref: PreferenceManager
     lateinit var laborViewModels: laborCulturaViewModel
-    lateinit var laborList  : ArrayList<LaboresPersonal>
+     var laborList = arrayListOf<LaboresPersonal>()
     lateinit var personalLabor : LaborCulturalDetalleResponse
     var CodigoLabor = ""
     var CodigoPersonal =""
@@ -100,7 +100,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
         laborViewModels = ViewModelProviders.of(this).get(laborCulturaViewModel::class.java)
         personalViewModels = ViewModelProviders.of(this).get(personalViewModel::class.java)
         initViews()
-        LaboresListar()
+        LaborListar()
         setUpViews()
         setUpObservers()
 
@@ -111,7 +111,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
     {
         val adapterLabores = ArrayAdapter(
             this,
-            R.layout.spinner, laboresTitulo
+            R.layout.spinner, labores
         )//LABORES
         adapterLabores.setDropDownViewResource(R.layout.spinner_list)
         etLaborDefecto.adapter = adapterLabores
@@ -160,6 +160,9 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
         ) }
     }
     private fun LaborListar() {
+        Log.d("MOSTRARDATOS", CodigoPEP)
+        Log.d("MOSTRARDATOS", Etapa)
+
         pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.laborPlanificada(
             it,
             CodigoPEP,
@@ -179,13 +182,6 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
             Fecha = intent.getSerializableExtra("FECHA").toString()
             Etapa = intent.getSerializableExtra("ETAPA").toString()
             Estado = intent.getSerializableExtra("ESTADO").toString()
-        if(intent.getStringArrayListExtra("OBJECT")?.size != 0) {
-             personalexists = intent.getStringArrayListExtra("OBJECT") as ArrayList<String>
-            Log.d("PERSONALLIST2", personalexists.toString())
-
-
-        }
-
 
             if(Estado == "1")
         {   var entry:String
@@ -266,9 +262,6 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
     }
     fun actualizarDatos()
     {
-        Log.d("VALORTABLA", personalLabor.U_VS_AGR_CDLC)
-        Log.d("VALORTABLA", personalLabor.DescripcionDeLabor)
-
         for((index, item) in laboresList.withIndex())
             {
                 if(item.U_VS_AGR_CDLC == personalLabor.U_VS_AGR_CDLC)
@@ -342,7 +335,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                 Log.d("LABORESPLANIFICADAS",it.toString())
 
                 for (item in it) {
-                    if (item.U_VS_AGR_CDPE == periodo)
+                    //if (item.U_VS_AGR_CDPE == periodo)
                         laboresList.add(item)
                 }
 
@@ -584,24 +577,6 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
             }
         })
 
-        personalViewModels.personalResult.observe(this, Observer {
-            it?.let {
-                if (it.size != 0) {
-
-
-                    personalLista = it as java.util.ArrayList<PersonalDato>
-                    for (item in it) {
-                        codeList.add(item.Code)
-                        //idInspeccionList.add(inspeccionePendiente.idInspeccion)
-                    }
-
-
-                } else {
-
-                }
-
-            }
-        })
         laborViewModels.messageUpdateResult.observe(this, Observer {
             it?.let {
                 pref.saveString(Constants.MESSAGE_ALERT, it.toString())
@@ -645,18 +620,8 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
             etJornales.setBackgroundResource(R.drawable.edittext_border_error)
             return false
         }
-        if(etCodigoPersona.text.toString() == "")
-        {
-            etCodigoPersona.setBackgroundResource(R.drawable.edittext_border_error)
-            return false
-        }
 
-        if(etNumeroDocumento.text.toString() == "")
-        {
-            etNumeroDocumento.setBackgroundResource(R.drawable.edittext_border_error)
-            return false
-        }
-        if(etNombre.text.toString() == "")
+        if(etExtra.text.toString() == "")
         {
             etNombre.setBackgroundResource(R.drawable.edittext_border_error)
             return false
@@ -695,8 +660,6 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
         btnPersonal.setOnClickListener {
             if(checkInternet()) {
                 if (validar()) {
-                    Log.d("JSONREQUEST", "JSONREQUEST")
-                    Log.d("JSONREQUEST", DocEntry.toString())
 
                     pref.getString(Constants.B1SESSIONID)?.let {
                         laborViewModels.listaDetalleLaborCultural(
@@ -720,7 +683,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                         "",
                         "",
                         CodigoLabor,
-                        CodigoPersonal,
+                        "",
                         etInicio.text.toString(),
                         etFin.text.toString(),
                         "P",
@@ -760,7 +723,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                         "",
                         "",
                         CodigoLabor,
-                        CodigoPersonal,
+                        "",
                         etInicio.text.toString(),
                         etFin.text.toString(),
                         "P",

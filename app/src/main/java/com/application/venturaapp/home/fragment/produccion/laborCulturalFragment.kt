@@ -8,8 +8,6 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,12 +37,13 @@ import com.application.venturaapp.tables.PersonalDatoRoom
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_labor_cultural.*
-import kotlinx.android.synthetic.main.fragment_labor_cultural.etBuscador
 import kotlinx.android.synthetic.main.fragment_labor_cultural.pgbLaborRealizada
 import kotlinx.android.synthetic.main.fragment_labor_cultural.rvLaborCultural
-import kotlinx.android.synthetic.main.fragment_personal.*
 import okhttp3.Cache
 import java.util.ArrayList
+import com.application.venturaapp.home.fragment.entities.Fundo
+import com.application.venturaapp.home.fragment.entities.Lote
+import com.application.venturaapp.home.fragment.entities.Sector
 
 class laborCulturalFragment  : Fragment(), LaborItemListener {
     lateinit var pref: PreferenceManager
@@ -59,13 +58,32 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
     internal lateinit var builder: AlertDialog.Builder
      var laborLista = arrayListOf<PEPDato>()
     lateinit var campanias  : ArrayList<String>
-    lateinit var campaniasList  : ArrayList<Campania>
+     var campaniasList  = arrayListOf<Campania>()
+
+    var fundoList  = arrayListOf<Fundo>()
+    var lotesList  = arrayListOf<Lote>()
+    var sectorList  = arrayListOf<Sector>()
+
+
+    var fundo = arrayListOf<String>()
+    var sector = arrayListOf<String>()
+    var lotes = arrayListOf<String>()
+
+    var CodeFundo = ""
+    var DescripcionFundo = ""
+    var CodeSector = ""
+    var DescripcionSector = ""
+    var CodeLote = ""
+    var DescripcionLote = ""
+
     var CodeCampania: String = ""
     var Descripcion: String = ""
     var indice = 0
     lateinit var httpCacheDirectory : Cache
     lateinit var broadcast : BroadcastReceiver
     lateinit var viewModel: LoginViewModel
+
+    lateinit var lotesCollection : ArrayList<Sector>
 
     override fun laborItemClickListener(labor: PEPDato) {
         var gson =  Gson()
@@ -88,6 +106,7 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
         intent.putExtra("VARIEDAD",labor.U_VS_AGR_CDVA)
         intent.putExtra("TIPOCAMPANIA",tipoCampania)
         intent.putExtra("DOCENTRYPEP",labor.U_VS_AGR_DEOF)
+        intent.putExtra("UVSAGRDEOF", labor.U_VS_AGR_DEOF);
 
         startActivityForResult(intent, REQUEST_ACTIVITY_FRAGMENT )
     }
@@ -109,7 +128,6 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
 
         setUpViews()
         setUpObservers()
-        laborListar()
         campaniaListar()
 
     }
@@ -168,7 +186,49 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                 {
                     val codeList = ArrayList<String>()
 
-                    laborLista = it as ArrayList<PEPDato>
+                   // laborLista = it as ArrayList<PEPDato>
+                    var peps = PEPDato("","",0,"","","","","","","","","","","","",
+                        "",0.0,0.0,"","","","","","","","",
+                        "","","","","","",
+                        "","","","","","",
+                        "","","","","","",
+                        "","","","","","",
+                        "","","","")
+                    for(item in campaniasList.iterator()){
+
+                        if(item.VS_AGR_CAPPCollection.size!=0) {
+                            for (pep in item.VS_AGR_CAPPCollection.iterator()) {
+                                peps.Code = pep.U_VS_AGR_CDPP
+                                peps.Name = pep.U_VS_AGR_DSPP
+                                peps.U_VS_AGR_CDFD = pep.U_VS_AGR_CDFD
+                                peps.U_VS_AGR_DSFD = pep.U_VS_AGR_DSFD
+                                peps.U_VS_AGR_CDSC = pep.U_VS_AGR_CDSC
+                                peps.U_VS_AGR_DSSC = pep.U_VS_AGR_DSSC
+                                peps.U_VS_AGR_CDLT = pep.U_VS_AGR_CDLT
+                                peps.U_VS_AGR_CDCL = item.U_VS_AGR_CDCL
+                                peps.U_VS_AGR_CDVA = item.U_VS_AGR_CDVA
+                                peps.U_VS_AGR_DSVA = item.U_VS_AGR_DSVA
+                                peps.U_VS_AGR_CDAT = item.U_VS_AGR_CDAT
+                                peps.U_VS_AGR_DSAT = item.U_VS_AGR_DSAT
+                                peps.U_VS_AGR_CDCA = item.Code
+                                peps.U_VS_AGR_DSCA = item.Name
+                                peps.UpdateDate = item.UpdateDate
+                                laborLista.add(peps)
+                                peps = PEPDato("","",0,"","","","","","","","","","","","",
+                                    "",0.0,0.0,"","","","","","","","",
+                                    "","","","","","",
+                                    "","","","","","",
+                                    "","","","","","",
+                                    "","","","","","",
+                                    "","","","")
+
+
+                            }
+
+                        }
+                    }
+
+
                     enableViews(true)
                     for (item in it) {
                         codeList.add(item.Code)
@@ -209,7 +269,42 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                     campanias.add(item.Name)
                     //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                 }
+
+                fundoListar()
+            }
+        })
+
+
+        laborViewModels.fundoResult.observe(this, Observer {
+            it?.let {
+
+                fundo = ArrayList<String>()
+                fundoList = it as ArrayList<Fundo>
+                fundo.add("Todas")
+                for (item in it) {
+                    fundo.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
                 Spinner()
+                laborListar()
+
+            }
+        })
+
+
+        laborViewModels.sectorResult.observe(this, Observer {
+            it?.let {
+
+                sector = ArrayList<String>()
+                sectorList = it as ArrayList<Sector>
+                lotesCollection = it
+                sector.add("Todas")
+
+                for (item in it) {
+                    sector.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
+                spinnerSector()
             }
         })
 
@@ -241,6 +336,106 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
             }
         })
     }
+
+    private fun spinnerSector() {
+        val adapterSector = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, sector
+            )
+        }
+
+        if (adapterSector != null) {
+            adapterSector.setDropDownViewResource(R.layout.spinner_list)
+            splSector.adapter = adapterSector
+
+            splSector.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionSector = sector.get(position)
+
+                    for( item in sectorList)
+                    {
+                        if(item.Name == DescripcionSector)
+                        {
+                            CodeSector = item.Code
+                            lotesListar()
+                            break
+                        }
+                        else{
+                        CodeSector = DescripcionSector
+                        }
+                    }
+
+                    filter(CodeCampania,CodeFundo,CodeSector)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
+
+    fun lotesListar(){
+
+        lotes.clear()
+        for(item in lotesCollection){
+            if(item.Code == CodeSector){
+
+                lotesList = item.VS_AGR_LOTECollection as ArrayList<Lote>
+
+                for(item in item.VS_AGR_LOTECollection){
+                    lotes.add(item.U_VS_AGR_DSLT)
+                }
+
+                loteSpinner()
+            }
+        }
+    }
+
+    private fun loteSpinner() {
+        val adapterLote = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, lotes
+            )
+        }
+
+        if (adapterLote != null) {
+            adapterLote.setDropDownViewResource(R.layout.spinner_list)
+            splLote.adapter = adapterLote
+
+            splLote.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionLote = lotes.get(position)
+
+                    for( item in lotesList)
+                    {
+                        if(item.U_VS_AGR_DSLT == DescripcionSector)
+                        {
+                            CodeLote = item.Code
+
+                        }
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
+
     fun InsertarJornal(list: ArrayList<LaborCulturalListResponse>)
     {
         var index=0
@@ -249,17 +444,15 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
         {
             for(labor in  list)
             {
-                if(pep.Code == labor.U_VS_AGR_CDPP)
-                {  Log.d("JORNALESSSS",pep.Code +" "+ labor.U_VS_AGR_CDPP)
+                if(pep.Code == labor.U_VS_AGR_CDPP  && pep.U_VS_AGR_CDCA == labor.U_VS_AGR_CDCA)
+                {
                     for(detalle in labor?.VS_AGR_DCULCollection!!)
                     {
                         jornales+=detalle.U_VS_AGR_TOJR
-                        Log.d("JORNALESSSS", jornales.toString())
 
                     }
                 }
             }
-            Log.d("JORNALESSSS", jornales.toString())
             laborLista[index].TotalJornales = jornales
             index++
             jornales=0
@@ -285,6 +478,13 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
              )
          }
 
+         val adapterFundo = context?.let {
+             ArrayAdapter(
+                 it,
+                 R.layout.spinner, fundo
+             )
+         }
+
          if (adapter != null) {
              adapter.setDropDownViewResource(R.layout.spinner_list)
              splCampaniasVigentes.adapter = adapter
@@ -297,18 +497,56 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                  ) {
 
                      Descripcion = campanias.get(position)
-                     //Log.d("JSONPERSONAL",Descripcion)
 
                      for( item in campaniasList)
                      {
                          if(item.Name == Descripcion)
                          {
                              CodeCampania = item.Code
-                             Log.d("JSONPERSONAL",CodeCampania)
-
+                             break
+                         }else{
+                             CodeCampania = Descripcion
                          }
+
                      }
-                       filter(etBuscador.text.toString())
+
+                     filter(CodeCampania, CodeFundo, CodeSector)
+                 }
+
+                 override fun onNothingSelected(parent: AdapterView<*>) {
+                     // write code to perform some action
+                 }
+             }
+         }
+
+         if (adapterFundo != null) {
+             adapterFundo.setDropDownViewResource(R.layout.spinner_list)
+             splFundo.adapter = adapterFundo
+
+             splFundo.onItemSelectedListener = object :
+                 AdapterView.OnItemSelectedListener {
+                 override fun onItemSelected(
+                     parent: AdapterView<*>,
+                     view: View, position: Int, id: Long
+                 ) {
+
+                     DescripcionFundo = fundo.get(position)
+
+                     for( item in fundoList)
+                     {
+                         if(item.Name == DescripcionFundo)
+                         {
+                             CodeFundo = item.Code
+                             sectorListar()
+                             break
+
+                         }else{
+                             CodeFundo = DescripcionFundo
+                         }
+
+                     }
+
+                     filter(CodeCampania, CodeFundo, CodeSector)
                  }
 
                  override fun onNothingSelected(parent: AdapterView<*>) {
@@ -377,18 +615,22 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
         btnInspeccionNoPlaneada.isEnabled = enable
         ivMapaInspeccionesPendienes.isEnabled = enable*/
     }
-    private fun filter(s: String)
+    private fun filter(pep: String, CodeFundo: String, CodeSector: String)
     {
         val filter: ArrayList<PEPDato> = ArrayList()
-        Log.d("item.U_VS_AGR_DSCA",Descripcion)
+        Log.d("pepCodeFundo",pep)
+        Log.d("pepCodeFundo",CodeFundo)
+        Log.d("pepCodeFundo",CodeSector)
+
+        Log.d("pepCodeFundo",laborLista.toString())
+
         for (item in laborLista) {
 
-            if (( (item.U_VS_AGR_DSCA == Descripcion && (item.Code.toLowerCase().contains(s.toLowerCase())))||
-                            (Descripcion =="Todas" && (item.Code.toLowerCase().contains(s.toLowerCase()))) )
-                   ) {
-                Log.d("item.U_VS_AGR_DSCA",item.U_VS_AGR_DSCA)
+            if ((item.U_VS_AGR_CDCA==pep ||  pep == "Todas") &&
+                (item.U_VS_AGR_CDFD==CodeFundo ||  CodeFundo == "Todas") &&
+                (item.U_VS_AGR_CDSC==CodeSector ||  CodeSector == "Todas" || CodeSector == "")){
 
-                filter.add(item)
+                    filter.add(item)
             }
         }
         rvLaborCultural.adapter = (laborCulturalAdapter(this,filter))
@@ -408,7 +650,18 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
             }
         }
     }
-
+    private fun fundoListar() {
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarFundo(
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
     private fun LaborListar() {
         pref.getString(Constants.B1SESSIONID)?.let {
             activity?.let { it1 ->
@@ -420,7 +673,19 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
             }
         }
     }
-
+    fun sectorListar(){
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarSector(
+                    CodeFundo,
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("ELIMINAR", requestCode.toString())

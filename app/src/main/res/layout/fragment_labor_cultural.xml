@@ -1,104 +1,117 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:paddingLeft="20sp"
-    android:paddingRight="20sp"
-    android:paddingTop="10sp"
-    android:orientation="vertical">
-
-
-    <TextView
-        android:id="@+id/tvTituloPersonal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:textStyle="bold"
-        android:text="PRE - LISTADO DE PEPS"
-        android:layout_marginLeft="52sp"
-        android:layout_marginRight="52sp"
-        android:textColor="@color/celesteVentura"
-        android:textSize="20sp" />
-    <TextView
-        android:id="@+id/tvTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTituloPersonal"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:text="CON LABORES CULTURALES"
-        android:layout_marginLeft="52sp"
-        android:layout_marginRight="52sp"
-        android:textColor="@color/celesteVentura"
-        android:textSize="20sp" />
-
-
-    <LinearLayout
-        android:id="@+id/rlBuscador"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitulo"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-        <Spinner
-            android:id="@+id/splCampaniasVigentes"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/top_shadow_gradient"
-            style="@style/SpinnerTheme"
-            android:paddingStart="8dp"
-            android:paddingEnd="4dp"/>
-        <EditText
-            android:id="@+id/etBuscador"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/etEmail"
-            android:layout_marginTop="10sp"
-            android:background="@drawable/edtx_personal_list"
-            android:drawablePadding="8dp"
-            android:hint="Buscar"
-            android:inputType="text"
-            android:maxLines="1"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:paddingStart="13sp"
-            android:textAllCaps="false"
-            android:textColorHint="@color/marcaHeader"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:paddingLeft="20sp" android:paddingTop="10sp" android:paddingRight="20sp" android:layout_width="match_parent" android:layout_height="match_parent">
+        <TextView android:textSize="20sp" android:textStyle="bold" android:textColor="@color/celesteVentura" android:gravity="center" android:id="@+id/tvTituloPersonal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="52sp" android:layout_marginTop="10dp" android:layout_marginRight="52sp" android:text="PEPS CON"/>
+        <TextView android:textSize="20sp" android:textStyle="bold" android:textColor="@color/celesteVentura" android:gravity="center_horizontal" android:id="@+id/tvTitulo" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="52sp" android:layout_marginRight="52sp" android:text="CON LABORES CULTURALES" android:layout_below="@+id/tvTituloPersonal"/>
+        <LinearLayout android:orientation="vertical" android:id="@+id/rlBuscador" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:layout_below="@+id/tvTitulo">
+            <TextView
+                android:textSize="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Campañas Vigentes"/>
+            <Spinner
+                android:id="@+id/splCampaniasVigentes"
+                android:background="@drawable/top_shadow_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp"
+                style="@style/SpinnerTheme"/>
+            <TextView
+                android:textSize="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fundo"/>
+            <Spinner
+                android:id="@+id/splFundo"
+                android:background="@drawable/top_shadow_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp"
+                style="@style/SpinnerTheme"/>
+            <TextView
+                android:textSize="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sector"/>
+            <Spinner
+                android:id="@+id/splSector"
+                android:background="@drawable/top_shadow_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp"
+                style="@style/SpinnerTheme"/>
+            <TextView
+                android:textSize="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lote"/>
+            <Spinner
+                android:id="@+id/splLote"
+                android:background="@drawable/top_shadow_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="4dp"
+                style="@style/SpinnerTheme"/>
+            <EditText
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColorHint="@color/marcaHeader"
+                android:id="@+id/etBuscador"
+                android:background="@drawable/edtx_personal_list"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10sp"
+                android:hint="Buscar"
+                android:maxLines="1"
+                android:drawablePadding="8dp"
+                android:layout_weight="1"
+                android:layout_below="@+id/etEmail"
+                android:inputType="text"
+                android:textAllCaps="false"
+                android:paddingStart="13sp"/>
+        </LinearLayout>
+        <TextView
+            android:textSize="15sp"
             android:textStyle="bold"
-            android:textSize="13sp"/>
+            android:textColor="@color/celesteVentura"
+            android:gravity="center"
+            android:id="@+id/tvSeleccione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Seleccione"
+            android:layout_below="@+id/rlBuscador"/>
 
-    </LinearLayout>
-    <TextView
-        android:id="@+id/tvSeleccione"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:textStyle="bold"
-        android:layout_below="@+id/rlBuscador"
-        android:text="Seleccione"
-        android:textColor="@color/celesteVentura"
-        android:textSize="15sp" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvLaborCultural"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tvSeleccione"
-        android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"/>
-
-
-
-    <ProgressBar
-        android:id="@+id/pgbLaborRealizada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
-
-</RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLaborCultural"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvSeleccione"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp" />
+        <ProgressBar
+            android:id="@+id/pgbLaborRealizada"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton android:visibility="invisible" android:layout_gravity="bottom|right|center_vertical|center_horizontal|center" android:id="@+id/fbAdd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16dp" android:src="@drawable/ic_add"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

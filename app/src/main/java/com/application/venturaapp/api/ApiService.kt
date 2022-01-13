@@ -9,6 +9,15 @@ import com.application.venturaapp.login.entity.UserLoginResponse
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.*
+import com.application.venturaapp.home.fragment.entities.Fundo
+
+import com.application.venturaapp.home.fragment.entities.PersonalResponse
+
+import retrofit2.http.GET
+
+import com.application.venturaapp.home.fragment.entities.Sector
+
+
 
 interface ApiService {
     @GET("VSAGRUSUA('{Code}')")
@@ -49,8 +58,30 @@ interface ApiService {
     @GET("VSAGRCAMP")
     fun listCampanas(@Header ("Cookie") session : String  ): Call<PersonalResponse<Campania>>
 
+    @GET("VSAGRFNDO")
+    fun listFundo(@Header("Cookie") session: String?): Call<PersonalResponse<Fundo>>
+
+    @GET("VSAGRLOTE")
+    fun listLote(@Header("Cookie") session: String?): Call<PersonalResponse<Fundo>>
+
+    @GET("VSAGRSCLT")
+    fun listSector(@Header("Cookie") session: String?): Call<PersonalResponse<Sector>>
+
     @GET("VSAGRPEPS")
     fun listPEPLaborCultural(@Header ("Cookie") session : String  ): Call<PersonalResponse<PEPDato>>
+
+    @GET("VS_AGR_RCOS")
+    fun listCosecha(@Header ("Cookie") session : String , @Header ("Prefer") prefer : String ): Call<PersonalResponse<VSAGRRCOS>>
+
+    @POST("VS_AGR_RCOS")
+    fun addCosecha(@Header("Cookie") session: String, @Body body: JsonObject): Call<VSAGRRCOS>
+
+    @PUT("VS_AGR_RCOS({Code})")
+    fun putCosecha(@Header("Cookie") session: String, @Path("Code") code :Int?, @Body body: JsonObject): Call<String>
+
+    @DELETE("VS_AGR_RCOS({Code})")
+    fun deleteCosecha(@Header("Cookie") session: String, @Path("Code") code :Int): Call<String>
+
 
     @GET("VSAGRLCUL")
     fun listLaborCultural(@Header ("Cookie") session : String, @Header ("Prefer") prefer : String): Call<LaborCulturalPEPResponse>
@@ -72,7 +103,11 @@ interface ApiService {
     fun  listEtapaProducción(@Header ("Cookie") session : String , @Path("Code", encoded = true) code :String ): Call<EtapaProduccionResponse>
 
     @GET("VS_AGR_PCUL")
-    fun  laboresPlanificadas(@Header ("Cookie") session : String): Call<PersonalResponse<VSAGRPCULResponse>>
+    fun  laboresPlanificadas(@Header ("Cookie") session : String, @Header("Prefer") str2:String ): Call<PersonalResponse<VSAGRPCULResponse>>
+
+    @GET("U_VS_UNID_MEDIDA")
+    fun  unidadMedida(@Header ("Cookie") session : String, @Header("Prefer") str2:String ): Call<PersonalResponse<UnidadMedida>>
+
     /*CONTABILIZACION*/
 
     @GET("ProductionOrders({Code})")
@@ -110,7 +145,7 @@ interface ApiService {
     /*PEPS  FERTILIZANTE */
 
     @GET("VS_AGR_RFER")
-    fun listPEPFertilizante(@Header ("Cookie") session : String  ): Call<GeneralResponse<VSAGRRFER>>
+    fun listPEPFertilizante(@Header ("Cookie") session : String  ): Call<GeneralResponse<VSAGRRCOS>>
 
     /*PEPS  MAQUINARIAS */
 

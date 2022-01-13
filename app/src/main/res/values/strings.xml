@@ -43,6 +43,11 @@
         <item>Tercero</item>
     </string-array>
 
+    <string-array name="Operacion">
+        <item>Rechazar</item>
+        <item>Completar</item>
+    </string-array>
+
     <string-array name="Empresas">
         <item>Sociedad</item>
     </string-array>

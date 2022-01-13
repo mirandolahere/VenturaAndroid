@@ -8,10 +8,10 @@ data class PEPDato (
         @SerializedName("odata.metadata")
         val metadata: String,
         @SerializedName("Code")
-        val Code: String,
+        var Code: String,
         var TotalJornales: Int=0,
         @SerializedName("Name")
-        val Name: String,
+        var Name: String,
         @SerializedName("DocEntry")
         val Cabecera: String,
         @SerializedName("Object")
@@ -27,7 +27,7 @@ data class PEPDato (
         @SerializedName("CreateTime")
         val CreateTime: String,
         @SerializedName("UpdateDate")
-        val UpdateDate: String,
+        var UpdateDate: String,
         @SerializedName("UpdateTime")
         val UpdateTime: String,
         @SerializedName("DataSource")
@@ -75,31 +75,31 @@ data class PEPDato (
         val U_VS_AGR_RORI: String,
 
         @SerializedName("U_VS_AGR_CDCA")
-        val U_VS_AGR_CDCA: String,
+        var U_VS_AGR_CDCA: String,
         @SerializedName("U_VS_AGR_DSCA")
         var U_VS_AGR_DSCA : String,
         @SerializedName("U_VS_AGR_CDFD")
-        val U_VS_AGR_CDFD: String,
+        var U_VS_AGR_CDFD: String,
 
         @SerializedName("U_VS_AGR_DSFD")
-        val U_VS_AGR_DSFD: String,
+        var U_VS_AGR_DSFD: String,
         @SerializedName("U_VS_AGR_CDSC")
-        val U_VS_AGR_CDSC : String,
+        var U_VS_AGR_CDSC : String,
         @SerializedName("U_VS_AGR_DSSC")
-        val U_VS_AGR_DSSC: String,
+        var U_VS_AGR_DSSC: String,
         @SerializedName("U_VS_AGR_DSLO")
         val U_VS_AGR_DSLO: String,
         @SerializedName("U_VS_AGR_CDCL")
-        val U_VS_AGR_CDCL : String,
+        var U_VS_AGR_CDCL : String,
         @SerializedName("U_VS_AGR_CDVA")
-        val U_VS_AGR_CDVA: String,
+        var U_VS_AGR_CDVA: String,
 
         @SerializedName("U_VS_AGR_DSVA")
-        val U_VS_AGR_DSVA: String,
+        var U_VS_AGR_DSVA: String,
         @SerializedName("U_VS_AGR_CDAT")
-        val U_VS_AGR_CDAT : String,
+        var U_VS_AGR_CDAT : String,
         @SerializedName("U_VS_AGR_DSAT")
-        val U_VS_AGR_DSAT: String,
+        var U_VS_AGR_DSAT: String,
 
         @SerializedName("U_VS_AGR_ESTA")
         val U_VS_AGR_ESTA: String,
@@ -112,7 +112,7 @@ data class PEPDato (
         @SerializedName("U_VS_AGR_FEFP")
         val U_VS_AGR_FEFP : String,
         @SerializedName("U_VS_AGR_CDLT")
-        val U_VS_AGR_CDLT: String,
+        var U_VS_AGR_CDLT: String,
         @SerializedName("U_VS_AGR_DEOF")
         val U_VS_AGR_DEOF: String,
         @SerializedName("U_VS_AGR_CDPP")

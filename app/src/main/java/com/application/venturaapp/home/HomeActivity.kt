@@ -15,13 +15,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.application.venturaapp.R
 import com.application.venturaapp.helper.Constants
 import com.application.venturaapp.home.fragment.Sincronizacion
 import com.application.venturaapp.home.fragment.fertilizante.FertilizanteFragment
 import com.application.venturaapp.home.fragment.fitosanitario.FitosanitarioFragment
 import com.application.venturaapp.home.fragment.maquinaria.MaquinariaFragment
-import com.application.venturaapp.home.fragment.personal.personalFragment
+import com.application.venturaapp.R
 import com.application.venturaapp.home.fragment.produccion.laborCulturalFragment
 import com.application.venturaapp.login.LoginActivity
 import com.application.venturaapp.preference.PreferenceManager
@@ -29,6 +28,16 @@ import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_personal_add.*
 import kotlinx.android.synthetic.main.menu_main.*
+
+import androidx.drawerlayout.widget.DrawerLayout
+
+
+import android.widget.LinearLayout
+
+import android.R.string.no
+
+
+
 
 class HomeActivity : AppCompatActivity() {
     var homeActivity: Activity? = null
@@ -120,7 +129,8 @@ class HomeActivity : AppCompatActivity() {
             }
 
         }
-        llDatosMaestros.setOnClickListener {
+
+        /*llDatosMaestros.setOnClickListener {
             setFragment(personalFragment())
             home_ventura.closeDrawers()
         }
@@ -128,7 +138,7 @@ class HomeActivity : AppCompatActivity() {
         trPreparacion.setOnClickListener {
             setFragment(personalFragment())
             home_ventura.closeDrawers()
-        }
+        } */
         trProduccion.setOnClickListener {
             llProduccion.visibility = View.VISIBLE
             when(llDatosMaestros.visibility)
@@ -143,14 +153,9 @@ class HomeActivity : AppCompatActivity() {
             setFragment(laborCulturalFragment())
             home_ventura.closeDrawers()
         }
-        tvFitosanitario.setOnClickListener {
+        tvFitosanitario.setOnClickListener { //consumo de insumos
 
             setFragment(FitosanitarioFragment())
-            home_ventura.closeDrawers()
-        }
-        tvFertilizantes.setOnClickListener {
-
-            setFragment(FertilizanteFragment())
             home_ventura.closeDrawers()
         }
         tvMaquinarias.setOnClickListener {
@@ -158,6 +163,13 @@ class HomeActivity : AppCompatActivity() {
             setFragment(MaquinariaFragment())
             home_ventura.closeDrawers()
         }
+
+        tvFertilizantes.setOnClickListener { //cosecha
+
+            setFragment(FertilizanteFragment())
+            home_ventura.closeDrawers()
+        }
+
     }
 
     private fun setupPermission() {

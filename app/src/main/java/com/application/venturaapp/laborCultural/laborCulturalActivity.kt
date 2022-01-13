@@ -30,6 +30,13 @@ import com.application.venturaapp.tables.PersonalDB
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_labor_cultural.*
 import okhttp3.Cache
+import kotlin.jvm.internal.Intrinsics
+import android.widget.EditText
+
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class laborCulturalActivity   : AppCompatActivity(), LaborPEPItemListener {
@@ -224,19 +231,9 @@ class laborCulturalActivity   : AppCompatActivity(), LaborPEPItemListener {
             startActivity(intent)
 
         }
-        etBuscador.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-                filter(s.toString());
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
+        etBuscador.setOnClickListener {
+            fecha()
+        }
 
             llCabecera.setOnClickListener {
             when(tvCampania.visibility)
@@ -265,12 +262,47 @@ class laborCulturalActivity   : AppCompatActivity(), LaborPEPItemListener {
 
         }
     }
+    fun fecha(){
+        val mcurrentTime: Calendar = Calendar.getInstance()
+        Intrinsics.checkNotNullExpressionValue(mcurrentTime, "Calendar.getInstance()")
+        val datePickerDialog = DatePickerDialog(this,DatePickerDialog.OnDateSetListener
+        { view, year, monthOfYear, dayOfMonth ->
+
+                val dayFormateada: String
+                val monthFormateada: String
+                val monthSelect = monthOfYear + 1
+                dayFormateada = if (dayOfMonth < 10) {
+                    "0$dayOfMonth"
+                } else {
+                    dayOfMonth.toString()
+                }
+                monthFormateada = if (monthSelect < 10) {
+                    "0$monthSelect"
+                } else {
+                    monthSelect.toString()
+                }
+                val fechaBusqueda = "$year-$monthFormateada-$dayFormateada"
+                etBuscador.setText(
+                    fechaBusqueda
+                )
+                if (!Intrinsics.areEqual(
+                        fechaBusqueda,
+                        ""
+                    )
+                ) {
+                    filter(fechaBusqueda)
+                }
+            }, mcurrentTime.get(1), mcurrentTime.get(2), mcurrentTime.get(5)
+        )
+        datePickerDialog.setTitle("Seleccione la fecha")
+        datePickerDialog.show()
+    }
     private fun filter(s: String)
     {
         val filter: java.util.ArrayList<LaborCulturalListResponse> = java.util.ArrayList()
 
         for (item in laborList) {
-            if (item.U_VS_AGR_CDEP.toLowerCase().contains(s.toLowerCase())) {
+            if (item.U_VS_AGR_FERG == s) {
                 filter.add(item)
             }
         }
@@ -279,7 +311,7 @@ class laborCulturalActivity   : AppCompatActivity(), LaborPEPItemListener {
 
     }
     private fun LaborListar() {
-        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaLaborCultural(it, CodigoPEP,httpCacheDirectory, this) }
+        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaLaborCultural(it, CodigoPEP,codigoCampania,httpCacheDirectory, this) }
     }
     fun hideSoftKeyboard() {
         currentFocus?.let {

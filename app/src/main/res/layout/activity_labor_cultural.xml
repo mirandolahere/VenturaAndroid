@@ -161,55 +161,59 @@
 
 
     <LinearLayout
+        android:orientation="horizontal"
         android:id="@+id/rlBuscador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rlCabecera"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
+        android:layout_below="@+id/rlCabecera">
         <EditText
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColorHint="@color/marcaHeader"
             android:id="@+id/etBuscador"
+            android:background="@drawable/edtx_personal_list"
+            android:paddingTop="4sp"
+            android:paddingBottom="4sp"
+            android:focusable="false"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/etEmail"
-            android:background="@drawable/edtx_personal_list"
-            android:drawablePadding="8dp"
-            android:hint="Buscar"
-            android:inputType="text"
+            android:hint="Buscar fecha"
             android:maxLines="1"
+            android:drawablePadding="8dp"
             android:layout_weight="1"
-            android:paddingStart="13sp"
+            android:layout_below="@+id/etEmail"
+            android:inputType="text"
             android:textAllCaps="false"
-            android:textColorHint="@color/marcaHeader"
-            android:textStyle="bold"
-            android:textSize="13sp"/>
+            android:drawableEnd="@drawable/ic_calendar"
+            android:paddingStart="13sp"
+            android:paddingEnd="13sp"/>
         <Spinner
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColorHint="@color/marcaHeader"
             android:id="@+id/spnEtapa"
+            android:background="@drawable/edtx_personal_list"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/etEmail"
-            android:background="@drawable/edtx_personal_list"
-            android:drawablePadding="8dp"
             android:hint="Buscar"
-            android:inputType="text"
             android:maxLines="1"
+            android:drawablePadding="8dp"
             android:layout_weight="1"
-            android:visibility="gone"
-            android:paddingStart="13sp"
+            android:layout_below="@+id/etEmail"
+            android:inputType="text"
             android:textAllCaps="false"
-            android:textColorHint="@color/marcaHeader"
-            android:textStyle="bold"
-            android:textSize="13sp"/>
-            <ImageView
-                android:id="@+id/ivPersonalAdd"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/ic_add"
-                android:textColor="@android:color/black" />
-            </LinearLayout>
-
+            android:paddingStart="13sp"/>
+        <ImageView
+            android:textColor="@android:color/black"
+            android:id="@+id/ivPersonalAdd"
+            android:background="@drawable/ic_add"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"/>
+    </LinearLayout>
     <TextView
         android:id="@+id/tvSeleccione"
         android:layout_width="wrap_content"

@@ -43,5 +43,31 @@ data class Campania (
         @SerializedName("U_VS_AGR_FEIC")
         val U_VS_AGR_FEIC: String,
         @SerializedName("U_VS_AGR_FEFC")
-        val U_VS_AGR_FEFC: String
+        val U_VS_AGR_FEFC: String,
+
+        @SerializedName("U_VS_AGR_CDCL")
+        val U_VS_AGR_CDCL: String,
+        @SerializedName("U_VS_AGR_DSCL")
+        val U_VS_AGR_DSCL: String,
+        @SerializedName("U_VS_AGR_CDVA")
+        val U_VS_AGR_CDVA: String,
+        @SerializedName("U_VS_AGR_DSVA")
+        val U_VS_AGR_DSVA: String,
+        @SerializedName("U_VS_AGR_CDAT")
+        val U_VS_AGR_CDAT: String,
+        @SerializedName("U_VS_AGR_DSAT")
+        val U_VS_AGR_DSAT: String,
+        @SerializedName("U_VS_AGR_CDGE")
+        val U_VS_AGR_CDGE: String,
+
+        @SerializedName("U_VS_AGR_DSGE")
+        val U_VS_AGR_DSGE: String,
+        @SerializedName("U_VS_AGR_TPPE")
+        val U_VS_AGR_TPPE: String,
+        @SerializedName("U_VS_AGR_DURA")
+        val U_VS_AGR_DURA: Int,
+
+
+        @SerializedName("VS_AGR_CAPPCollection")
+        val VS_AGR_CAPPCollection: List<VS_AGR_CAPPCollection>
 )

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:id="@+id/rlLaborPersonal"
+        android:background="@color/white"
+        android:paddingLeft="20sp"
+        android:paddingTop="10sp"
+        android:paddingRight="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp">
+
+        <TextView android:id="@+id/tvTitle" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/verdeVentura" android:gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Registro de cosecha"/>
+
+        <LinearLayout android:orientation="vertical" android:id="@+id/rlCabecera"  android:paddingTop="20dp"  android:paddingBottom="25dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_below="@+id/tvTitle">
+
+            <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:id="@+id/tvCodigoPEP" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Código PEP" android:layout_weight="1"/>
+            <EditText android:enabled="false" android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etCodigoPEP" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_below="@+id/tvCodigoPEP" android:paddingStart="13sp" android:layout_marginEnd="5dp"/>
+            <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:id="@+id/tvCampania" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Campaña" android:layout_weight="1" android:layout_below="@+id/etCodigoPEP"/>
+            <EditText android:enabled="false" android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etCampania" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_below="@+id/tvCampania" android:paddingStart="13sp" android:layout_marginEnd="5dp"/>
+
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llArticulo" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSeis">
+                <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Codigo del artículo" android:layout_weight="1"/>
+                <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Descripción del artículo" android:layout_weight="1" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llEtArticulo" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSiete">
+                <EditText android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etCodigoArticulo" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:inputType="number" android:paddingStart="13sp" android:layout_marginEnd="5dp"/>
+                <EditText android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etDescripcionArticulo" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:inputType="number" android:paddingStart="13sp" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llCosecha" android:paddingTop="15dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/rlCabecera">
+                <TextView android:textSize="18sp" android:textStyle="bold" android:textColor="@color/celesteVentura" android:gravity="left" android:id="@+id/tvTituloPersonal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Datos de la cosecha"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/llFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llGrupoSeis"
+                android:paddingTop="20dp">
+                <TextView
+                    android:textSize="11sp"
+                    android:textColor="@color/marcaHeader"
+                    android:id="@+id/tvFecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha"
+                    android:layout_weight="1"
+                    android:layout_below="@+id/etCultivo"/>
+                <TextView
+                    android:textSize="11sp"
+                    android:textColor="@color/marcaHeader"
+                    android:id="@+id/tvEtapa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Clase de operación"
+                    android:layout_weight="1"
+                    android:layout_below="@+id/etFecha"/>
+            </LinearLayout>
+
+
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llEtFecha" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSeis">
+                <EditText
+                    android:enabled="false"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/marcaHeader"
+                    android:id="@+id/etFecha"
+                    android:background="@drawable/edtx_personal_list"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tvFecha"
+                    android:paddingStart="13sp"
+                    android:layout_marginEnd="5dp"/>
+                <Spinner
+                    android:enabled="false"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/marcaHeader"
+                    android:id="@+id/etEtapa"
+                    android:background="@drawable/edtx_personal_list"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/tvEtapa"
+                    android:paddingStart="13sp"
+                    android:layout_marginEnd="5dp"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llSegundoGrupo" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/Buscar">
+                <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Almacén" android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llTercerGrupo" android:paddingBottom="10dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llSegundoGrupo">
+                <EditText
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/marcaHeader"
+                    android:id="@+id/etLaborDefecto"
+                    android:background="@drawable/top_shadow_gradient"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:paddingStart="13sp"
+                    style="@style/SpinnerTheme"/>
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llGrupoSiete" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSeis">
+                <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Und. medida/Ha de referencia" android:layout_weight="1"/>
+                <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Cantidad de referencia" android:layout_weight="1" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llGrupoOcho" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSiete">
+                <Spinner android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etJornales" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:inputType="number" android:paddingStart="13sp" android:layout_marginEnd="5dp"/>
+                <EditText android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etCantidadRef" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:inputType="number" android:paddingStart="13sp" android:layout_marginStart="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:id="@+id/llGrupoNueve" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSeis">
+                <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Total aproximado" android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout android:orientation="horizontal" android:weightSum="1" android:id="@+id/llGrupoDiez" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSiete">
+                <EditText
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/marcaHeader"
+                    android:id="@+id/etTotalAprox"
+                    android:background="@drawable/edtx_personal_list"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.5"
+                    android:inputType="number"
+                    android:paddingStart="13sp"
+                    android:layout_marginEnd="5dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!--<LinearLayout android:orientation="horizontal" android:id="@+id/llGrupoCinco" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoCuatro">
+            <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Hora de inicio de jornada" android:layout_weight="1"/>
+            <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Hora de fin de jornada" android:layout_weight="1" android:layout_marginStart="5dp"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@+id/llGrupoSeis" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoCinco">
+            <EditText android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etInicio" android:background="@drawable/edtx_personal_list" android:focusable="false" android:clickable="true" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:paddingStart="13sp" android:layout_marginEnd="5dp"/>
+            <EditText android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etFin" android:background="@drawable/edtx_personal_list" android:focusable="false" android:clickable="true" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:paddingStart="13sp" android:layout_marginStart="5dp"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@+id/llGrupoSiete" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSeis">
+            <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Cantidad de jornales" android:layout_weight="1"/>
+            <TextView android:textSize="11sp" android:textColor="@color/marcaHeader" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Cantidad de plantas" android:layout_weight="1" android:layout_marginStart="5dp"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@+id/llGrupoOcho" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llGrupoSiete">
+            <EditText android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etJornales" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:inputType="number" android:paddingStart="13sp" android:layout_marginEnd="5dp"/>
+            <EditText android:textSize="13sp" android:textStyle="bold" android:textColor="@color/marcaHeader" android:id="@+id/etExtra" android:background="@drawable/edtx_personal_list" android:layout_width="match_parent" android:layout_height="40dp" android:layout_weight="1" android:inputType="number" android:paddingStart="13sp" android:layout_marginStart="5dp"/>
+        </LinearLayout> -->
+        <RelativeLayout
+            android:id="@+id/rlButton"
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@+id/rlCabecera">
+
+            <Button
+                android:id="@+id/btnCosecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_personal_guardar"
+                android:text="Guardar"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:clickable="true"
+                android:textStyle="bold"
+                android:focusable="true" />
+        </RelativeLayout>
+        <ProgressBar android:id="@+id/pgbLaborRealizada" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+

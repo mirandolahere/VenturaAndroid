@@ -1,286 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="#FFFFFF"
-    android:clickable="true"
+    android:background="#ffffff"
+    android:focusable="true"
     android:fitsSystemWindows="true"
-    android:focusable="true">
-
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp">
-
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp">
         <TableRow
+            android:gravity="center"
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/ivUserMenu"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/logo_isotipoo" />
-
+                android:src="@drawable/logo_isotipoo"
+                android:scaleType="fitXY"/>
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp">
-
-                <TextView
+                <TextView android:textSize="15sp"
+                    android:textStyle="bold"
                     android:id="@+id/etNombreUsuarioMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingStart="5dp"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
                     android:text="Velasquez Perez Manuel"
-                    tools:text="Velasquez Perez Manuel" />
-
+                    android:textAllCaps="true"
+                    android:paddingStart="5dp"/>
                 <TextView
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/celesteVentura"
                     android:id="@+id/etCargoUsuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:textColor="@color/celesteVentura"
                     android:text="B1H_VSAGRO / ICA"
-                    tools:text="B1H_VSAGRO / ICA" />
-
+                    android:textAllCaps="true"
+                    android:paddingStart="5dp"/>
             </LinearLayout>
-
         </TableRow>
     </TableLayout>
-
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout
         android:id="@+id/tlOpcionesMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tableLayout1"
-        android:layout_marginTop="20dp">
-
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/tableLayout1">
         <RelativeLayout
             android:id="@+id/trDatosMaestros"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:background="@drawable/border_top_menu"
             android:paddingLeft="20dp"
+            android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:paddingTop="15dp">
-
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/ivInspeccionesPendientes"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_dat" />
-
+                android:src="@drawable/ic_dat"/>
             <TextView
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
                 android:id="@+id/etInspeccionesPendientes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:paddingStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:text="Datos Maestros"
-                tools:ignore="RtlSymmetry" />
+                android:paddingStart="20dp"/>
             <LinearLayout
-                android:id="@+id/llDatosMaestros"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:id="@+id/llDatosMaestros"
                 android:paddingLeft="20dp"
                 android:paddingTop="30dp"
+                android:paddingBottom="15dp"
                 android:visibility="gone"
-                android:paddingBottom="15dp">
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <TextView
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/celesteVentura"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:textColor="@color/celesteVentura"
-                    android:paddingLeft="20dp"
-                    android:text="Personal"
-
-                    />
-
+                    android:text="Personal"/>
             </LinearLayout>
         </RelativeLayout>
-
         <LinearLayout
             android:id="@+id/trPreparacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:background="@drawable/border_bottom_menu"
             android:paddingLeft="20dp"
             android:paddingTop="15dp"
-            android:paddingBottom="15dp">
-
+            android:paddingBottom="15dp"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/ivInspeccionesRealizadas"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_prep" />
-
+                android:src="@drawable/ic_prep"/>
             <TextView
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
                 android:id="@+id/etInspeccionesRealizadas"
+                android:paddingLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingLeft="20dp"
-                android:text="Preparación"
-
-                />
+                android:text="Preparación"/>
         </LinearLayout>
-
         <RelativeLayout
             android:id="@+id/trProduccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@drawable/border_bottom_menu"
             android:paddingLeft="20dp"
+            android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:paddingTop="15dp">
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/ivObservacionesAsignadas"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_prod" />
-
+                android:src="@drawable/ic_prod"/>
             <TextView
-
-                android:id="@+id/etObservacionesAsignadas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textStyle="bold"
                 android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:id="@+id/etObservacionesAsignadas"
                 android:paddingLeft="20dp"
-                android:layout_marginLeft="20dp"
-                android:text="Producción"
-
-                />
-            <LinearLayout
-                android:id="@+id/llProduccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Producción"/>
+            <LinearLayout
                 android:orientation="vertical"
+                android:id="@+id/llProduccion"
                 android:paddingLeft="20dp"
                 android:paddingTop="30dp"
+                android:paddingBottom="15dp"
                 android:visibility="visible"
-                android:paddingBottom="15dp">
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <TextView
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/celesteVentura"
+                    android:gravity="center_vertical"
                     android:id="@+id/tvLabor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
+                    android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:textColor="@color/celesteVentura"
-                    android:paddingLeft="20dp"
                     android:paddingBottom="20dp"
-                    android:text="Labores culturales"
-
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Labores culturales"/>
                 <TextView
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/celesteVentura"
+                    android:gravity="center_vertical"
                     android:id="@+id/tvFitosanitario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:textColor="@color/celesteVentura"
                     android:paddingLeft="20dp"
                     android:paddingBottom="20dp"
-                    android:text="Consumo fitosanitario"
-                    android:visibility="gone"
-
-
-                    />
-                <TextView
-                    android:id="@+id/tvFertilizantes"
+                    android:clickable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
-                    android:textColor="@color/celesteVentura"
-                    android:paddingLeft="20dp"
-                    android:paddingBottom="20dp"
-                    android:text="Consumo de fertilizantes"
-                    android:visibility="gone"
-
-
-                    />
+                    android:text="Consumo de insumos"/>
                 <TextView
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/celesteVentura"
+                    android:gravity="center_vertical"
                     android:id="@+id/tvMaquinarias"
+                    android:paddingLeft="20dp"
+                    android:paddingBottom="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
+                    android:text="Labores de maquinaria"/>
+                <TextView
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     android:textColor="@color/celesteVentura"
+                    android:gravity="center_vertical"
+                    android:id="@+id/tvFertilizantes"
                     android:paddingLeft="20dp"
-                    android:text="Labores de maquinaria"
-                    android:visibility="gone"
-
-                    />
+                    android:paddingBottom="20dp"
+                    android:clickable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cosecha"/>
             </LinearLayout>
-
         </RelativeLayout>
-
     </TableLayout>
-
-
-    <!--
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_logout"
-            android:background="@drawable/bkgr_button_red"
-            android:text="Cerrar sesión"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"
-            android:layout_marginRight="90dp"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="40dp"
-            android:textSize="18dp"
-            android:layout_below="@+id/rvOpcionesMenu"
-
-        />
-    -->
-
     <Button
+        android:textSize="18dp"
+        android:textColor="@android:color/white"
         android:id="@+id/btn_logout"
+        android:background="@color/rojoLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/rojoLogOut"
         android:text="Cerrar sesión"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="18dp" />
-
-
+        android:layout_alignParentBottom="true"
+        android:textAllCaps="false"/>
 </RelativeLayout>
