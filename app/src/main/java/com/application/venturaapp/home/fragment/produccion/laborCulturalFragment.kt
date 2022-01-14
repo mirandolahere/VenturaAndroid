@@ -34,7 +34,6 @@ import com.application.venturaapp.preference.PreferenceManager
 import com.application.venturaapp.retrofit.NetworkBroadcastReceiver
 import com.application.venturaapp.tables.LaborCulturalDetalleRoom
 import com.application.venturaapp.tables.LaborCulturalRoom
-import com.application.venturaapp.tables.PersonalDatoRoom
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_labor_cultural.*
@@ -371,7 +370,7 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                         }
                     }
 
-                    filter(CodeCampania,CodeFundo,CodeSector)
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -427,6 +426,9 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
 
                         }
                     }
+
+                    filter(CodeCampania,CodeFundo,CodeSector, CodeLote)
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -510,7 +512,7 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
 
                      }
 
-                     filter(CodeCampania, CodeFundo, CodeSector)
+                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                  }
 
                  override fun onNothingSelected(parent: AdapterView<*>) {
@@ -546,7 +548,7 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
 
                      }
 
-                     filter(CodeCampania, CodeFundo, CodeSector)
+                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                  }
 
                  override fun onNothingSelected(parent: AdapterView<*>) {
@@ -619,27 +621,22 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
         btnInspeccionNoPlaneada.isEnabled = enable
         ivMapaInspeccionesPendienes.isEnabled = enable*/
     }
-    private fun filter(pep: String, CodeFundo: String, CodeSector: String)
+    private fun filter(pep: String, CodeFundo: String, CodeSector: String, CodeLote: String)
     {
         val filter: ArrayList<PEPDato> = ArrayList()
-        Log.d("pepCodeFundo",pep)
-        Log.d("pepCodeFundo",CodeFundo)
-        Log.d("pepCodeFundo",CodeSector)
-
-        Log.d("pepCodeFundo",laborLista.toString())
 
         for (item in laborLista) {
 
             if ((item.U_VS_AGR_CDCA==pep ||  pep == "Todas") &&
                 (item.U_VS_AGR_CDFD==CodeFundo ||  CodeFundo == "Todas") &&
-                (item.U_VS_AGR_CDSC==CodeSector ||  CodeSector == "Todas" || CodeSector == "")){
+                (item.U_VS_AGR_CDSC==CodeSector ||  CodeSector == "Todas" || CodeSector == "") &&
+                (item.U_VS_AGR_CDLT==CodeLote ||  CodeLote == "Todas" || CodeLote == "")) {
 
                     filter.add(item)
             }
         }
         rvLaborCultural.adapter = (laborCulturalAdapter(this,filter))
         rvLaborCultural.layoutManager = LinearLayoutManager(activity)
-
 
     }
     private fun campaniaListar() {

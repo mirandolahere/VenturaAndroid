@@ -383,6 +383,8 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
                         }
                     }
+
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -438,6 +440,8 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
                         }
                     }
+
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -522,6 +526,7 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
                         }
                     }
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -552,6 +557,7 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
                         }
                     }
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -634,16 +640,15 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
         btnInspeccionNoPlaneada.isEnabled = enable
         ivMapaInspeccionesPendienes.isEnabled = enable*/
     }
-    private fun filter(s: String)
+    private fun filter(pep: String, CodeFundo: String, CodeSector: String, CodeLote: String)
     {
         val filter: ArrayList<PEPDato> = ArrayList()
-        Log.d("item.U_VS_AGR_DSCA",Descripcion)
-        Log.d("item.U_VS_AGR_DSCA",laborLista.toString())
-
         for (item in laborLista) {
 
-            if ( (item.U_VS_AGR_DSCA == Descripcion )|| (Descripcion =="Todas" ) ) {
-                Log.d("item.U_VS_AGR_DSCA",item.U_VS_AGR_DSCA)
+            if ((item.U_VS_AGR_CDCA==pep ||  pep == "Todas") &&
+                (item.U_VS_AGR_CDFD==CodeFundo ||  CodeFundo == "Todas") &&
+                (item.U_VS_AGR_CDSC==CodeSector ||  CodeSector == "Todas" || CodeSector == "") &&
+                (item.U_VS_AGR_CDLT==CodeLote ||  CodeLote == "Todas" || CodeLote == "")) {
 
                 filter.add(item)
             }
