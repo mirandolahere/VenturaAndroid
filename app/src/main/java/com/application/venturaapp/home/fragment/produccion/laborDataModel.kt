@@ -127,13 +127,16 @@ class laborDataModel () {
             override fun onResponse(call: Call<PersonalResponse<Sector>>, response: Response<PersonalResponse<Sector>>) {
 
                 if (response.isSuccessful) {
-
-                    for (item in response.body()?.datos!!) {
-                        if (item.U_VS_AGR_FNDO ==  fundo) {
-                            listSector.add(item)
+                    if(fundo!="") {
+                        for (item in response.body()?.datos!!) {
+                            if (item.U_VS_AGR_FNDO == fundo) {
+                                listSector.add(item)
+                            }
                         }
-                    }
-                    responseSectorLiveData.value = listSector
+                        responseSectorLiveData.value = listSector
+                    }else
+                        responseSectorLiveData.value = response.body()?.datos!!
+
                 }else {
                     var json =
                         Gson().fromJson(response.errorBody()?.string(), ErrorBody::class.java)

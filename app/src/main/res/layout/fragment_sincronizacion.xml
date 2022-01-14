@@ -64,11 +64,11 @@
         android:id="@+id/btnSincronizacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Aceptar"
         android:layout_below="@+id/rlSincronizador"
-        android:textColor="@color/white"
+        android:background="@drawable/btn_sincro_disable"
         android:enabled="false"
-        android:background="@drawable/btn_sincro_disable"/>
+        android:text="Aceptar"
+        android:textColor="@color/white" />
 
 
 

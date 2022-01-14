@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.venturaapp.R
+import com.application.venturaapp.automatic.automaticActivity
 import com.application.venturaapp.helper.Constants
 import com.application.venturaapp.home.fragment.adapter.laborCulturalAdapter
 import com.application.venturaapp.home.fragment.entities.*
@@ -134,11 +135,10 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
     fun verificarData():Boolean
     {
         //verificamos si hay datos en la memoria del telefono
-        var personal : List<PersonalDatoRoom>? = personalViewModels.getPersonalRoom()
         var labor : List<LaborCulturalRoom>? = laborCulturalViewModels.getLaborRoom()
         var labordetalle : List<LaborCulturalDetalleRoom>? = laborCulturalViewModels.getLaborDetalleAllRoom()
 
-        if(personal?.size==0 && labor?.size == 0 && labordetalle?.size == 0)
+        if(labor?.size == 0 && labordetalle?.size == 0)
             return false
 
         return true
@@ -600,6 +600,10 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })*/
+        fbAdd.setOnClickListener {
+            val intent = Intent(activity, automaticActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showMessage(m: String?) {

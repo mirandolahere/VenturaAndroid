@@ -99,7 +99,7 @@ interface ApiService {
     fun addLaborCultural(@Header ("Cookie") session : String, @Body jsonObject: JsonObject): Call<LaborCulturalListResponse>
 
 //, @Query("'$'+'filter=U_VS_AGR_CDPP eq '") filtro :String
-    @GET("VSAGRPEPS('{Code}')/VS_AGR_EPEPCollection")
+    @GET("VSAGRCAMP('{Code}')/VS_AGR_CAEPCollection")
     fun  listEtapaProducción(@Header ("Cookie") session : String , @Path("Code", encoded = true) code :String ): Call<EtapaProduccionResponse>
 
     @GET("VS_AGR_PCUL")

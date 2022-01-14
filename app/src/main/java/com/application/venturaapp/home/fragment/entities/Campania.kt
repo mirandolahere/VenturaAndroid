@@ -69,5 +69,9 @@ data class Campania (
 
 
         @SerializedName("VS_AGR_CAPPCollection")
-        val VS_AGR_CAPPCollection: List<VS_AGR_CAPPCollection>
+        val VS_AGR_CAPPCollection: List<VS_AGR_CAPPCollection>,
+
+
+        @SerializedName("VS_AGR_CAEPCollection")
+        val VS_AGR_CAEPCollection: List<VS_AGR_CAEPCollection>
 )

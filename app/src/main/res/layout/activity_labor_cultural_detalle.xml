@@ -27,7 +27,9 @@
             <ImageView android:textColor="@android:color/black" android:layout_gravity="right" android:id="@+id/ivSincronizacion" android:background="@drawable/ic_synchronize" android:visibility="invisible" android:layout_width="32dp" android:layout_height="32dp" android:layout_marginLeft="10dp" android:layout_marginRight="20dp" android:layout_marginBottom="15dp" android:layout_weight="0" android:foregroundGravity="right"/>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout android:orientation="vertical" android:id="@+id/llTable" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llPersonal">
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/llTable" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_below="@+id/llPersonal">
         <LinearLayout android:orientation="horizontal" android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_width="match_parent" android:layout_height="wrap_content">
             <TextView android:textSize="12sp" android:textColor="@color/celesteVentura" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Labor de campo" android:layout_weight="6"/>
             <TextView android:textSize="12sp" android:textColor="@color/celesteVentura" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Jornales" android:layout_weight="1"/>

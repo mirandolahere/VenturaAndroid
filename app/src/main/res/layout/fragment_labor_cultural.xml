@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent">
     <RelativeLayout android:paddingLeft="20sp" android:paddingTop="10sp" android:paddingRight="20sp" android:layout_width="match_parent" android:layout_height="match_parent">
         <TextView android:textSize="20sp" android:textStyle="bold" android:textColor="@color/celesteVentura" android:gravity="center" android:id="@+id/tvTituloPersonal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="52sp" android:layout_marginTop="10dp" android:layout_marginRight="52sp" android:text="PEPS CON"/>
         <TextView android:textSize="20sp" android:textStyle="bold" android:textColor="@color/celesteVentura" android:gravity="center_horizontal" android:id="@+id/tvTitulo" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="52sp" android:layout_marginRight="52sp" android:text="CON LABORES CULTURALES" android:layout_below="@+id/tvTituloPersonal"/>
@@ -113,5 +115,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton android:visibility="invisible" android:layout_gravity="bottom|right|center_vertical|center_horizontal|center" android:id="@+id/fbAdd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16dp" android:src="@drawable/ic_add"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_gravity="bottom|right|center_vertical|center_horizontal|center"
+        android:id="@+id/fbAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

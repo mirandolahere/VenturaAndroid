@@ -168,11 +168,16 @@ class laborCulturalDataModel () {
                 if (response.isSuccessful) {
                     var laborPlanificada =  arrayListOf<VSAGRDPCLResponse>()
                     val VS_AGR_PCUL = response.body()
-                    for(item in response.body()?.datos!!)
-                    {
-                        if(item.U_VS_AGR_CDPP == code && item.U_VS_AGR_CDEP == etapa)
-                        {
-                            responseLaborPlanificadaLiveData.value = item.VS_AGR_DPCLCollection
+                    if(etapa!=null) {
+                        for (item in response.body()?.datos!!) {
+                            if (item.U_VS_AGR_CDPP == code && item.U_VS_AGR_CDEP == etapa) {
+                                responseLaborPlanificadaLiveData.value = item.VS_AGR_DPCLCollection
+                            }
+                        }
+                    }else {
+                        for (item in response.body()?.datos!!) {
+                                responseLaborPlanificadaLiveData.value = item.VS_AGR_DPCLCollection
+
                         }
                     }
                 } else {

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.application.venturaapp.R
-import com.application.venturaapp.helper.AlertActivity
 import com.application.venturaapp.helper.Constants
 import com.application.venturaapp.home.HomeActivity
 import com.application.venturaapp.home.fragment.personal.personalViewModel
@@ -38,44 +37,10 @@ class Sincronizacion : AppCompatActivity() {
         httpCacheDirectory = Cache(cacheDir, cacheSize)
         onInit()
         setUpViews()
-        sincroPersonal()
+        setUpObservers()
+        campaniaListar()
 
-    }
-    private fun laborPlanificada(CodigoPEP: String)
-    {
-        pref.getString(Constants.B1SESSIONID)?.let { laborCulturalViewModels.laborPlanificada(it,CodigoPEP,null, httpCacheDirectory, this) }
 
-    }
-    private fun listaEtapa(code: String) {
-        pgbDatos.visibility = View.VISIBLE
-
-        pref.getString(Constants.B1SESSIONID)?.let { laborCulturalViewModels.listEtapa(it,code, httpCacheDirectory, this) }
-
-    }
-  /*  private fun LaborPorPEPListar(code: String) {
-        pgbDatos.visibility = View.VISIBLE
-
-        pref.getString(Constants.B1SESSIONID)?.let { laborCulturalViewModels.listaLaborCultural(it, code,
-            httpCacheDirectory, this) }
-    } */
-    private fun LaboresListar() {
-        pgbDatos.visibility = View.VISIBLE
-
-        pref.getString(Constants.B1SESSIONID)?.let { personalViewModels.consultarLabor(it,
-            httpCacheDirectory, this) }
-    }
-    private fun ProveedorListar() {
-        pgbDatos.visibility = View.VISIBLE
-
-        pref.getString(Constants.B1SESSIONID)?.let { personalViewModels.listaProveedor(it,
-            httpCacheDirectory, this) }
-    }
-    private fun laborListar() {
-        pgbDatos.visibility = View.VISIBLE
-
-        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listaLaborCultural(it
-            ,
-            httpCacheDirectory, this) }
     }
     private fun campaniaListar() {
         pgbDatos.visibility = View.VISIBLE
@@ -84,15 +49,46 @@ class Sincronizacion : AppCompatActivity() {
             httpCacheDirectory, this)
         }
     }
-    private fun sincroPersonal()
-    {
+    private fun fundoListar() {
         pgbDatos.visibility = View.VISIBLE
-        setUpObservers()
-        pref.getString(Constants.B1SESSIONID)?.let { personalViewModels.consultarPersonal(
-            it,
-            httpCacheDirectory, this
-        ) }
+
+        pref.getString(Constants.B1SESSIONID)?.let {
+
+                laborViewModels.consultarFundo(
+                    it,
+                    httpCacheDirectory,
+                    this
+                )
+
+        }
     }
+    fun sectorListar(){
+        pgbDatos.visibility = View.VISIBLE
+
+        pref.getString(Constants.B1SESSIONID)?.let {
+
+                laborViewModels.consultarSector(
+                    "",
+                    it,
+                    httpCacheDirectory,
+                    this
+                )
+
+        }
+    }
+    private fun laborListar() {
+        pgbDatos.visibility = View.VISIBLE
+        pref.getString(Constants.B1SESSIONID)?.let {
+
+                laborViewModels.listaLaborCultural(
+                    it,
+                    httpCacheDirectory,
+                    this
+                )
+
+        }
+    }
+
     private fun LaborListar() {
         pgbDatos.visibility = View.VISIBLE
 
@@ -100,12 +96,25 @@ class Sincronizacion : AppCompatActivity() {
 
             httpCacheDirectory, this) }
     }
-    private fun ListarDetalle(docEntry: String)
-    {        pgbDatos.visibility = View.VISIBLE
+    private fun LaboresListar() {
+        pref.getString(Constants.B1SESSIONID)?.let { personalViewModels.consultarLabor(it,httpCacheDirectory, this) }
+    }
 
+    fun ListarDetalle(docEntry: String)
+    {
         pref.getString(Constants.B1SESSIONID)?.let { laborCulturalViewModels.listaDetalleLaborCultural(it, docEntry,
             httpCacheDirectory, this) }
 
+    }
+
+    private fun laborPlanificada(code: String) {
+        pref.getString(Constants.B1SESSIONID)?.let { laborCulturalViewModels.laborPlanificada(
+            it,
+            code,
+            null,
+            httpCacheDirectory,
+            this
+        ) }
     }
     private fun onInit() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
@@ -126,73 +135,72 @@ class Sincronizacion : AppCompatActivity() {
         }
     }
     private fun setUpObservers() {
-
-        personalViewModels.laborResult.observe(this, Observer {
-            it?.let {
-                ProveedorListar()
-
-            }
-        })
-        personalViewModels.proveedorResult.observe(this, Observer {
-            it?.let {
-                campaniaListar()
-            }
-        })
-        personalViewModels.personalResult.observe(this, Observer {
-            it?.let {
-                LaboresListar()
-
-            }
-        })
         laborViewModels.campaniaResult.observe(this, Observer {
+            it?.let {
+                fundoListar()
+
+            }
+        })
+        laborViewModels.fundoResult.observe(this, Observer {
+            it?.let {
+                sectorListar()
+
+            }
+        })
+
+        laborViewModels.sectorResult.observe(this, Observer {
             it?.let {
                 laborListar()
 
             }
         })
+
         laborViewModels.laborResult.observe(this, Observer {
-            it?.let {
 
-                var i = 0
-                while (i<it.size)
-                {
-                   // LaborPorPEPListar(it[i].Code)
-                    listaEtapa(it[i].Code)
-                    laborPlanificada(it[i].Code)
+            var i = 0
+            while (i<it.size)
+            {
+                laborPlanificada(it[i].Code)
 
-                    i++
-                }
-
+                i++
             }
+            LaborListar()
+
+
+        })
+
+        laborCulturalViewModels.responseLaborPlanificadaResult.observe(this, Observer {
+
+
         })
 
         laborCulturalViewModels.laborResult.observe(this, Observer {
-            it?.let {
-                var i = 0
-                while (i<it.size) {
-                    ListarDetalle(it[i].DocEntry)
-                    i++
-                }
-                LaborListar()
-            }
+         it?.let {
+                    var i = 0
+                    while (i<it.size) {
+                        ListarDetalle(it[i].DocEntry)
+                        i++
+                    }
+
+         }
         })
-        laborCulturalViewModels.laborResult.observe(this, Observer {
+        laborCulturalViewModels.laborPorCodeResult.observe(this, Observer {
+            LaboresListar()
+
+        })
+
+        personalViewModels.laborResult.observe(this, Observer {
             it?.let {
+
+
                 pgbDatos.visibility = View.GONE
                 ivPersonalCheck.visibility = View.VISIBLE
                 btnSincronizacion.isEnabled = true
                 btnSincronizacion.setBackgroundResource(R.drawable.btn_personal_guardar)
                 pref.saveString(Constants.SINCRONIZACION, "TRUE")
 
+            }
+        })
 
-            }
-        })
-        personalViewModels.messageResult.observe(this, Observer {
-            it?.let {
-                pgbDatos.visibility = View.GONE
-                pref.saveString(Constants.MESSAGE_ALERT, it.toString())
-                startActivity(Intent(this@Sincronizacion, AlertActivity::class.java))
-            }
-        })
     }
 }

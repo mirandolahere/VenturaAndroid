@@ -244,7 +244,7 @@ class addLaborCulturalActivity  : AppCompatActivity()  {
 
     }
     private fun EtapaListar() {
-        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listEtapa(it,CodigoPEP,httpCacheDirectory, this) }
+        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listEtapa(it,CodigoCampania,httpCacheDirectory, this) }
     }
 
     fun initViews() {

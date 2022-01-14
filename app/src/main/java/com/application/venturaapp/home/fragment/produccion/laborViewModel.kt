@@ -11,12 +11,7 @@ import com.application.venturaapp.home.fragment.entities.Campania
 import com.application.venturaapp.home.fragment.entities.PEPDato
 import okhttp3.Cache
 import com.application.venturaapp.home.fragment.entities.Sector
-
 import com.application.venturaapp.home.fragment.entities.Fundo
-
-
-
-
 
 class laborViewModel (application: Application) : AndroidViewModel(application)  {
 
@@ -65,6 +60,7 @@ class laborViewModel (application: Application) : AndroidViewModel(application) 
                     messageResult.value = "No se encontraron datos."  //it.mensaje
                 }
             }
+
         }
 
         laborsDataModel.responseFundoLiveData.observeForever {
