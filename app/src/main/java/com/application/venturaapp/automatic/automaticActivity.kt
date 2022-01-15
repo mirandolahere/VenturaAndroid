@@ -25,7 +25,6 @@ import com.application.venturaapp.home.fragment.produccion.laborViewModel
 import com.application.venturaapp.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_automatic.*
 import kotlinx.android.synthetic.main.activity_automatic.etFecha
-import kotlinx.android.synthetic.main.activity_automatic.spEtapa
 import kotlinx.android.synthetic.main.activity_automatic.tbLayout
 import okhttp3.Cache
 import kotlin.collections.ArrayList
@@ -34,11 +33,7 @@ import com.application.venturaapp.laborCultural.entity.LaborCulturalDetalleRespo
 import com.application.venturaapp.laborCultural.entity.VSAGRDPCLResponse
 import com.application.venturaapp.laborCultural.laborCulturaViewModel
 import com.google.gson.JsonObject
-import kotlinx.android.synthetic.main.activity_add_labor_cultural.*
-import kotlinx.android.synthetic.main.activity_automatic.etFin
-import kotlinx.android.synthetic.main.activity_automatic.etInicio
-import kotlinx.android.synthetic.main.activity_automatic.etJornales
-import kotlinx.android.synthetic.main.activity_automatic.etLaborDefecto
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -408,8 +403,9 @@ class automaticActivity : AppCompatActivity() {
                         if(item.Name == Descripcion)
                         {
                             CodeCampania = item.Code
-                            SpinnerEtapa(campaniasList[index].VS_AGR_CAEPCollection)
+                           // SpinnerEtapa(campaniasList[index].VS_AGR_CAEPCollection)
                             SpinnerPEP(campaniasList[index].VS_AGR_CAPPCollection)
+                            etapasList = campaniasList[index].VS_AGR_CAEPCollection as ArrayList<VS_AGR_CAEPCollection>
 
                             break
                         }else{
@@ -429,7 +425,7 @@ class automaticActivity : AppCompatActivity() {
 
 
     }
-    private fun  SpinnerEtapa(vsAgrCaepcollection: List<VS_AGR_CAEPCollection>) {
+  /*  private fun  SpinnerEtapa(vsAgrCaepcollection: List<VS_AGR_CAEPCollection>) {
 
         etapas = ArrayList<String>()
         etapasList = vsAgrCaepcollection as ArrayList<VS_AGR_CAEPCollection>
@@ -477,7 +473,7 @@ class automaticActivity : AppCompatActivity() {
             }
         }
 
-    }
+    } */
     private fun  SpinnerPEP(vsAgrCaepcollection: List<VS_AGR_CAPPCollection>) {
 
         peps = ArrayList<String>()
@@ -570,11 +566,33 @@ class automaticActivity : AppCompatActivity() {
             }
             val selectedDate = dia + "-" + mes + "-" + year
             etFecha.setText(selectedDate)
+            filterEtapa("$year-$mes-$dia")
+
         }
 
         )
 
         newFragment.show(supportFragmentManager, "datePicker")
+
+    }
+
+
+    fun filterEtapa(param: String) {
+
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        format.parse(param)
+        edEtapa.setText("")
+        for( item in etapasList)
+        {
+            if((format.parse(item.U_VS_AGR_FEIP)<= format.parse(param))
+                && (format.parse(param) <= format.parse(item.U_VS_AGR_FEFP)))
+            {
+                CodeEtapa = item.U_VS_AGR_CDEP
+
+                edEtapa.setText(item.U_VS_AGR_DSEP)
+
+            }
+        }
 
     }
 

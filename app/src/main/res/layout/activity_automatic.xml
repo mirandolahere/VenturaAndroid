@@ -72,16 +72,14 @@
             android:text="Etapa de Producción"
             android:textSize="11sp" />
 
-        <Spinner
-            android:id="@+id/spEtapa"
-            style="@style/SpinnerTheme"
+        <EditText
+            android:id="@+id/edEtapa"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/tvEtapa"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/edtx_personal_list"
-            android:drawableEnd="@drawable/ic_date"
-            android:paddingEnd="10dp"
+            android:paddingStart="13sp"
+            android:background="@drawable/edtx_personal_list_disabled"
             android:textColor="@color/marcaHeader"
             android:textSize="13sp"
             android:textStyle="bold" />
@@ -90,7 +88,7 @@
             android:id="@+id/tvFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spEtapa"
+            android:layout_below="@+id/edEtapa"
             android:layout_weight="1"
             android:text="Fecha"
             android:textSize="11sp" />
@@ -100,13 +98,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/tvFecha"
-            android:background="@drawable/edtx_personal_list"
-            android:drawableEnd="@drawable/ic_date"
-            android:paddingEnd="10dp"
-            android:textColor="@color/marcaHeader"
-            android:focusable="false"
-            android:clickable="true"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/edtx_personal_list"
+            android:clickable="true"
+            android:paddingStart="13sp"
+            android:paddingEnd="10sp"
+            android:drawableEnd="@drawable/ic_date"
+            android:focusable="false"
+            android:textColor="@color/marcaHeader"
             android:textSize="13sp"
             android:textStyle="bold" />
 

@@ -29,7 +29,6 @@ import com.application.venturaapp.tables.LaborCulturalRoom
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_add_labor_cultural.*
 import kotlinx.android.synthetic.main.activity_add_labor_cultural.etFecha
-import kotlinx.android.synthetic.main.activity_personal_add.*
 import okhttp3.Cache
 import java.text.ParseException
 import java.text.SimpleDateFormat
