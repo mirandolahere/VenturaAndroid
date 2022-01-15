@@ -26,7 +26,6 @@ import com.application.venturaapp.laborCultural.entity.EtapaProduccionListRespon
 import com.application.venturaapp.laborCultural.entity.LaborCulturalListResponse
 import com.application.venturaapp.preference.PreferenceManager
 import com.application.venturaapp.tables.LaborCulturalRoom
-import com.application.venturaapp.tables.PersonalDatoRoom
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_add_labor_cultural.*
 import kotlinx.android.synthetic.main.activity_add_labor_cultural.etFecha
@@ -101,7 +100,7 @@ class addLaborCulturalActivity  : AppCompatActivity()  {
                     etapa.add(item.U_VS_AGR_DSEP)
                     //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                 }
-                Spinner()
+               // Spinner()
             }
         })
 
@@ -203,7 +202,7 @@ class addLaborCulturalActivity  : AppCompatActivity()  {
         return false
     }
 
-    fun Spinner() {
+   /* fun Spinner() {
         val adapterEtapa = ArrayAdapter(
                 this,
                 R.layout.spinner, etapa
@@ -242,7 +241,7 @@ class addLaborCulturalActivity  : AppCompatActivity()  {
             }
         }
 
-    }
+    } */
     private fun EtapaListar() {
         pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.listEtapa(it,CodigoCampania,httpCacheDirectory, this) }
     }
@@ -325,9 +324,6 @@ class addLaborCulturalActivity  : AppCompatActivity()  {
             }
             if (checkInternet())
             {
-
-
-
                 body.addProperty("U_VS_AGR_CDCA", CodigoCampania)
                 body.addProperty("U_VS_AGR_CDPP", CodigoPEP)
                 body.addProperty("U_VS_AGR_CDEP", CodeEtapa)
@@ -428,13 +424,35 @@ class addLaborCulturalActivity  : AppCompatActivity()  {
             {
                 dia=day.toString()
             }
-            val selectedDate = dia + "-" + mes + "-" + year
+            val selectedDate = "$dia-$mes-$year"
             etFecha.setText(selectedDate)
+            filterEtapa("$year-$mes-$dia")
         }
 
         )
 
         newFragment.show(supportFragmentManager, "datePicker")
+
+    }
+
+    fun filterEtapa(param: String) {
+
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        format.parse(param)
+        spEtapa.setText("")
+        for( item in etapaList)
+        {
+            if((format.parse(item.U_VS_AGR_FEIP)<= format.parse(param))
+                && (format.parse(param) <= format.parse(item.U_VS_AGR_FEFP)))
+            {
+                CodeEtapa = item.U_VS_AGR_CDEP
+                FechaIni = item.U_VS_AGR_FEIP
+                FechaFin = item.U_VS_AGR_FEFP
+
+                spEtapa.setText(item.U_VS_AGR_DSEP)
+
+            }
+        }
 
     }
 

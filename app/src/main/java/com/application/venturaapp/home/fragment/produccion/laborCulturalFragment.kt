@@ -383,6 +383,8 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
     fun lotesListar(){
 
         lotes.clear()
+        lotes.add("Todas")
+
         for(item in lotesCollection){
             if(item.Code == CodeSector){
 
@@ -417,13 +419,18 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                 ) {
 
                     DescripcionLote = lotes.get(position)
+                    Log.d("CodeLote",DescripcionLote)
+                    Log.d("CodeLote",lotesList.toString())
 
                     for( item in lotesList)
                     {
-                        if(item.U_VS_AGR_DSLT == DescripcionSector)
+                        if(item.U_VS_AGR_DSLT == DescripcionLote)
                         {
-                            CodeLote = item.Code
+                            CodeLote = item.U_VS_AGR_CDLT
+                            break
 
+                        } else{
+                            CodeLote = DescripcionLote
                         }
                     }
 
@@ -623,6 +630,7 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
     }
     private fun filter(pep: String, CodeFundo: String, CodeSector: String, CodeLote: String)
     {
+        Log.d("CodeLote",CodeLote)
         val filter: ArrayList<PEPDato> = ArrayList()
 
         for (item in laborLista) {

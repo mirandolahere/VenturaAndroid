@@ -166,17 +166,16 @@
             android:text="Etapa de Producción"
             android:textColor="@color/marcaHeader"
             android:textSize="11sp" />
-        <Spinner
+        <EditText
             android:id="@+id/spEtapa"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/tvVariedad"
             android:layout_marginEnd="5dp"
-            android:background="@drawable/edtx_personal_list"
+            android:background="@drawable/edtx_personal_list_disabled"
             style="@style/SpinnerTheme"
             android:paddingStart="13sp"
-            android:drawableEnd="@drawable/ic_date"
-            android:paddingEnd="10dp"
+            android:gravity="left||center"
             android:textColor="@color/marcaHeader"
             android:layout_marginBottom="10dp"
             android:textSize="13sp"

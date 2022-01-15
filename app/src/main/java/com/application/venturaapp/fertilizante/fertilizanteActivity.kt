@@ -132,6 +132,8 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
             tipoCampania = intent.getSerializableExtra("TIPOCAMPANIA").toString()
             codigoCampania= intent.getSerializableExtra("CODIGOCAMPANIA").toString()
             DocEntryPEP = intent.getSerializableExtra("DOCENTRYPEP").toString()
+        CODARTIUCLO = intent.getSerializableExtra("ARTICULO").toString()
+        DESCRIPCIONARTICULO = intent.getSerializableExtra("DESCRIPCION").toString()
 
 
 
@@ -201,11 +203,12 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
                             laborList[i].position =  index
                     }
                 }
-
-                FECHA = laborList[0].U_VS_AGR_FERG
-                CODARTIUCLO = laborList[0].U_VS_AGR_CDAT
-                DESCRIPCIONARTICULO = laborList[0].U_VS_AGR_DSAT
-                ALMACEN = laborList[0].U_VS_AGR_CDAL
+                if(laborList.size>0) {
+                    FECHA = laborList[0].U_VS_AGR_FERG
+                    /*  CODARTIUCLO = laborList[0].U_VS_AGR_CDAT
+                      DESCRIPCIONARTICULO = laborList[0].U_VS_AGR_DSAT*/
+                      ALMACEN = laborList[0].U_VS_AGR_CDAL
+                }
 
 
                 /* Spinner()*/

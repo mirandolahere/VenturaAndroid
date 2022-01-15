@@ -2,6 +2,7 @@ package com.application.venturaapp.fertilizante
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -24,6 +25,7 @@ import com.application.venturaapp.fitosanitario.entity.UnidadMedida
 import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
 import com.application.venturaapp.helper.AlertActivity
 import com.application.venturaapp.helper.Constants
+import com.application.venturaapp.helper.DatePickerFragment
 import com.application.venturaapp.helper.TipoDocumento
 import com.application.venturaapp.home.fragment.entities.LaboresPersonal
 import com.application.venturaapp.home.fragment.entities.PersonalDato
@@ -46,7 +48,6 @@ import kotlinx.android.synthetic.main.activity_cosecha_articulo.etLaborDefecto
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.pgbLaborRealizada
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.rlButton
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.rlLaborPersonal
-import kotlinx.android.synthetic.main.activity_personal_add.*
 import okhttp3.Cache
 import java.util.*
 import kotlin.collections.ArrayList
@@ -266,7 +267,40 @@ class cosechaAgregarActivity   : AppCompatActivity() {
             }
         }
 
+        etFecha.setOnClickListener {
+            showDatePickerDialog()
+        }
+
         setCabecera()
+
+    }
+    private fun showDatePickerDialog() {
+        val newFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            // +1 because January is zero
+            var mes = ""
+            var dia =""
+            if(month<9)
+            {
+                mes = "0"+ (month+1)
+            }else
+            {
+                mes = (month+1).toString()
+            }
+
+            if(day<10)
+            {
+                dia ="0"+day
+            }else
+            {
+                dia=day.toString()
+            }
+            val selectedDate = dia + "-" + mes + "-" + year
+            etFecha.setText(selectedDate)
+        }
+
+        )
+
+        newFragment.show(supportFragmentManager, "datePicker")
 
     }
     fun listaCosecha(){
@@ -439,16 +473,16 @@ class cosechaAgregarActivity   : AppCompatActivity() {
         val body = JsonObject()
         val bodyDetalle = JsonObject()
         var bodyArray = JsonArray()
-        body.addProperty("U_VS_AGR_CDCA", it[0].U_VS_AGR_CDCA)
-        body.addProperty("U_VS_AGR_CDPP", it[0].U_VS_AGR_CDPP)
-        body.addProperty("U_VS_AGR_FERG", it[0].U_VS_AGR_FERG)
+        body.addProperty("U_VS_AGR_CDCA", CodeCampania)
+        body.addProperty("U_VS_AGR_CDPP", CodigoPEP)
+        body.addProperty("U_VS_AGR_FERG", etFecha.text.toString())
         body.addProperty("U_VS_AGR_CDEP", it[0].U_VS_AGR_CDEP)
         body.addProperty("U_VS_AGR_CDAT", it[0].U_VS_AGR_CDAT)
         body.addProperty("U_VS_AGR_DSAT", it[0].U_VS_AGR_DSAT)
         body.addProperty("U_VS_AGR_CDAL", it[0].U_VS_AGR_CDAL)
         body.addProperty("U_VS_AGR_UMAT", CodigoMedida)
         body.addProperty("U_VS_AGR_TOAL", etCantidadRef.text.toString())
-        body.addProperty("U_VS_AGR_TOAT", it[0].U_VS_AGR_TOAT)
+        body.addProperty("U_VS_AGR_TOAT", etTotalAprox.text.toString())
         body.addProperty("U_VS_AGR_CLAS", idTipoOperacion)
         if(Estado == "2"){
 

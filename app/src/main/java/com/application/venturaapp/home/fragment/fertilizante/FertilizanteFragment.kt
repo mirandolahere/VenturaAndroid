@@ -111,6 +111,9 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
         intent.putExtra("VARIEDAD",labor.U_VS_AGR_CDVA)
         intent.putExtra("TIPOCAMPANIA",tipoCampania)
         intent.putExtra("DOCENTRYPEP",labor.U_VS_AGR_DEOF)
+        intent.putExtra("ARTICULO",labor.U_VS_AGR_CDAT)
+        intent.putExtra("DESCRIPCION",labor.U_VS_AGR_DSAT)
+
 
         startActivityForResult(intent, REQUEST_ACTIVITY_FRAGMENT )
     }
@@ -380,7 +383,11 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
                         {
                             CodeSector = item.Code
                             lotesListar()
+                            break
 
+                        }
+                        else{
+                            CodeSector = DescripcionSector
                         }
                     }
 
@@ -397,6 +404,8 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
     fun lotesListar(){
 
         lotes.clear()
+        lotes.add("Todas")
+
         for(item in lotesCollection){
             if(item.Code == CodeSector){
 
@@ -434,10 +443,13 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
 
                     for( item in lotesList)
                     {
-                        if(item.U_VS_AGR_DSLT == DescripcionSector)
+                        if(item.U_VS_AGR_DSLT == DescripcionLote)
                         {
-                            CodeLote = item.Code
+                            CodeLote = item.U_VS_AGR_CDLT
+                            break
 
+                        } else{
+                            CodeLote = DescripcionLote
                         }
                     }
 
@@ -522,8 +534,10 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
                         if(item.Name == Descripcion)
                         {
                             CodeCampania = item.Code
-                            Log.d("JSONPERSONAL",CodeCampania)
+                            break
 
+                        }else{
+                            CodeCampania = Descripcion
                         }
                     }
                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
@@ -554,7 +568,10 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
                         {
                             CodeFundo = item.Code
                             sectorListar()
+                            break
 
+                        }else{
+                            CodeFundo = DescripcionFundo
                         }
                     }
                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)

@@ -153,7 +153,7 @@ class HomeActivity : AppCompatActivity() {
             setFragment(laborCulturalFragment())
             home_ventura.closeDrawers()
         }
-        tvFitosanitario.setOnClickListener { //consumo de insumos
+      /*  tvFitosanitario.setOnClickListener { //consumo de insumos
 
             setFragment(FitosanitarioFragment())
             home_ventura.closeDrawers()
@@ -162,7 +162,7 @@ class HomeActivity : AppCompatActivity() {
 
             setFragment(MaquinariaFragment())
             home_ventura.closeDrawers()
-        }
+        }*/
 
         tvFertilizantes.setOnClickListener { //cosecha
 
