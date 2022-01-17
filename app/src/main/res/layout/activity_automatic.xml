@@ -151,7 +151,12 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/llDinamic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/llSelection">
     <LinearLayout
                     android:id="@+id/llPep"
                     android:layout_width="match_parent"
@@ -388,20 +393,44 @@
                     </LinearLayout>
 
                 </LinearLayout>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAutomatic"
+    <LinearLayout
+        android:id="@+id/llDistribucion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/btn_personal_guardar"
-        android:text="Guardar"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:paddingTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/llDinamic">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDistribucion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/llTipoEmpleado"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="80dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/llDistribucion">
+        <Button
+            android:id="@+id/btnAutomatic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_personal_guardar"
+            android:text="Guardar"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
