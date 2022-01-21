@@ -39,7 +39,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_automatic.*
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.*
-import kotlinx.android.synthetic.main.activity_cosecha_articulo.addPep
+import kotlinx.android.synthetic.main.activity_cosecha_articulo.addLote
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.etCampania
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.etCodigoPEP
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.etEtapa
@@ -90,7 +90,7 @@ class cosechaAgregarActivity   : AppCompatActivity() {
 
 
     var pepList  = arrayListOf<VS_AGR_CAPPCollection>()
-    var CodePEP: String = ""
+    var CodeLote: String = ""
     var pepListSelected  = arrayListOf<VS_AGR_CAPPCollection>()
     var epListSelected = arrayListOf<VS_AGR_CAPPCollection>()
     var labListSelected = arrayListOf<LaborCulturalDetalleResponse>()
@@ -681,20 +681,23 @@ class cosechaAgregarActivity   : AppCompatActivity() {
 
     }
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun setUpViews() {
         rlLaborPersonal.setOnClickListener {
             hideSoftKeyboard()
         }
-        addPep.setOnClickListener {
+        addLote.setOnClickListener {
             for(item in pepList ){
-                if(CodePEP == item.U_VS_AGR_CDPP){
+                if(CodeLote == item.U_VS_AGR_CDLT){
                     pepListSelected.add(item)
                 }
             }
             tbLayout.removeAllViews()
             tableDinamica(pepListSelected)
+        }
+
+        etFechaLote.setOnClickListener {
+            showDatePickerDialog()
         }
 
         btnCosecha.setOnClickListener {

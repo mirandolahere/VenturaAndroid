@@ -33,6 +33,10 @@ import com.application.venturaapp.laborCultural.entity.LaborCulturalDetalleRespo
 import com.application.venturaapp.laborCultural.entity.VSAGRDPCLResponse
 import com.application.venturaapp.laborCultural.laborCulturaViewModel
 import com.google.gson.JsonObject
+import kotlinx.android.synthetic.main.activity_automatic.addPep
+import kotlinx.android.synthetic.main.activity_automatic.etJornales
+import kotlinx.android.synthetic.main.activity_automatic.etLaborDefecto
+import kotlinx.android.synthetic.main.activity_cosecha_articulo.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -181,6 +185,11 @@ class automaticActivity : AppCompatActivity() {
         etFecha.setOnClickListener {
             showDatePickerDialog()
         }
+
+        etFechaLote.setOnClickListener {
+            showDatePickerDialog()
+        }
+
         llPepSelection.setOnClickListener {
             llPep.visibility = View.VISIBLE
             llLabores.visibility = View.GONE

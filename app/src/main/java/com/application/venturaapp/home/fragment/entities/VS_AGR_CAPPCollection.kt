@@ -36,4 +36,5 @@ data class VS_AGR_CAPPCollection (
         val U_VS_AGR_DEOF: Int,
         @SerializedName("U_VS_AGR_DNOF")
         val U_VS_AGR_DNOF: Int,
+
 )
