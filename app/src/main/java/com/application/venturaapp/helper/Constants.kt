@@ -15,6 +15,13 @@ object Constants {
     val VERSION = "VERSION"
     val SESSIONID = "SESSIONID"
     val B1SESSIONID = "B1SESSIONID"
+
+    val URL = "URL"
+    val PUERTO = "PUERTO"
+    val COMPANYDB = "COMPANYDB"
+    val USER = "USER"
+    val PASSWORD = "PASSWORD"
+
     val SINCRONIZACION = "SINCRONIZACION"
     val MESSAGE_ALERT = "MESSAGE_ALERT"
     val OBJECTPERSONA = "OBJECTPERSONA"

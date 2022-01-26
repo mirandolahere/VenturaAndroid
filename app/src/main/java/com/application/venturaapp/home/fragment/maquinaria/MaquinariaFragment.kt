@@ -205,7 +205,11 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
         })
         laborViewModels.codeResult.observe(this, Observer {
             it?.let {
-                viewModel.LoginGeneral()
+                viewModel.LoginGeneral( pref.getString(Constants.URL)!!,
+                    pref.getString(Constants.PUERTO)!!,
+                    pref.getString(Constants.COMPANYDB)!!,
+                    pref.getString(Constants.USER)!!,
+                    pref.getString(Constants.PASSWORD)!!)
 
             }
         })

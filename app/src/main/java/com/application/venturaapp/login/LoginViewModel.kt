@@ -80,9 +80,9 @@ class LoginViewModel : ViewModel() {
     fun ActualizarUsuario(token: String, code: String, json: JsonObject) {
         ActualizarUsuarioTask(this, token, code,json ).execute()
     }
-    fun LoginGeneral() {
+    fun LoginGeneral(url:String, puerto:String, CompanyDB:String, UserName:String,Password:String) {
         onRetrieveLoginUser()
-        ValidateAndLoginGeneralTask(this).execute()
+        ValidateAndLoginGeneralTask(this,url, puerto, CompanyDB, UserName,Password).execute()
     }
     fun userLoginMemory(session : String,httpCacheDirectory: Cache, context: Context) {
 
@@ -150,7 +150,12 @@ class LoginViewModel : ViewModel() {
         }
     }
     private class ValidateAndLoginGeneralTask internal constructor(
-        private var viewModel: LoginViewModel
+        private var viewModel: LoginViewModel,
+        private var url:String,
+        private var puerto:String,
+        private var CompanyDB:String,
+        private var UserName:String,
+        private var Password:String
 
     )
         : AsyncTask<Void, Void, Boolean>() {
@@ -162,7 +167,7 @@ class LoginViewModel : ViewModel() {
         override fun onPostExecute(aBoolean: Boolean?) {
             super.onPostExecute(aBoolean)
             if (aBoolean == true)
-                viewModel.loginDataModel.loginUser()
+                viewModel.loginDataModel.loginUser(url , puerto, CompanyDB,UserName,Password)
             else
                 viewModel.messageResult.setValue("No tienes acceso a internet")
         }

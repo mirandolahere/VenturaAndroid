@@ -1,4 +1,5 @@
 package com.application.venturaapp.fertilizante
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
@@ -253,8 +254,13 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
             startActivityForResult(intent, REQUEST_ACTIVITY)
         }
         etBuscador.setOnClickListener {
-            fecha()
+            if(etBuscador.text.toString()=="")
+                     fecha()
+            else {
+                etBuscador.setText("")
+                etBuscador.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_calendar,0)
 
+            }
         }
             llCabecera.setOnClickListener {
             when(tvCampania.visibility)
@@ -283,6 +289,7 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
 
         }
     }
+    @SuppressLint("ResourceType")
     fun fecha(){
         val mcurrentTime: Calendar = Calendar.getInstance()
         Intrinsics.checkNotNullExpressionValue(mcurrentTime, "Calendar.getInstance()")
@@ -306,6 +313,7 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
             etBuscador.setText(
                 fechaBusqueda
             )
+            etBuscador.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_clear,0)
             if (!Intrinsics.areEqual(
                     fechaBusqueda,
                     ""

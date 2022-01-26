@@ -394,7 +394,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                                 "",
                                 "AP",
                                 etJornales.text.toString().toInt(),
-                                extra
+                                extra.toFloat()
                             )
 
                         }

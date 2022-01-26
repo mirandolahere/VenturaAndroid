@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.application.venturaapp.fitosanitario.entity.UnidadMedida
 import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
+import com.application.venturaapp.fitosanitario.entity.ValidarLote
 import com.application.venturaapp.helper.ErrorBody
 import com.application.venturaapp.home.fragment.entities.*
 import com.application.venturaapp.laborCultural.entity.*
@@ -47,6 +48,10 @@ class laborCulturalDataModel () {
     val responseCosechaLiveData = MutableLiveData<List<VSAGRRCOS>>()
     val responseAddCosechaLiveData = MutableLiveData<VSAGRRCOS>()
     val responseDeleteCosechaLiveData = MutableLiveData<String>()
+
+
+    val ValidacionLote = MutableLiveData<String>()
+    val codeError = MutableLiveData<Int>()
 
 
     val validateForPEP =  arrayListOf<LaborCulturalListResponse>()
@@ -161,6 +166,35 @@ class laborCulturalDataModel () {
         })
     }
 
+    fun existeLote(sessionid :String,articulo:String, httpCacheDirectory: Cache, context: Context) {
+        val call =  RetrofitClient.getApiService(httpCacheDirectory, context)?.ValidarLote(sessionid, articulo)
+        call?.enqueue(object : Callback<ValidarLote> {
+            override fun onResponse(call: Call<ValidarLote> , response: Response<ValidarLote> ) {
+                if (response.isSuccessful) {
+
+                    ValidacionLote.value = response.body()?.value
+
+                } else {
+                    var json = Gson().fromJson(response.errorBody()?.string(), ErrorBody::class.java)
+
+                    if(json.error.code==301)
+                    {
+                        codeError.value = json.error.code
+
+                    }else {
+                        messageLiveData.value = response.message()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ValidarLote> , t: Throwable) {
+                t.printStackTrace()
+                messageLiveData.value = "Falla en la conexión"
+            }
+        })
+    }
+
+
     fun laboresPlanificadas(sessionid :String, code: String, etapa :String?, httpCacheDirectory: Cache, context: Context) {
         val call =  RetrofitClient.getApiService(httpCacheDirectory, context)?.laboresPlanificadas(sessionid,"odata.maxpagesize=200")
         call?.enqueue(object : Callback<PersonalResponse<VSAGRPCULResponse>> {
@@ -238,7 +272,7 @@ class laborCulturalDataModel () {
 
             override fun onFailure(call: Call<LaborCulturalPEPResponse>, t: Throwable) {
                 t.printStackTrace()
-                messageLiveData.value = "Falla en la conexión"
+                    messageLiveData.value = "Falla en la conexión"
             }
         })
     }

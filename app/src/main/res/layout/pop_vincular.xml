@@ -167,8 +167,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/rlDatos"
-        android:layout_marginTop="25dp"
         android:layout_marginLeft="20sp"
+        android:layout_marginTop="25dp"
         android:layout_marginRight="20sp"
         android:background="@drawable/btn_login"
         android:isScrollContainer="true"
@@ -177,17 +177,17 @@
         android:textColor="#fff" />
 
     <Button
-        android:id="@+id/btnVincular"
+        android:id="@+id/btnEstado"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_below="@+id/btnValidar"
+        android:layout_marginTop="30dp"
         android:background="@drawable/btn_vincular"
         android:isScrollContainer="true"
-        android:layout_marginTop="30dp"
-        android:text="Conectado"
-        android:textSize="22sp"
+        android:text="No Conectado"
         android:textAllCaps="false"
         android:textColor="#fff"
-        android:layout_below="@+id/btnValidar" />
+        android:textSize="22sp" />
 
     <ProgressBar
         android:id="@+id/pgbLaborRealizada"

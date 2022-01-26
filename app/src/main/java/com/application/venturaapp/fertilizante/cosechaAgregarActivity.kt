@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.application.venturaapp.R
 import com.application.venturaapp.fitosanitario.entity.UnidadMedida
 import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
+import com.application.venturaapp.fitosanitario.entity.VS_AGR_DSCOCollection
 import com.application.venturaapp.helper.AlertActivity
 import com.application.venturaapp.helper.Constants
 import com.application.venturaapp.helper.DatePickerFragment
@@ -39,7 +40,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_automatic.*
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.*
-import kotlinx.android.synthetic.main.activity_cosecha_articulo.addLote
+import kotlinx.android.synthetic.main.activity_cosecha_articulo.addPep
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.etCampania
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.etCodigoPEP
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.etEtapa
@@ -49,6 +50,8 @@ import kotlinx.android.synthetic.main.activity_cosecha_articulo.etLaborDefecto
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.pgbLaborRealizada
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.rlButton
 import kotlinx.android.synthetic.main.activity_cosecha_articulo.rlLaborPersonal
+import kotlinx.android.synthetic.main.activity_cosecha_articulo.tbLayout
+import kotlinx.android.synthetic.main.activity_registro_fitosanitario.*
 import okhttp3.Cache
 import java.util.*
 import kotlin.collections.ArrayList
@@ -71,7 +74,7 @@ class cosechaAgregarActivity   : AppCompatActivity() {
 
     private var idTipoOperacion = ""
 
-
+    private var listLotes = arrayListOf<VS_AGR_DSCOCollection>()
     private var DocEntry:Int? = 0
     val codeList = ArrayList<String>()
     lateinit var personalViewModels: personalViewModel
@@ -87,16 +90,6 @@ class cosechaAgregarActivity   : AppCompatActivity() {
     var  json=""
     private val REQUEST_ACTIVITY = 100
     private val REQUEST_ACTIVITY_BUSCAR = 101
-
-
-    var pepList  = arrayListOf<VS_AGR_CAPPCollection>()
-    var CodeLote: String = ""
-    var pepListSelected  = arrayListOf<VS_AGR_CAPPCollection>()
-    var epListSelected = arrayListOf<VS_AGR_CAPPCollection>()
-    var labListSelected = arrayListOf<LaborCulturalDetalleResponse>()
-
-    var laborListSelected  = arrayListOf<LaborCulturalDetalleResponse>()
-
     var nombre =""
     var labor =""
     var dni =""
@@ -120,6 +113,7 @@ class cosechaAgregarActivity   : AppCompatActivity() {
         laborViewModels = ViewModelProviders.of(this).get(laborCulturaViewModel::class.java)
         personalViewModels = ViewModelProviders.of(this).get(personalViewModel::class.java)
         initViews()
+        ExisteLote()
         SpinnerOperacion()
         ListarUnidad()
         setUpViews()
@@ -128,8 +122,18 @@ class cosechaAgregarActivity   : AppCompatActivity() {
       /*  setUpViews()*/
         setUpObservers()
 
+
         // setUpObservers()
 
+    }
+    fun ExisteLote()
+    {
+        pref.getString(Constants.B1SESSIONID)?.let { laborViewModels.ExisteLote(
+            it,
+            CODARTIUCLO,
+            httpCacheDirectory,
+            this
+        ) }
     }
     fun ListarUnidad(){
 
@@ -277,15 +281,165 @@ class cosechaAgregarActivity   : AppCompatActivity() {
 
             }
         }
-
         etFecha.setOnClickListener {
+            showDatePickerDialogHead()
+        }
+        etFechaLote.setOnClickListener {
             showDatePickerDialog()
+        }
+
+
+        addPep.setOnClickListener {
+            listTable()
+            tbLayout.removeAllViews()
+            tableDinamica(listLotes)
         }
 
         setCabecera()
 
     }
+
+    @SuppressLint("ResourceAsColor")
+    fun tableDinamica(pepListSelected: ArrayList<VS_AGR_DSCOCollection>)
+    {
+        var tableTipo = TableLayout(this)
+        tableTipo.removeAllViews()
+
+        tableTipo.setLayoutParams(LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT))
+        tableTipo.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
+        tableTipo.setPadding(10, 5, 10, 5)
+
+        var index = 0
+        var item = 0
+        var row =0
+        var prueba = false
+
+        while(index<pepListSelected.size)
+        {
+            var tipoMenu = TableRow(this)
+            tipoMenu.setLayoutParams(
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT))
+
+            tipoMenu.setPadding(10, 5, 10, 5)
+            while (item <= 5) {
+                if (item == 0) {
+                    var texto = TextView(this)
+                    texto.setLayoutParams(
+                        TableRow.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
+                    texto.setText(pepListSelected.get(index).U_VS_AGR_CDLT)
+                    texto.setPadding(0, 0, 0, 0)
+                    texto.setTextColor(R.color.black)
+                    texto.textSize = 10F
+                    texto.setTypeface(null, Typeface.BOLD)
+                    texto.gravity = Gravity.LEFT
+                    texto.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
+                    tipoMenu.addView(texto)
+                }
+
+                if (item == 1) {
+                    var texto2 = TextView(this)
+                    texto2.setLayoutParams(
+                        TableRow.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
+                    texto2.setText(pepListSelected.get(index).U_VS_AGR_TOAT.toString())
+                    texto2.setPadding(0, 0, 0, 0)
+                    texto2.setTypeface(null, Typeface.BOLD)
+                    texto2.gravity = Gravity.CENTER_HORIZONTAL
+                    texto2.textSize = 10F
+                    texto2.setTextColor(R.color.black)
+                    texto2.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
+                    tipoMenu.addView(texto2)
+
+                }
+
+                if (item == 2) {
+                    var texto3 = TextView(this)
+                    texto3.setLayoutParams(
+                        TableRow.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
+                    texto3.setText(pepListSelected.get(index).U_VS_AGR_FEVC)
+                    texto3.setPadding(0, 0, 0, 0)
+                    texto3.setTextColor(R.color.black)
+                    texto3.setTypeface(null, Typeface.BOLD)
+                    texto3.gravity = Gravity.CENTER_HORIZONTAL
+                    texto3.textSize = 10F
+                    texto3.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
+                    tipoMenu.addView(texto3)
+
+                }
+                if (item == 3) {
+                    var texto3 = TextView(this)
+                    texto3.setLayoutParams(
+                        TableRow.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
+                    texto3.setText(pepListSelected.get(index).U_VS_AGR_COMN)
+                    texto3.setPadding(0, 0,0, 0)
+                    texto3.setTextColor(R.color.black)
+                    texto3.setTypeface(null, Typeface.BOLD)
+                    texto3.gravity = Gravity.CENTER_HORIZONTAL
+                    texto3.textSize = 10F
+                    texto3.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
+                    tipoMenu.addView(texto3)
+
+                }
+
+                item++
+
+            }
+
+
+            index++
+            item=0
+            tableTipo.addView(tipoMenu);
+
+        }
+        tbLayout.addView(tableTipo)
+
+    }
+    fun listTable(){
+        var item = VS_AGR_DSCOCollection(0, 1, "", 0, etLote.text.toString(),
+            etTotalKg.text.toString().toDouble(), etFechaLote.text.toString(), etComment.text.toString(), "" )
+        listLotes.add(item)
+    }
+
     private fun showDatePickerDialog() {
+        val newFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            // +1 because January is zero
+            var mes = ""
+            var dia =""
+            if(month<9)
+            {
+                mes = "0"+ (month+1)
+            }else
+            {
+                mes = (month+1).toString()
+            }
+
+            if(day<10)
+            {
+                dia ="0"+day
+            }else
+            {
+                dia=day.toString()
+            }
+            val selectedDate = dia + "-" + mes + "-" + year
+            etFechaLote.setText(selectedDate)
+        }
+
+        )
+
+        newFragment.show(supportFragmentManager, "datePicker")
+
+    }
+
+    private fun showDatePickerDialogHead() {
         val newFragment = DatePickerFragment.newInstance(DatePickerDialog.OnDateSetListener { _, year, month, day ->
             // +1 because January is zero
             var mes = ""
@@ -371,6 +525,23 @@ class cosechaAgregarActivity   : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setUpObservers(){
+
+        laborViewModels.ValidacionLote.observe(this, Observer {
+            it?.let {
+                Log.d("pasos",it)
+
+                if(it=="tNO")
+                {
+                    llOcultar.visibility=View.GONE
+                }
+                else
+                {
+                    llOcultar.visibility=View.VISIBLE
+                }
+
+
+            }
+        })
 
         laborViewModels.responseAddCosechaResult.observe(this, Observer {
             it?.let { it1 ->
@@ -539,167 +710,11 @@ class cosechaAgregarActivity   : AppCompatActivity() {
 
 
     }
-
-    @SuppressLint("ResourceAsColor")
-    fun tableDinamica(pepListSelected: ArrayList<VS_AGR_CAPPCollection>)
-    {
-        var tableTipo = TableLayout(this)
-        tableTipo.removeAllViews()
-
-        tableTipo.setLayoutParams(LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT))
-        tableTipo.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
-        tableTipo.setPadding(10, 5, 10, 5)
-
-        var index = 0
-        var item = 0
-        var row =0
-        var prueba = false
-
-        while(index<pepListSelected.size)
-        {
-            var tipoMenu = TableRow(this)
-            tipoMenu.setLayoutParams(
-                ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT))
-
-            tipoMenu.setPadding(10, 5, 10, 5)
-            while (item <= 5) {
-                if (item == 0) {
-                    var texto = TextView(this)
-                    texto.setLayoutParams(
-                        TableRow.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
-                    texto.setText(pepListSelected.get(index).U_VS_AGR_DSPP)
-                    texto.setPadding(0, 0, 0, 0)
-                    texto.setTextColor(R.color.black)
-                    texto.textSize = 10F
-                    texto.setTypeface(null, Typeface.BOLD)
-                    texto.gravity = Gravity.LEFT
-                    texto.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
-                    tipoMenu.addView(texto)
-                }
-
-                if (item == 1) {
-                    var texto2 = TextView(this)
-                    texto2.setLayoutParams(
-                        TableRow.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
-                    texto2.setText(pepListSelected.get(index).U_VS_AGR_DSFD)
-                    texto2.setPadding(0, 0, 0, 0)
-                    texto2.setTypeface(null, Typeface.BOLD)
-                    texto2.gravity = Gravity.CENTER_HORIZONTAL
-                    texto2.textSize = 10F
-                    texto2.setTextColor(R.color.black)
-                    texto2.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
-                    tipoMenu.addView(texto2)
-
-                }
-
-                if (item == 2) {
-                    var texto3 = TextView(this)
-                    texto3.setLayoutParams(
-                        TableRow.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
-                    texto3.setText(pepListSelected.get(index).U_VS_AGR_DSSC)
-                    texto3.setPadding(0, 0, 0, 0)
-                    texto3.setTextColor(R.color.black)
-                    texto3.setTypeface(null, Typeface.BOLD)
-                    texto3.gravity = Gravity.CENTER_HORIZONTAL
-                    texto3.textSize = 10F
-                    texto3.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
-                    tipoMenu.addView(texto3)
-
-                }
-                if (item == 3) {
-                    var texto3 = TextView(this)
-                    texto3.setLayoutParams(
-                        TableRow.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
-                    texto3.setText(pepListSelected.get(index).U_VS_AGR_DSLT)
-                    texto3.setPadding(0, 0,0, 0)
-                    texto3.setTextColor(R.color.black)
-                    texto3.setTypeface(null, Typeface.BOLD)
-                    texto3.gravity = Gravity.CENTER_HORIZONTAL
-                    texto3.textSize = 10F
-                    texto3.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
-                    tipoMenu.addView(texto3)
-
-                }
-                if (item == 4) {
-                    var texto3 = TextView(this)
-                    texto3.setLayoutParams(
-                        TableRow.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.2f))
-                    texto3.setText(pepListSelected.get(index).U_VS_AGR_DNOF.toString())
-                    texto3.setPadding(0, 0, 0, 0)
-                    texto3.setTextColor(R.color.black)
-                    texto3.setTypeface(null, Typeface.BOLD)
-                    texto3.gravity = Gravity.CENTER_HORIZONTAL
-                    texto3.textSize = 10F
-                    texto3.setBackgroundResource(R.drawable.edtx_personal_list_disabled)
-                    tipoMenu.addView(texto3)
-
-                }
-                if (item == 5) {
-                    var image = ImageView(this)
-                    image.setLayoutParams(
-                        TableRow.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, 0.4f))
-                    image.setPadding(10, 0, 10, 0)
-                    image.setBackgroundResource(R.drawable.ic_delete)
-
-                    image.layoutParams.width = 20
-                    image.layoutParams.height = 40
-
-                    tipoMenu.addView(image)
-                    image.setOnClickListener(View.OnClickListener { v ->
-                        // Current Row Index
-                        val row = v.parent as TableRow
-                        val index: Int = tableTipo.indexOfChild(row)
-
-                        // Do what you need to do.
-                    })
-                }
-                item++
-
-            }
-
-
-            index++
-            item=0
-            tableTipo.addView(tipoMenu);
-
-        }
-        tbLayout.addView(tableTipo)
-
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun setUpViews() {
         rlLaborPersonal.setOnClickListener {
             hideSoftKeyboard()
         }
-        addLote.setOnClickListener {
-            for(item in pepList ){
-                if(CodeLote == item.U_VS_AGR_CDLT){
-                    pepListSelected.add(item)
-                }
-            }
-            tbLayout.removeAllViews()
-            tableDinamica(pepListSelected)
-        }
-
-        etFechaLote.setOnClickListener {
-            showDatePickerDialog()
-        }
-
         btnCosecha.setOnClickListener {
             if(checkInternet()) {
 
@@ -730,6 +745,7 @@ class cosechaAgregarActivity   : AppCompatActivity() {
                                 0,
                                 etCantidadRef.text.toString().toInt()
                             )
+
                             laborViewModels.updateLaborDetalleRoom(detalle)
                             pref.saveString(Constants.MESSAGE_ALERT, "Se actualizó en la memoria interna.")
                             startActivityForResult(

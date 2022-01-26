@@ -1,10 +1,12 @@
 package com.application.venturaapp.login
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -34,6 +36,7 @@ LoginActivity : AppCompatActivity() {
     lateinit var pref: PreferenceManager
     lateinit var httpCacheDirectory : Cache
 
+    @SuppressLint("SetTextI18n", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val cacheSize = (5 * 1024 * 1024).toLong()
@@ -41,6 +44,21 @@ LoginActivity : AppCompatActivity() {
         httpCacheDirectory = Cache(cacheDir, cacheSize)
         setContentView(R.layout.activity_login)
         initParameters()
+        Log.d("PRUEBACONEXION", (pref.getString(Constants.URL)).toString())
+        if(pref.getString(Constants.URL) ==null){
+            btnIngresar.isClickable = false
+            btnVincular.setText("No Conectado")
+            btnVincular.isClickable = true
+            btnVincular.isEnabled = true
+            btnVincular.setBackgroundColor(resources.getColor(R.color.rojoLogOut))
+
+        }else{
+            btnIngresar.isClickable = true
+            btnVincular.setText("Conectado")
+            btnVincular.isClickable = false
+            btnVincular.isEnabled = false
+            btnVincular.setBackgroundColor(resources.getColor(R.color.verdeVentura))
+        }
         if (isUserLogged()) {
             if(pref.getString(Constants.RECC) == "N")
                 launchHome()
@@ -98,7 +116,15 @@ LoginActivity : AppCompatActivity() {
         btnIngresar.setOnClickListener {
             enableViews(false)
             if(checkInternet())
-                viewModel.LoginGeneral()
+                pref.getString(Constants.COMPANYDB)?.let { it1 ->
+                    viewModel.LoginGeneral(
+                        pref.getString(Constants.URL)!!,
+                        pref.getString(Constants.PUERTO)!!,
+                        it1,
+                        pref.getString(Constants.USER)!!,
+                        pref.getString(Constants.PASSWORD)!!
+                    )
+                }
             else {
                 if( pref.getString(Constants.B1SESSIONID)!= null) {
                     pref.getString(Constants.B1SESSIONID)?.let { it1 ->

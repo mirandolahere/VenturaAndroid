@@ -197,10 +197,9 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/edtx_personal_list"
-                android:clickable="true"
                 android:drawableEnd="@drawable/ic_date"
-                android:enabled="false"
                 android:focusable="false"
+                android:clickable="true"
                 android:paddingStart="13sp"
                 android:paddingEnd="10dp"
                 android:textColor="@color/marcaHeader"
@@ -359,241 +358,249 @@
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/llLotes"
+            android:id="@+id/llOcultar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/llGrupoDiez"
-            android:orientation="horizontal"
-            android:paddingTop="15dp">
+            android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/llLotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llGrupoDiez"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp">
 
-            <TextView
-                android:id="@+id/tvTituloLotes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="Distribución de lotes"
-                android:textColor="@color/celesteVentura"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvTituloLotes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Distribución de lotes"
+                        android:textColor="@color/celesteVentura"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/lblLote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTituloLotes"
-            android:orientation="horizontal"
-            android:paddingTop="20dp">
+                <LinearLayout
+                    android:id="@+id/lblLote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTituloLotes"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
 
-            <TextView
-                android:id="@+id/tvLote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/etCultivo"
-                android:layout_weight="1"
-                android:text="Lote"
-                android:textColor="@color/marcaHeader"
-                android:textSize="11sp" />
+                    <TextView
+                        android:id="@+id/tvLote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etCultivo"
+                        android:layout_weight="1"
+                        android:text="Lote"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="11sp" />
 
-            <TextView
-                android:id="@+id/tvTotal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/etFecha"
-                android:layout_weight="1"
-                android:text="Total (Kg)"
-                android:textColor="@color/marcaHeader"
-                android:textSize="11sp" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/etFecha"
+                        android:layout_weight="1"
+                        android:text="Total (Kg)"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="11sp" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llDtLotes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblLote"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/llDtLotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lblLote"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/etLote"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tvFecha"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/edtx_personal_list"
-                android:paddingStart="13sp"
-                android:textColor="@color/marcaHeader"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/etLote"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/tvFecha"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edtx_personal_list"
+                        android:paddingStart="13sp"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etTotalKg"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tvEtapa"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/edtx_personal_list"
-                android:paddingStart="13sp"
-                android:textColor="@color/marcaHeader"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/etTotalKg"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/tvEtapa"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:background="@drawable/edtx_personal_list"
+                        android:paddingStart="13sp"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llGrupoDoce"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llDtLotes"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/llGrupoDoce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llDtLotes"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Fecha de vencimiento"
-                android:textColor="@color/marcaHeader"
-                android:textSize="11sp" />
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fecha de vencimiento"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="11sp" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llEtFechaLote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llGrupoDoce"
-            android:orientation="horizontal"
-            android:weightSum="1">
+                <LinearLayout
+                    android:id="@+id/llEtFechaLote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llGrupoDoce"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
-            <EditText
-                android:id="@+id/etFechaLote"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tvFecha"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/edtx_personal_list"
-                android:clickable="true"
-                android:drawableEnd="@drawable/ic_date"
-                android:paddingStart="13sp"
-                android:paddingEnd="10dp"
-                android:textColor="@color/marcaHeader"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/etFechaLote"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/tvFecha"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/edtx_personal_list"
+                        android:clickable="true"
+                        android:drawableEnd="@drawable/ic_date"
+                        android:focusable="true"
+                        android:paddingStart="13sp"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llGrupoTrece"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llEtFechaLote"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/llGrupoTrece"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llEtFechaLote"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Comentario"
-                android:textColor="@color/marcaHeader"
-                android:textSize="11sp" />
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Comentario"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="11sp" />
+                </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llGrupoCatorce"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llGrupoTrece"
-            android:orientation="horizontal"
-            android:weightSum="1">
+                <LinearLayout
+                    android:id="@+id/llGrupoCatorce"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llGrupoTrece"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
 
-            <EditText
-                android:id="@+id/etComment"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/edtx_personal_list"
-                android:inputType="textCapSentences|textAutoCorrect"
-                android:paddingStart="13sp"
-                android:textColor="@color/marcaHeader"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/addLote"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/btn_login"
-                android:text="Agregar"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textSize="12sp"
-                android:textColor="@color/celesteVentura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Lote"
-                android:layout_weight="1"/>
-            <TextView
-                android:textSize="12sp"
-                android:textColor="@color/celesteVentura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cantidad"
-                android:gravity="center"
-                android:layout_weight="1"/>
-            <TextView
-                android:textSize="12sp"
-                android:textColor="@color/celesteVentura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fecha de vencimiento"
-                android:gravity="center"
-                android:layout_weight="1"/>
-            <TextView
-                android:textSize="12sp"
-                android:textColor="@color/celesteVentura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Comentario"
-                android:gravity="center"
-                android:layout_weight="1"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/llDistribucionLote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvDistribucionLote"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/llTipoEmpleado"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="80dp"/>
+                    <EditText
+                        android:id="@+id/etComment"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edtx_personal_list"
+                        android:paddingStart="13sp"
+                        android:textColor="@color/marcaHeader"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/addPep"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/btn_login"
+                        android:text="Agregar"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/celesteVentura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Lote"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/celesteVentura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cantidad"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/celesteVentura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha de vencimiento"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/celesteVentura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comentario"
+                        android:gravity="center"
+                        android:layout_weight="1"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/tbLayout"
+                        android:background="@drawable/edtx_personal_list_disabled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
         </LinearLayout>
     <LinearLayout
         android:id="@+id/rlButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/llGrupoCatorce"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/llOcultar"
         android:orientation="horizontal"
         android:weightSum="1">
         <Button

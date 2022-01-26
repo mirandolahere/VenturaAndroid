@@ -79,12 +79,12 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
     var estados = arrayListOf<String>()
     var periodos = arrayListOf<String>()
     var hrj = arrayListOf<Int>()
-    var hrx = arrayListOf<Int>()
+    var hrx = arrayListOf<Double>()
     var labores_HRXT = arrayListOf<String>()
 
     var labores = arrayListOf<String>()
     var jornales  = arrayListOf<Int>()
-    var hrs  = arrayListOf<Int>()
+    var hrs  = arrayListOf<Double>()
     var laborDes  = arrayListOf<String>()
 
     var LineId: Int = 0
@@ -328,7 +328,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
             for((index,i )in estados.withIndex())
             {
-                if(hrj[index]!=0 || hrx[index]!=0) {
+                if(hrj[index]!=0 || hrx[index]!=0.0) {
                     for (item in it.ProductionOrderLines) {
 
                         if (i == item.U_VS_AGR_CDRA && item.U_VS_AGR_HRXT=="Y" && item.U_VS_AGR_CDPE ==periodos [index]) {
@@ -377,7 +377,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                             item.DocEntry!!,
                             item.LineId,item.VisOrder,item.Object,item.LogInst,"","","",item.U_VS_AGR_CDLC,item.U_VS_AGR_CDPS,
                             item.U_VS_AGR_HRIN,item.U_VS_AGR_HRFN,item.U_VS_AGR_ESTA,0,item.U_VS_AGR_LNEP,item.U_VS_AGR_ACTV,
-                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOHX)
+                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOHX.toFloat())
                         laborPorCodeDetalleList.add(personal)
                     }
                 }
@@ -386,7 +386,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                 Log.d("ORDEN", "4")
 
                     var jornal:Int=0
-                    var hr :Int = 0
+                    var hr :Double = 0.0
                 Log.d("ORDEN", labores.toString())
                 for(labor in labores)
                 {
@@ -397,7 +397,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
                         if (labor == item.U_VS_AGR_CDLC) {
                             jornal+=item.U_VS_AGR_TOJR
-                            hr+=item.U_VS_AGR_TOHX
+                            hr+=item.U_VS_AGR_TOHX.toDouble()
                         }
 
                     }
@@ -405,7 +405,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                    jornales.add(jornal)
                    hrs.add(hr)
                     jornal = 0
-                    hr = 0
+                    hr = 0.0
                 }
 
 
@@ -435,7 +435,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                             item.DocEntry!!,
                             item.LineId,item.VisOrder,item.Object,item.LogInst,"","","",item.U_VS_AGR_CDLC,item.U_VS_AGR_CDPS,
                             item.U_VS_AGR_HRIN,item.U_VS_AGR_HRFN,item.U_VS_AGR_ESTA,0,item.U_VS_AGR_LNEP,item.U_VS_AGR_ACTV,
-                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOHX)
+                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOHX.toFloat())
                         laborPorCodeDetalleList.add(personal)
                     }
                 }
@@ -469,7 +469,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                 for (item in labores)
                 { var periodo: String = ""
                   var linea = ""
-                    var hr = 0
+                    var hr = 0.0
                     var hj = 0
 
                     for(i in laborPorCodeList.VS_AGR_DCULCollection!!) {
@@ -488,7 +488,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
                         if (i.U_VS_AGR_ESTA == "P" && i.U_VS_AGR_CDLC == item) {
 
-                            hr += i.U_VS_AGR_TOHX
+                            hr += i.U_VS_AGR_TOHX.toDouble()
                             linea = linea+i.LineId + ","
                             hj += i.U_VS_AGR_TOJR
                         }
@@ -510,7 +510,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
                 for((index,i) in estados.withIndex())
                 {
-                    if(hrx[index]!=0) {
+                    if(hrx[index]!=0.0) {
                         for ((ind, item) in verificarList.ProductionOrderLines.withIndex()) {
 
                             if (i == item.U_VS_AGR_CDRA && item.ItemNo == labores_HRXT[index] &&  item.U_VS_AGR_CDPE == periodos[index] && item.U_VS_AGR_HRXT == "Y") {
@@ -729,7 +729,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                     ViewGroup.LayoutParams.WRAP_CONTENT))
 
             tipoMenu.setPadding(10, 0, 0, 0)
-            if(jornales.get(index)!=0 || hrs.get(index)!=0) {
+            if(jornales.get(index)!=0 || hrs.get(index)!=0.0) {
                 while (item <= 3) {
                     if (item == 0) {
                         var texto = TextView(this)

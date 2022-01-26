@@ -178,7 +178,7 @@ class Sincronizacion : AppCompatActivity() {
          it?.let {
                     var i = 0
                     while (i<it.size) {
-                        ListarDetalle(it[i].DocEntry)
+                        ListarDetalle(it[i].DocEntry.toString())
                         i++
                     }
 

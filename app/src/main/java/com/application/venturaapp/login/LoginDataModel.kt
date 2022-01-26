@@ -18,6 +18,7 @@ class LoginDataModel() {
 
     private val TAG = LoginDataModel::class.java.simpleName
     private val loginApiService = RetrofitClient.getApiService()
+
     private val forgetApiService = RetrofitClient.getApiServicePassword()
     val messageUpdateErrorLiveData = MutableLiveData<String>()
     val messageUpdateLiveData = MutableLiveData<String>()
@@ -92,8 +93,8 @@ class LoginDataModel() {
 
         })
     }
-    fun loginUser() {
-        val call = loginApiService?.loginUser(buildJsonBody())
+    fun loginUser(url:String, puerto:String,CompanyDB:String, UserName:String,Password:String ) {
+        val call = RetrofitClient.getApiServiceConfiguration(url,puerto)?.loginUser(buildJsonBody(CompanyDB, UserName,Password ))
         call?.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
@@ -130,11 +131,11 @@ class LoginDataModel() {
         })
     }
 
-    private fun buildJsonBody(): JsonObject {
+    private fun buildJsonBody(CompanyDB:String, UserName:String,Password:String ): JsonObject {
         val inner = JsonObject()
-        inner.addProperty("CompanyDB", "SBO_SANTALUCIA_PRUEBAS")
-        inner.addProperty("UserName", "manager")
-        inner.addProperty("Password", "B1Admin$3")
+        inner.addProperty("CompanyDB", CompanyDB) //"SBO_SANTALUCIA_PRUEBAS"
+        inner.addProperty("UserName", UserName) //"manager"
+        inner.addProperty("Password", Password)//"B1Admin"
 
         val outer = JsonObject()
         outer.add("Parametros", inner)

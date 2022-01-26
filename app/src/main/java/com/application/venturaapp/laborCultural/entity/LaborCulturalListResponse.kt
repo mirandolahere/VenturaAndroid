@@ -23,7 +23,7 @@ data class LaborCulturalListResponse(
         @SerializedName("Remark")
         val Remark: String,
         @SerializedName("DocEntry")
-        val DocEntry: String,
+        val DocEntry: Int,
         @SerializedName("Canceled")
         val Canceled: String,
         @SerializedName("Object")
@@ -31,7 +31,7 @@ data class LaborCulturalListResponse(
         @SerializedName("LogInst")
         val LogInst: String,
         @SerializedName("UserSign")
-        val UserSign: String,
+        val UserSign: Int,
         @SerializedName("Transfered")
         val Transfered: String,
         @SerializedName("CreateDate")

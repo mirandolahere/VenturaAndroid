@@ -78,6 +78,7 @@
             android:layout_below="@+id/tvEtapa"
             android:layout_marginBottom="10dp"
             android:paddingStart="13sp"
+            android:enabled="false"
             android:background="@drawable/edtx_personal_list_disabled"
             android:textColor="@color/marcaHeader"
             android:textSize="13sp"

@@ -45,5 +45,5 @@ data class LaborCulturalDetalleResponse(
         @SerializedName("U_VS_AGR_TOJR")
         val U_VS_AGR_TOJR: Int,
         @SerializedName("U_VS_AGR_TOHX")
-        val U_VS_AGR_TOHX: Int
+        val U_VS_AGR_TOHX: Float
 )

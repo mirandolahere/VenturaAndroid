@@ -69,7 +69,11 @@ class NetworkOnActivity   : AppCompatActivity() {
     }
     fun initViews() {
         personalViewModels = ViewModelProviders.of(this).get(personalViewModel::class.java)
-        viewModel.LoginGeneral()
+        viewModel.LoginGeneral(pref.getString(Constants.URL)!!,
+            pref.getString(Constants.PUERTO)!!,
+            pref.getString(Constants.COMPANYDB)!!,
+            pref.getString(Constants.USER)!!,
+            pref.getString(Constants.PASSWORD)!!)
 
 
     }
@@ -264,7 +268,7 @@ class NetworkOnActivity   : AppCompatActivity() {
    fun setUpObservers(){
        laborViewModels.laborResponseResult.observe(this, Observer {
            pref.getString(Constants.B1SESSIONID)?.let { it1->laborViewModels.listaDetalleLaborCultural(it1,
-               it.DocEntry,
+               it.DocEntry.toString(),
                httpCacheDirectory,this) }
 
        }
@@ -300,7 +304,7 @@ class NetworkOnActivity   : AppCompatActivity() {
                            "",
                            "AP",
                            items.U_VS_AGR_TOJR,
-                           items.U_VS_AGR_TOHX
+                           items.U_VS_AGR_TOHX.toFloat()
                        )
 
                    }

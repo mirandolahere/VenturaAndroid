@@ -209,14 +209,15 @@
             </LinearLayout>
         </RelativeLayout>
     </TableLayout>
+
     <Button
-        android:textSize="18dp"
-        android:textColor="@android:color/white"
         android:id="@+id/btn_logout"
-        android:background="@color/rojoLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cerrar sesión"
         android:layout_alignParentBottom="true"
-        android:textAllCaps="false"/>
+        android:background="@color/rojoLogOut"
+        android:text="Cerrar sesión"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18dp" />
 </RelativeLayout>

@@ -215,8 +215,10 @@ class automaticActivity : AppCompatActivity() {
 
         addPep.setOnClickListener {
             for(item in pepList ){
-                if(CodePEP == item.U_VS_AGR_CDPP){
-                    pepListSelected.add(item)
+                for(select in pepListSelected) {
+                    if (CodePEP == item.U_VS_AGR_CDPP && select.U_VS_AGR_CDPP != CodePEP) {
+                        pepListSelected.add(item)
+                    }
                 }
             }
             tbLayout.removeAllViews()
@@ -247,7 +249,7 @@ class automaticActivity : AppCompatActivity() {
                             "",
                             "AP",
                             etJornales.text.toString().toInt(),
-                            0
+                            0.toFloat()
 
                         )
                         laborListSelected.add(labor)

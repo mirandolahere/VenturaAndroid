@@ -190,7 +190,13 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
             it?.let {
                 laborList = java.util.ArrayList()
                 laborList = it as java.util.ArrayList<LaborCulturalListResponse>
-                InsertarJornal(it)
+              //  InsertarJornal(it)
+                rvLaborCultural.adapter = (FertilizanteAdapter(this,laborLista))
+                rvLaborCultural.layoutManager = LinearLayoutManager(activity)
+                pgbLaborRealizada.visibility = View.GONE
+
+
+
 
 
             }
@@ -249,10 +255,13 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
                         codeList.add(item.Code)
                         //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                     }
+
+                    rvLaborCultural.adapter = (FertilizanteAdapter(this,laborLista))
                     rvLaborCultural.layoutManager = LinearLayoutManager(activity)
                     pgbLaborRealizada.visibility = View.GONE
 
-                    LaborListar()
+
+                  //  LaborListar()
 
 
                 }
@@ -326,7 +335,13 @@ class FertilizanteFragment  : Fragment(), FitosanitarioItemListener {
         })
         laborViewModels.codeResult.observe(this, Observer {
             it?.let {
-                viewModel.LoginGeneral()
+                viewModel.LoginGeneral(
+                    pref.getString(Constants.URL)!!,
+                    pref.getString(Constants.PUERTO)!!,
+                    pref.getString(Constants.COMPANYDB)!!,
+                    pref.getString(Constants.USER)!!,
+                    pref.getString(Constants.PASSWORD)!!
+                )
 
             }
         })

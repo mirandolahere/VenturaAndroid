@@ -36,6 +36,7 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     val responseAddCosechaResult: MutableLiveData<VSAGRRCOS> = MutableLiveData()
     val respondeDeleteCosechaResult: MutableLiveData<String> = MutableLiveData()
 
+    val ValidacionLote: MutableLiveData<String> = MutableLiveData()
 
     val verificarResult: MutableLiveData<ContActualizacionResponse> = MutableLiveData()
     val messageResult: MutableLiveData<String> = MutableLiveData()
@@ -232,6 +233,13 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
 
             }
         }
+
+        laborsDataModel.ValidacionLote.observeForever {
+            it?.let {
+                ValidacionLote.value = it
+
+            }
+        }
     }
     private fun onRetrieveLoginUserFinish() {
         pgbVisibility.value = View.GONE
@@ -332,7 +340,10 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
                          context:Context) {
         unidadMedidaTask(this, sessionid,httpCacheDirectory,context).execute()
     }
-
+    fun ExisteLote(sessionid:String, articulo:String, httpCacheDirectory: Cache,
+                     context:Context) {
+        existeLoteTask(this, sessionid, articulo, httpCacheDirectory,context).execute()
+    }
     fun validar(sessionid:String, code:String) {
         validarTask(this, sessionid,code).execute()
     }
@@ -418,6 +429,7 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
 
             super.onPostExecute(aBoolean)
             //if (aBoolean == true)
+
                 viewModel.laborsDataModel.listLaborCulturalJornal(sessionid,httpCacheDirectory,context)
             /*else
                 viewModel.messageResult.setValue("No tienes acceso a internet")*/
@@ -671,8 +683,9 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     }
 
     private class  unidadMedidaTask internal constructor(private var viewModel: laborCulturaViewModel,
-                                                             private var sessionid: String,
-                                                             private var httpCacheDirectory: Cache,  private var context: Context)
+                                                         private var sessionid: String,
+                                                         private var httpCacheDirectory: Cache,
+                                                         private var context: Context)
         : AsyncTask<Void, Void, Boolean>() {
 
 
@@ -685,6 +698,28 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
             super.onPostExecute(aBoolean)
             // if (aBoolean == true)
             viewModel.laborsDataModel.unidadMedida(sessionid,httpCacheDirectory,context)
+            /* else
+                 viewModel.messageResult.setValue("No tienes acceso a internet")*/
+        }
+    }
+
+    private class  existeLoteTask internal constructor(private var viewModel: laborCulturaViewModel,
+                                                         private var articulo:String,
+                                                         private var sessionid: String,
+                                                         private var httpCacheDirectory: Cache,
+                                                         private var context: Context)
+        : AsyncTask<Void, Void, Boolean>() {
+
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return Helper.isOnline()
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+
+            super.onPostExecute(aBoolean)
+            // if (aBoolean == true)
+            viewModel.laborsDataModel.existeLote(sessionid,articulo,httpCacheDirectory,context)
             /* else
                  viewModel.messageResult.setValue("No tienes acceso a internet")*/
         }

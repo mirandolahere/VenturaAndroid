@@ -228,19 +228,18 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                     }
 
 
-                    enableViews(true)
+
                     for (item in it) {
                         codeList.add(item.Code)
                         //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                     }
 
-                        LaborListar()
+                    LaborListar()
 
                 }
                 else
                 {
                     pgbLaborRealizada.visibility = View.GONE
-                    enableViews(true)
 
                     Snackbar.make(requireActivity().window.decorView.findViewById(android.R.id.content),
                         "No se encontró información", Snackbar.LENGTH_SHORT)
@@ -252,6 +251,7 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                 laborList = ArrayList()
                 laborList = it as ArrayList<LaborCulturalListResponse>
                 InsertarJornal(it)
+                enableViews(true)
 
 
             }
@@ -316,7 +316,11 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
         })
         laborViewModels.codeResult.observe(this, Observer {
             it?.let {
-                viewModel.LoginGeneral()
+                viewModel.LoginGeneral( pref.getString(Constants.URL)!!,
+                    pref.getString(Constants.PUERTO)!!,
+                    pref.getString(Constants.COMPANYDB)!!,
+                    pref.getString(Constants.USER)!!,
+                    pref.getString(Constants.PASSWORD)!!)
 
             }
         })
@@ -624,9 +628,8 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
     }
 
     private fun enableViews(enable: Boolean) {
-      /*  rvInspecciones.isEnabled = enable
-        btnInspeccionNoPlaneada.isEnabled = enable
-        ivMapaInspeccionesPendienes.isEnabled = enable*/
+        fbAdd.isEnabled = enable
+
     }
     private fun filter(pep: String, CodeFundo: String, CodeSector: String, CodeLote: String)
     {

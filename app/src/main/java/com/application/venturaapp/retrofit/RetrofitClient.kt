@@ -29,7 +29,6 @@ object RetrofitClient {
    // val myCache = Cache(getCacheDir(), cacheSize)
 
     fun getApiService(): ApiService? {
-
         if (apiService == null) {
             //val accessToken = Constants.TOKEN
             val okHttpClientBuilder = getUnsafeOkHttpClient()
@@ -48,6 +47,36 @@ object RetrofitClient {
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
+                .client(okHttpClientBuilder.build())
+                .addConverterFactory(GsonConverterFactory.create(buildGson()))
+                .build()
+
+            apiService = retrofit.create(ApiService::class.java)
+        }
+
+        return apiService
+    }
+
+    fun getApiServiceConfiguration(url:String, puerto:String): ApiService? {
+        var url = "$url:$puerto"
+        if (apiService == null) {
+            //val accessToken = Constants.TOKEN
+            val okHttpClientBuilder = getUnsafeOkHttpClient()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+
+
+            okHttpClientBuilder.addInterceptor(object : Interceptor {
+                override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+                    val request = chain.request()
+                    val newRequest = request.newBuilder() //.header("Authorization", accessToken)
+                    return chain.proceed(newRequest.build())
+                }
+            })
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(url)
                 .client(okHttpClientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .build()

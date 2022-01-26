@@ -154,8 +154,8 @@ class laborCulturalActivity   : AppCompatActivity(), LaborPEPItemListener {
 
                         var laborroom : LaborCulturalListResponse =
                             LaborCulturalListResponse(0,
-                            0,0,0,"","","","","",item.id.toString(),"",
-                            "","","","","","","","","",
+                            0,0,0,"","","","","",item.id,"",
+                            "","",0,"","","","","","",
                             "","","","",item.U_VS_AGR_CDCA,item.U_VS_AGR_CDPP,
                             item.U_VS_AGR_CDEP,item.U_VS_AGR_ACTV,"","","",
                                 item.U_VS_AGR_FERG,0,null
@@ -232,7 +232,13 @@ class laborCulturalActivity   : AppCompatActivity(), LaborPEPItemListener {
 
         }
         etBuscador.setOnClickListener {
-            fecha()
+            if(etBuscador.text.toString()=="")
+                fecha()
+            else {
+                etBuscador.setText("")
+                etBuscador.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_calendar,0)
+
+            }
         }
 
             llCabecera.setOnClickListener {
@@ -285,7 +291,9 @@ class laborCulturalActivity   : AppCompatActivity(), LaborPEPItemListener {
                 etBuscador.setText(
                     fechaBusqueda
                 )
-                if (!Intrinsics.areEqual(
+            etBuscador.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_clear,0)
+
+            if (!Intrinsics.areEqual(
                         fechaBusqueda,
                         ""
                     )
