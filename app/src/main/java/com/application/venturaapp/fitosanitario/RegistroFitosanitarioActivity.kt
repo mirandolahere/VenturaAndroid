@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.application.venturaapp.R
-import com.application.venturaapp.fitosanitario.entity.Almacen
+import com.application.venturaapp.fertilizante.entity.Almacen
 import com.application.venturaapp.fitosanitario.entity.FitosanitarioDetalleResponse
 import com.application.venturaapp.fitosanitario.entity.FitosanitarioDistribucionResponse
 import com.application.venturaapp.helper.Constants

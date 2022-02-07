@@ -196,7 +196,7 @@
         android:layout_height="50dp"
         android:background="@drawable/btn_vincular"
         android:isScrollContainer="true"
-        android:text="No Conectado"
+        android:text="Configurar"
         android:textSize="22sp"
         android:textAllCaps="false"
         android:textColor="#fff"

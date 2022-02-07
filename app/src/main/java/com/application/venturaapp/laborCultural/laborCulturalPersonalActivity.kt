@@ -249,7 +249,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
         etInicio.setText(personalLabor.U_VS_AGR_HRIN)
         etFin.setText(personalLabor.U_VS_AGR_HRFN)
         etJornales.setText(personalLabor.U_VS_AGR_TOJR.toString())
-        etExtra.setText(personalLabor.U_VS_AGR_TOHX.toString())
+        etExtra.setText(personalLabor.U_VS_AGR_TOPL.toString())
         etLaborDefecto.isEnabled = false
         etCodigoPersona.isEnabled = false
         etNumeroDocumento.isEnabled = false
@@ -276,7 +276,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
         etInicio.setText(personalLabor.U_VS_AGR_HRIN)
         etFin.setText(personalLabor.U_VS_AGR_HRFN)
         etJornales.setText(personalLabor.U_VS_AGR_TOJR.toString())
-        etExtra.setText(personalLabor.U_VS_AGR_TOHX.toString())
+        etExtra.setText(personalLabor.U_VS_AGR_TOPL.toString())
 
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -394,7 +394,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                                 "",
                                 "AP",
                                 etJornales.text.toString().toInt(),
-                                extra.toFloat()
+                                extra
                             )
 
                         }
@@ -459,7 +459,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                                 body5.addProperty("U_VS_AGR_USAA", item.U_VS_AGR_USAA)
                                 body5.addProperty("U_VS_AGR_RORI", item.U_VS_AGR_RORI)
                                 body5.addProperty("U_VS_AGR_TOJR", item.U_VS_AGR_TOJR)
-                                body5.addProperty("U_VS_AGR_TOHX", item.U_VS_AGR_TOHX)
+                                body5.addProperty("U_VS_AGR_TOPL", item.U_VS_AGR_TOPL)
 
                                 Log.d("JSONREQUESTUPDATE", body5.toString())
                                 body3.add(body5)
@@ -483,7 +483,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                                 body5.addProperty("U_VS_AGR_USAA", item.U_VS_AGR_USAA)
                                 body5.addProperty("U_VS_AGR_RORI", item.U_VS_AGR_RORI)
                                 body5.addProperty("U_VS_AGR_TOJR", etJornales.text.toString())
-                                body5.addProperty("U_VS_AGR_TOHX", etExtra.text.toString())
+                                body5.addProperty("U_VS_AGR_TOPL", etExtra.text.toString())
                                 body3.add(body5)
 
                                 Log.d("JSONREQUESTUPDATE", body5.toString())
@@ -508,7 +508,7 @@ class laborCulturalPersonalActivity   : AppCompatActivity() {
                             body5.addProperty("U_VS_AGR_USAA", item.U_VS_AGR_USAA)
                             body5.addProperty("U_VS_AGR_RORI", item.U_VS_AGR_RORI)
                             body5.addProperty("U_VS_AGR_TOJR", item.U_VS_AGR_TOJR)
-                            body5.addProperty("U_VS_AGR_TOHX", item.U_VS_AGR_TOHX)
+                            body5.addProperty("U_VS_AGR_TOPL", item.U_VS_AGR_TOPL)
                             body3.add(body5)
 
                         }

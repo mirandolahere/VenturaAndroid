@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.venturaapp.R
 import com.application.venturaapp.fitosanitario.fitosanitarioActivity
 import com.application.venturaapp.helper.Constants
+import com.application.venturaapp.home.fragment.adapter.FertilizanteAdapter
 import com.application.venturaapp.home.fragment.adapter.FitosanitarioAdapter
 import com.application.venturaapp.home.fragment.adapter.laborCulturalAdapter
 import com.application.venturaapp.home.fragment.entities.*
@@ -43,6 +44,8 @@ import kotlinx.android.synthetic.main.fragment_labor_cultural.pgbLaborRealizada
 import kotlinx.android.synthetic.main.fragment_labor_cultural.rvLaborCultural
 import okhttp3.Cache
 import kotlin.collections.ArrayList
+import com.application.venturaapp.automatic.automaticActivity
+
 
 class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
     lateinit var pref: PreferenceManager
@@ -62,6 +65,27 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
     var CodeCampania: String = ""
     var Descripcion: String = ""
     var indice = 0
+
+    lateinit var fundoList: ArrayList<Fundo>
+    lateinit var lotesList: ArrayList<Lote>
+    lateinit var sectorList: ArrayList<Sector>
+
+    lateinit var lotesCollection : ArrayList<Sector>
+
+
+    var fundo = arrayListOf<String>()
+    var sector = arrayListOf<String>()
+    var lotes = arrayListOf<String>()
+
+    var CodeFundo = ""
+    var DescripcionFundo = ""
+    var CodeSector = ""
+    var DescripcionSector = ""
+    var CodeLote = ""
+    var DescripcionLote = ""
+
+
+
     lateinit var httpCacheDirectory : Cache
     lateinit var broadcast : BroadcastReceiver
     lateinit var viewModel: LoginViewModel
@@ -78,7 +102,7 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
 
             }
         }
-        val intent = Intent(activity, fitosanitarioActivity::class.java)
+        val intent = Intent(activity, automaticActivity::class.java)
         intent.putExtra("CODIGOPEP",labor.Code)
         intent.putExtra("CAMPAÑA",labor.U_VS_AGR_DSCA)
         intent.putExtra("CODIGOCAMPANIA",labor.U_VS_AGR_CDCA)
@@ -87,6 +111,7 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
         intent.putExtra("VARIEDAD",labor.U_VS_AGR_CDVA)
         intent.putExtra("TIPOCAMPANIA",tipoCampania)
         intent.putExtra("DOCENTRYPEP",labor.U_VS_AGR_DEOF)
+        intent.putExtra("ISLABOR","FALSE")
 
         startActivityForResult(intent, REQUEST_ACTIVITY_FRAGMENT )
     }
@@ -108,7 +133,7 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
 
         setUpViews()
         setUpObservers()
-        laborListar()
+       // laborListar()
         campaniaListar()
 
     }
@@ -186,10 +211,43 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
                     campanias.add(item.Name)
                     //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                 }
+                fundoListar()
+
+
+
+
+            }
+        })
+        laborViewModels.fundoResult.observe(this, Observer {
+            it?.let {
+
+                fundo = java.util.ArrayList<String>()
+                fundoList = it as java.util.ArrayList<Fundo>
+                fundo.add("Todas")
+                for (item in it) {
+                    fundo.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
                 Spinner()
+                laborListar()
+
+            }
+        })
 
 
+        laborViewModels.sectorResult.observe(this, Observer {
+            it?.let {
 
+                sector = java.util.ArrayList<String>()
+                sectorList = it as java.util.ArrayList<Sector>
+                lotesCollection = it
+                sector.add("Todas")
+
+                for (item in it) {
+                    sector.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
+                spinnerSector()
             }
         })
 
@@ -269,6 +327,14 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
              )
          }
 
+         val adapterFundo = context?.let {
+             ArrayAdapter(
+                 it,
+                 R.layout.spinner, fundo
+             )
+         }
+
+
          if (adapter != null) {
              adapter.setDropDownViewResource(R.layout.spinner_list)
              splCampaniasVigentes.adapter = adapter
@@ -290,9 +356,11 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
                              CodeCampania = item.Code
                              Log.d("JSONPERSONAL",CodeCampania)
 
+                         }else{
+                             CodeCampania = Descripcion
                          }
                      }
-                        filter(etBuscador.text.toString())
+                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                  }
 
                  override fun onNothingSelected(parent: AdapterView<*>) {
@@ -300,6 +368,41 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
                  }
              }
          }
+
+         if (adapterFundo != null) {
+             adapterFundo.setDropDownViewResource(R.layout.spinner_list)
+             splFundo.adapter = adapterFundo
+
+             splFundo.onItemSelectedListener = object :
+                 AdapterView.OnItemSelectedListener {
+                 override fun onItemSelected(
+                     parent: AdapterView<*>,
+                     view: View, position: Int, id: Long
+                 ) {
+
+                     DescripcionFundo = fundo.get(position)
+
+                     for( item in fundoList)
+                     {
+                         if(item.Name == DescripcionFundo)
+                         {
+                             CodeFundo = item.Code
+                             sectorListar()
+                             break
+
+                         }else{
+                             CodeFundo = DescripcionFundo
+                         }
+                     }
+                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
+                 }
+
+                 override fun onNothingSelected(parent: AdapterView<*>) {
+                     // write code to perform some action
+                 }
+             }
+         }
+
 
      }
     private fun onInit() {
@@ -362,25 +465,24 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
         btnInspeccionNoPlaneada.isEnabled = enable
         ivMapaInspeccionesPendienes.isEnabled = enable*/
     }
-    private fun filter(s: String)
+
+    private fun filter(pep: String, CodeFundo: String, CodeSector: String, CodeLote: String)
     {
         val filter: ArrayList<PEPDato> = ArrayList()
-        Log.d("item.U_VS_AGR_DSCA",Descripcion)
-        Log.d("item.U_VS_AGR_DSCA",laborLista.toString())
-
         for (item in laborLista) {
 
-            if ( (item.U_VS_AGR_DSCA == Descripcion )|| (Descripcion =="Todas" ) ) {
-                Log.d("item.U_VS_AGR_DSCA",item.U_VS_AGR_DSCA)
+            if ((item.U_VS_AGR_CDCA==pep ||  pep == "Todas") &&
+                (item.U_VS_AGR_CDFD==CodeFundo ||  CodeFundo == "Todas") &&
+                (item.U_VS_AGR_CDSC==CodeSector ||  CodeSector == "Todas" || CodeSector == "") &&
+                (item.U_VS_AGR_CDLT==CodeLote ||  CodeLote == "Todas" || CodeLote == "")) {
 
                 filter.add(item)
             }
         }
         rvLaborCultural.adapter = (FitosanitarioAdapter(this,filter))
         rvLaborCultural.layoutManager = LinearLayoutManager(activity)
-
-
     }
+
     private fun campaniaListar() {
         enableViews(false)
         pref.getString(Constants.B1SESSIONID)?.let {
@@ -393,7 +495,137 @@ class FitosanitarioFragment  : Fragment(), FitosanitarioItemListener {
             }
         }
     }
+    private fun fundoListar() {
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarFundo(
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
+    fun sectorListar(){
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarSector(
+                    CodeFundo,
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
+    private fun spinnerSector() {
+        val adapterSector = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, sector
+            )
+        }
 
+        if (adapterSector != null) {
+            adapterSector.setDropDownViewResource(R.layout.spinner_list)
+            splSector.adapter = adapterSector
+
+            splSector.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionSector = sector.get(position)
+
+                    for( item in sectorList)
+                    {
+                        if(item.Name == DescripcionSector)
+                        {
+                            CodeSector = item.Code
+                            lotesListar()
+                            break
+
+                        }
+                        else{
+                            CodeSector = DescripcionSector
+                        }
+                    }
+
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
+
+    fun lotesListar(){
+
+        lotes.clear()
+        lotes.add("Todas")
+
+        for(item in lotesCollection){
+            if(item.Code == CodeSector){
+
+                lotesList = item.VS_AGR_LOTECollection as java.util.ArrayList<Lote>
+
+                for(item in item.VS_AGR_LOTECollection){
+                    lotes.add(item.U_VS_AGR_DSLT)
+                }
+
+                loteSpinner()
+            }
+        }
+    }
+
+    private fun loteSpinner() {
+        val adapterLote = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, lotes
+            )
+        }
+
+        if (adapterLote != null) {
+            adapterLote.setDropDownViewResource(R.layout.spinner_list)
+            splLote.adapter = adapterLote
+
+            splLote.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionLote = lotes.get(position)
+
+                    for( item in lotesList)
+                    {
+                        if(item.U_VS_AGR_DSLT == DescripcionLote)
+                        {
+                            CodeLote = item.U_VS_AGR_CDLT
+                            break
+
+                        } else{
+                            CodeLote = DescripcionLote
+                        }
+                    }
+
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

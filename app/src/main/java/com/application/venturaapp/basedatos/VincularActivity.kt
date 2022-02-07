@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.pop_vincular.*
 import kotlinx.android.synthetic.main.pop_vincular.etUsuario
 import okhttp3.Cache
+import com.application.ventura.MainActivity
+import com.application.venturaapp.login.LoginActivity
 
 
 class VincularActivity   : BottomSheetDialogFragment() {
@@ -41,6 +43,17 @@ class VincularActivity   : BottomSheetDialogFragment() {
         pref = context?.let { PreferenceManager(it.applicationContext) }!!
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+
+
+        if(pref.getString(Constants.URL) !=null){
+
+            etDireccion.setText(pref.getString(Constants.URL))
+            etPuerto.setText(pref.getString(Constants.PUERTO))
+            etBaseDatos.setText(pref.getString(Constants.COMPANYDB))
+            etUsuario.setText(pref.getString(Constants.USER))
+            etContrasenia.setText(pref.getString(Constants.PASSWORD))
+            btnEstado.text = "Conectado"
+        }
 
 
         setupObserver()
@@ -104,10 +117,12 @@ class VincularActivity   : BottomSheetDialogFragment() {
 
                 btnEstado.text = "Conectado"
 
-                    btnIngresar.isClickable = true
-                    btnVincular.setText("Conectado")
-                    btnVincular.isClickable = false
-                    btnVincular.setBackgroundColor(resources.getColor(R.color.verdeVentura))
+                (activity as LoginActivity?)?.setResultFromFragment(true)
+
+                // btnIngresar.isClickable = true
+                   // btnVincular.setText("Conectado")
+                   // btnVincular.isClickable = false
+                   // btnVincular.setBackgroundColor(resources.getColor(R.color.verdeVentura))
 
             }
         })
@@ -117,6 +132,8 @@ class VincularActivity   : BottomSheetDialogFragment() {
             Toast.makeText(activity, "Error de conexión.", Toast.LENGTH_SHORT).show()
         })
     }
+
+
 
 
 }

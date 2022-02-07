@@ -42,6 +42,6 @@ import com.application.venturaapp.home.fragment.entities.PersonalDato
     val U_VS_AGR_RORI: String,
     @ColumnInfo(name = "U_VS_AGR_TOJR")
     val U_VS_AGR_TOJR: Int,
-    @ColumnInfo(name = "U_VS_AGR_TOHX")
-    val U_VS_AGR_TOHX: Int,
+    @ColumnInfo(name = "U_VS_AGR_TOPL")
+    val U_VS_AGR_TOPL: Int,
 )

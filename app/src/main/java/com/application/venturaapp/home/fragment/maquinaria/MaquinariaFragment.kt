@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.application.venturaapp.R
 import com.application.venturaapp.helper.Constants
+import com.application.venturaapp.home.fragment.adapter.FertilizanteAdapter
 import com.application.venturaapp.home.fragment.adapter.MaquinariaAdapter
 import com.application.venturaapp.home.fragment.entities.*
 import com.application.venturaapp.home.fragment.personal.personalViewModel
@@ -63,7 +64,32 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
     lateinit var campaniasList  : ArrayList<Campania>
     var CodeCampania: String = ""
     var Descripcion: String = ""
+
+    var CodeFundo = ""
+    var DescripcionFundo = ""
+    var CodeSector = ""
+    var DescripcionSector = ""
+    var CodeLote = ""
+    var DescripcionLote = ""
+
+
+
+
     var indice = 0
+
+
+    var fundo = arrayListOf<String>()
+    var sector = arrayListOf<String>()
+    var lotes = arrayListOf<String>()
+
+    lateinit var fundoList: ArrayList<Fundo>
+    lateinit var lotesList: ArrayList<Lote>
+    lateinit var sectorList: ArrayList<Sector>
+
+
+    lateinit var lotesCollection : ArrayList<Sector>
+
+
     lateinit var httpCacheDirectory : Cache
     lateinit var broadcast : BroadcastReceiver
     lateinit var viewModel: LoginViewModel
@@ -110,7 +136,6 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
 
         setUpViews()
         setUpObservers()
-        laborListar()
         campaniaListar()
 
     }
@@ -189,12 +214,45 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
                     campanias.add(item.Name)
                     //idInspeccionList.add(inspeccionePendiente.idInspeccion)
                 }
-                Spinner()
+                fundoListar()
 
 
 
             }
         })
+
+        laborViewModels.fundoResult.observe(this, Observer {
+            it?.let {
+
+                fundo = java.util.ArrayList<String>()
+                fundoList = it as java.util.ArrayList<Fundo>
+                fundo.add("Todas")
+                for (item in it) {
+                    fundo.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
+                Spinner()
+                laborListar()
+
+            }
+        })
+
+        laborViewModels.sectorResult.observe(this, Observer {
+            it?.let {
+
+                sector = java.util.ArrayList<String>()
+                sectorList = it as java.util.ArrayList<Sector>
+                lotesCollection = it
+                sector.add("Todas")
+
+                for (item in it) {
+                    sector.add(item.Name)
+                    //idInspeccionList.add(inspeccionePendiente.idInspeccion)
+                }
+                spinnerSector()
+            }
+        })
+
 
         laborViewModels.messageResult.observe(this, Observer {
             it?.let {
@@ -263,6 +321,112 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
 
 
     }
+
+    private fun spinnerSector() {
+        val adapterSector = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, sector
+            )
+        }
+
+        if (adapterSector != null) {
+            adapterSector.setDropDownViewResource(R.layout.spinner_list)
+            splSector.adapter = adapterSector
+
+            splSector.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionSector = sector.get(position)
+
+                    for( item in sectorList)
+                    {
+                        if(item.Name == DescripcionSector)
+                        {
+                            CodeSector = item.Code
+                            lotesListar()
+                            break
+
+                        }
+                        else{
+                            CodeSector = DescripcionSector
+                        }
+                    }
+
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
+    fun lotesListar(){
+
+        lotes.clear()
+        lotes.add("Todas")
+
+        for(item in lotesCollection){
+            if(item.Code == CodeSector){
+
+                lotesList = item.VS_AGR_LOTECollection as java.util.ArrayList<Lote>
+
+                for(item in item.VS_AGR_LOTECollection){
+                    lotes.add(item.U_VS_AGR_DSLT)
+                }
+
+                loteSpinner()
+            }
+        }
+    }
+
+    private fun loteSpinner() {
+        val adapterLote = context?.let {
+            ArrayAdapter(
+                it,
+                R.layout.spinner, lotes
+            )
+        }
+
+        if (adapterLote != null) {
+            adapterLote.setDropDownViewResource(R.layout.spinner_list)
+            splLote.adapter = adapterLote
+
+            splLote.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                    DescripcionLote = lotes.get(position)
+
+                    for( item in lotesList)
+                    {
+                        if(item.U_VS_AGR_DSLT == DescripcionLote)
+                        {
+                            CodeLote = item.U_VS_AGR_CDLT
+                            break
+
+                        } else{
+                            CodeLote = DescripcionLote
+                        }
+                    }
+
+                    filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
+    }
      fun Spinner()
      {
          val adapter = context?.let {
@@ -271,6 +435,14 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
                  R.layout.spinner, campanias
              )
          }
+
+         val adapterFundo = context?.let {
+             ArrayAdapter(
+                 it,
+                 R.layout.spinner, fundo
+             )
+         }
+
 
          if (adapter != null) {
              adapter.setDropDownViewResource(R.layout.spinner_list)
@@ -293,9 +465,45 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
                              CodeCampania = item.Code
                              Log.d("JSONPERSONAL",CodeCampania)
 
+                         }else{
+                             CodeCampania = Descripcion
                          }
                      }
-                        filter(etBuscador.text.toString())
+                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
+                 }
+
+                 override fun onNothingSelected(parent: AdapterView<*>) {
+                     // write code to perform some action
+                 }
+             }
+         }
+
+         if (adapterFundo != null) {
+             adapterFundo.setDropDownViewResource(R.layout.spinner_list)
+             splFundo.adapter = adapterFundo
+
+             splFundo.onItemSelectedListener = object :
+                 AdapterView.OnItemSelectedListener {
+                 override fun onItemSelected(
+                     parent: AdapterView<*>,
+                     view: View, position: Int, id: Long
+                 ) {
+
+                     DescripcionFundo = fundo.get(position)
+
+                     for( item in fundoList)
+                     {
+                         if(item.Name == DescripcionFundo)
+                         {
+                             CodeFundo = item.Code
+                             sectorListar()
+                             break
+
+                         }else{
+                             CodeFundo = DescripcionFundo
+                         }
+                     }
+                     filter(CodeCampania, CodeFundo, CodeSector, CodeLote)
                  }
 
                  override fun onNothingSelected(parent: AdapterView<*>) {
@@ -365,22 +573,22 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
         btnInspeccionNoPlaneada.isEnabled = enable
         ivMapaInspeccionesPendienes.isEnabled = enable*/
     }
-    private fun filter(s: String)
+    private fun filter(pep: String, CodeFundo: String, CodeSector: String, CodeLote: String)
     {
         val filter: ArrayList<PEPDato> = ArrayList()
-        Log.d("item.U_VS_AGR_DSCA",Descripcion)
-        Log.d("item.U_VS_AGR_DSCA",laborLista.toString())
-
         for (item in laborLista) {
 
-            if ( (item.U_VS_AGR_DSCA == Descripcion )|| (Descripcion =="Todas" ) ) {
-                Log.d("item.U_VS_AGR_DSCA",item.U_VS_AGR_DSCA)
+            if ((item.U_VS_AGR_CDCA==pep ||  pep == "Todas") &&
+                (item.U_VS_AGR_CDFD==CodeFundo ||  CodeFundo == "Todas") &&
+                (item.U_VS_AGR_CDSC==CodeSector ||  CodeSector == "Todas" || CodeSector == "") &&
+                (item.U_VS_AGR_CDLT==CodeLote ||  CodeLote == "Todas" || CodeLote == "")) {
 
                 filter.add(item)
             }
         }
         rvLaborCultural.adapter = (MaquinariaAdapter(this,filter))
         rvLaborCultural.layoutManager = LinearLayoutManager(activity)
+
 
 
     }
@@ -397,6 +605,32 @@ class MaquinariaFragment  : Fragment(), FitosanitarioItemListener {
         }
     }
 
+    private fun fundoListar() {
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarFundo(
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
+
+    fun sectorListar(){
+        enableViews(false)
+        pref.getString(Constants.B1SESSIONID)?.let {
+            activity?.let { it1 ->
+                laborViewModels.consultarSector(
+                    CodeFundo,
+                    it,
+                    httpCacheDirectory,
+                    it1
+                )
+            }
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

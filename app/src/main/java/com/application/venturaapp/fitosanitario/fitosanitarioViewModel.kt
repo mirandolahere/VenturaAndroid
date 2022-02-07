@@ -6,6 +6,7 @@ import android.os.AsyncTask
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.application.venturaapp.fertilizante.entity.Almacen
 import com.application.venturaapp.fitosanitario.entity.*
 import com.application.venturaapp.helper.Helper
 import com.application.venturaapp.laborCultural.entity.*

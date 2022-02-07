@@ -6,7 +6,8 @@ import android.os.AsyncTask
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.application.venturaapp.fitosanitario.entity.UnidadMedida
+import com.application.venturaapp.fertilizante.entity.Almacen
+import com.application.venturaapp.fertilizante.entity.UnidadMedida
 import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
 import com.application.venturaapp.helper.Helper
 import com.application.venturaapp.laborCultural.entity.*
@@ -24,6 +25,7 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     val laborResponseResult: MutableLiveData<LaborCulturalListResponse> = MutableLiveData()
     val laborPorCodeResult: MutableLiveData<LaborCulturalListResponse> = MutableLiveData()
     val unidadMedidadLiveData: MutableLiveData<List<UnidadMedida>> = MutableLiveData()
+    val AlmacenLiveData: MutableLiveData<List<Almacen>> = MutableLiveData()
 
     val laborPorCodeResultDelete: MutableLiveData<LaborCulturalListResponse> = MutableLiveData()
 
@@ -157,6 +159,12 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
         laborsDataModel.responseUnidadMedidaLiveData.observeForever {
             it?.let {
                 unidadMedidadLiveData.value = it
+
+            }
+        }
+        laborsDataModel.responseAlmacenLiveData.observeForever {
+            it?.let {
+                AlmacenLiveData.value = it
 
             }
         }
@@ -339,6 +347,11 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     fun unidadMedida(sessionid:String,httpCacheDirectory: Cache,
                          context:Context) {
         unidadMedidaTask(this, sessionid,httpCacheDirectory,context).execute()
+    }
+
+    fun listarAlmacen(sessionid:String,httpCacheDirectory: Cache,
+                     context:Context) {
+        listarAlmacenTask(this, sessionid,httpCacheDirectory,context).execute()
     }
     fun ExisteLote(sessionid:String, articulo:String, httpCacheDirectory: Cache,
                      context:Context) {
@@ -682,6 +695,27 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
         }
     }
 
+    private class  listarAlmacenTask internal constructor(private var viewModel: laborCulturaViewModel,
+                                                         private var sessionid: String,
+                                                         private var httpCacheDirectory: Cache,
+                                                         private var context: Context)
+        : AsyncTask<Void, Void, Boolean>() {
+
+
+        override fun doInBackground(vararg voids: Void): Boolean? {
+            return Helper.isOnline()
+        }
+
+        override fun onPostExecute(aBoolean: Boolean?) {
+
+            super.onPostExecute(aBoolean)
+            // if (aBoolean == true)
+            viewModel.laborsDataModel.listarAlmacen(sessionid,httpCacheDirectory,context)
+            /* else
+                 viewModel.messageResult.setValue("No tienes acceso a internet")*/
+        }
+    }
+
     private class  unidadMedidaTask internal constructor(private var viewModel: laborCulturaViewModel,
                                                          private var sessionid: String,
                                                          private var httpCacheDirectory: Cache,
@@ -704,8 +738,8 @@ class laborCulturaViewModel (application: Application) : AndroidViewModel(applic
     }
 
     private class  existeLoteTask internal constructor(private var viewModel: laborCulturaViewModel,
-                                                         private var articulo:String,
-                                                         private var sessionid: String,
+                                                         private var sessionid:String,
+                                                         private var articulo: String,
                                                          private var httpCacheDirectory: Cache,
                                                          private var context: Context)
         : AsyncTask<Void, Void, Boolean>() {

@@ -200,8 +200,8 @@ class fertilizanteActivity   : AppCompatActivity(), VSAGRRFERItemListener {
                     for((index,etapa) in item.VS_AGR_DSCOCollection.withIndex())
                     {
                         VS_AGR_DSCOCollection.add(etapa)
-                        if(laborList[i].DocEntry == laborList[index].DocEntry)
-                            laborList[i].position =  index
+                       // if(laborList[i].DocEntry == laborList[index].DocEntry)
+                        //    laborList[i].position =  index
                     }
                 }
                 if(laborList.size>0) {

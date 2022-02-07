@@ -377,7 +377,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                             item.DocEntry!!,
                             item.LineId,item.VisOrder,item.Object,item.LogInst,"","","",item.U_VS_AGR_CDLC,item.U_VS_AGR_CDPS,
                             item.U_VS_AGR_HRIN,item.U_VS_AGR_HRFN,item.U_VS_AGR_ESTA,0,item.U_VS_AGR_LNEP,item.U_VS_AGR_ACTV,
-                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOHX.toFloat())
+                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOPL)
                         laborPorCodeDetalleList.add(personal)
                     }
                 }
@@ -397,7 +397,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
                         if (labor == item.U_VS_AGR_CDLC) {
                             jornal+=item.U_VS_AGR_TOJR
-                            hr+=item.U_VS_AGR_TOHX.toDouble()
+                            hr+=item.U_VS_AGR_TOPL.toDouble()
                         }
 
                     }
@@ -435,7 +435,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                             item.DocEntry!!,
                             item.LineId,item.VisOrder,item.Object,item.LogInst,"","","",item.U_VS_AGR_CDLC,item.U_VS_AGR_CDPS,
                             item.U_VS_AGR_HRIN,item.U_VS_AGR_HRFN,item.U_VS_AGR_ESTA,0,item.U_VS_AGR_LNEP,item.U_VS_AGR_ACTV,
-                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOHX.toFloat())
+                            item.U_VS_AGR_USCA,item.U_VS_AGR_USAA,item.U_VS_AGR_RORI,item.U_VS_AGR_TOJR,item.U_VS_AGR_TOPL)
                         laborPorCodeDetalleList.add(personal)
                     }
                 }
@@ -488,7 +488,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
 
                         if (i.U_VS_AGR_ESTA == "P" && i.U_VS_AGR_CDLC == item) {
 
-                            hr += i.U_VS_AGR_TOHX.toDouble()
+                            hr += i.U_VS_AGR_TOPL.toDouble()
                             linea = linea+i.LineId + ","
                             hj += i.U_VS_AGR_TOJR
                         }
@@ -680,7 +680,7 @@ class laborCulturalDetalleActivity   : AppCompatActivity() , LaborDetalleItemLis
                             body5.addProperty("U_VS_AGR_USAA", item.U_VS_AGR_USAA)
                             body5.addProperty("U_VS_AGR_RORI", item.U_VS_AGR_RORI)
                             body5.addProperty("U_VS_AGR_TOJR", item.U_VS_AGR_TOJR)
-                            body5.addProperty("U_VS_AGR_TOHX", item.U_VS_AGR_TOHX)
+                            body5.addProperty("U_VS_AGR_TOPL", item.U_VS_AGR_TOPL)
 
                             body3.add(body5)
                         }

@@ -48,15 +48,15 @@ LoginActivity : AppCompatActivity() {
         if(pref.getString(Constants.URL) ==null){
             btnIngresar.isClickable = false
             btnVincular.setText("No Conectado")
-            btnVincular.isClickable = true
-            btnVincular.isEnabled = true
+           /* btnVincular.isClickable = true
+            btnVincular.isEnabled = true*/
             btnVincular.setBackgroundColor(resources.getColor(R.color.rojoLogOut))
 
         }else{
             btnIngresar.isClickable = true
             btnVincular.setText("Conectado")
-            btnVincular.isClickable = false
-            btnVincular.isEnabled = false
+           /* btnVincular.isClickable = false
+            btnVincular.isEnabled = false*/
             btnVincular.setBackgroundColor(resources.getColor(R.color.verdeVentura))
         }
         if (isUserLogged()) {
@@ -297,6 +297,17 @@ LoginActivity : AppCompatActivity() {
     private fun isUserLogged(): Boolean {
         return pref.contains(Constants.SESSIONID)!!
 
+    }
+
+    public fun setResultFromFragment(boolean: Boolean) {
+
+        if(boolean){
+            btnVincular.setText("Conectado")
+            btnVincular.setBackgroundColor(resources.getColor(R.color.verdeVentura))
+        }else{
+            btnVincular.setText("No Conectado")
+            btnVincular.setBackgroundColor(resources.getColor(R.color.rojoLogOut))
+        }
     }
 
 

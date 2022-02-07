@@ -33,10 +33,6 @@ import com.application.venturaapp.laborCultural.entity.LaborCulturalDetalleRespo
 import com.application.venturaapp.laborCultural.entity.VSAGRDPCLResponse
 import com.application.venturaapp.laborCultural.laborCulturaViewModel
 import com.google.gson.JsonObject
-import kotlinx.android.synthetic.main.activity_automatic.addPep
-import kotlinx.android.synthetic.main.activity_automatic.etJornales
-import kotlinx.android.synthetic.main.activity_automatic.etLaborDefecto
-import kotlinx.android.synthetic.main.activity_cosecha_articulo.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -90,6 +86,12 @@ class automaticActivity : AppCompatActivity() {
         pref = PreferenceManager(this)
         laborViewModels = ViewModelProviders.of(this).get(laborViewModel::class.java)
         laborCulturalViewModels= ViewModelProviders.of(this).get(laborCulturaViewModel::class.java)
+
+        if(intent.extras!!["ISLABOR"] == "FALSE" )
+        {
+            tvTituloPersonal.setText("Registro de insumos")
+        }
+
         campaniaListar()
         setUpObservers()
         setUpView()
@@ -102,6 +104,8 @@ class automaticActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceAsColor")
     private fun setUpView() {
+
+
             etInicio.setOnClickListener{
             val mcurrentTime: Calendar = Calendar.getInstance()
              val hour= mcurrentTime.get(Calendar.HOUR_OF_DAY)
@@ -185,11 +189,6 @@ class automaticActivity : AppCompatActivity() {
         etFecha.setOnClickListener {
             showDatePickerDialog()
         }
-
-        etFechaLote.setOnClickListener {
-            showDatePickerDialog()
-        }
-
         llPepSelection.setOnClickListener {
             llPep.visibility = View.VISIBLE
             llLabores.visibility = View.GONE
@@ -249,7 +248,7 @@ class automaticActivity : AppCompatActivity() {
                             "",
                             "AP",
                             etJornales.text.toString().toInt(),
-                            0.toFloat()
+                            0
 
                         )
                         laborListSelected.add(labor)

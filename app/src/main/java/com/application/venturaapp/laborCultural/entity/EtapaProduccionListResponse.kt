@@ -39,5 +39,9 @@ data class EtapaProduccionListResponse(
         @SerializedName("U_VS_AGR_NMES")
         val U_VS_AGR_NMES: String,
         @SerializedName("U_VS_AGR_ACTV")
-        val U_VS_AGR_ACTV: String
+        val U_VS_AGR_ACTV: String,
+        @SerializedName("U_VS_AGR_FEIC")
+        val U_VS_AGR_FEIC: String,
+        @SerializedName("U_VS_AGR_FEFC")
+        val U_VS_AGR_FEFC: String
 )

@@ -3,7 +3,8 @@ package com.application.venturaapp.laborCultural
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.application.venturaapp.fitosanitario.entity.UnidadMedida
+import com.application.venturaapp.fertilizante.entity.Almacen
+import com.application.venturaapp.fertilizante.entity.UnidadMedida
 import com.application.venturaapp.fitosanitario.entity.VSAGRRCOS
 import com.application.venturaapp.fitosanitario.entity.ValidarLote
 import com.application.venturaapp.helper.ErrorBody
@@ -38,6 +39,7 @@ class laborCulturalDataModel () {
     val responseLaborPlanificadaLiveData = MutableLiveData<List<VSAGRDPCLResponse>>()
 
     val responseUnidadMedidaLiveData = MutableLiveData<List<UnidadMedida>>()
+    val responseAlmacenLiveData = MutableLiveData<List<Almacen>>()
 
 
     val responseLaborItemLiveData = MutableLiveData<LaborCulturalListResponse>()
@@ -146,6 +148,26 @@ class laborCulturalDataModel () {
             }
         })
     }
+    fun listarAlmacen(sessionid :String,  httpCacheDirectory: Cache, context: Context) {
+        val call =  RetrofitClient.getApiService(httpCacheDirectory, context)?.listarAlmacen(sessionid,"odata.maxpagesize=200")
+        call?.enqueue(object : Callback<PersonalResponse<Almacen>> {
+            override fun onResponse(call: Call<PersonalResponse<Almacen>>, response: Response<PersonalResponse<Almacen>> ) {
+                if (response.isSuccessful) {
+
+                    responseAlmacenLiveData.value = response.body()?.datos
+
+                } else {
+                    messageLiveData.value = response.message()
+                }
+            }
+
+            override fun onFailure(call: Call<PersonalResponse<Almacen>> , t: Throwable) {
+                t.printStackTrace()
+                messageLiveData.value = "Falla en la conexión"
+            }
+        })
+    }
+
     fun unidadMedida(sessionid :String,  httpCacheDirectory: Cache, context: Context) {
         val call =  RetrofitClient.getApiService(httpCacheDirectory, context)?.unidadMedida(sessionid,"odata.maxpagesize=200")
         call?.enqueue(object : Callback<PersonalResponse<UnidadMedida>> {

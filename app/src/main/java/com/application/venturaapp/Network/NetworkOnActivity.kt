@@ -304,7 +304,7 @@ class NetworkOnActivity   : AppCompatActivity() {
                            "",
                            "AP",
                            items.U_VS_AGR_TOJR,
-                           items.U_VS_AGR_TOHX.toFloat()
+                           items.U_VS_AGR_TOPL
                        )
 
                    }
@@ -369,7 +369,7 @@ class NetworkOnActivity   : AppCompatActivity() {
                        body5.addProperty("U_VS_AGR_USAA", item.U_VS_AGR_USAA)
                        body5.addProperty("U_VS_AGR_RORI", item.U_VS_AGR_RORI)
                        body5.addProperty("U_VS_AGR_TOJR", item.U_VS_AGR_TOJR)
-                       body5.addProperty("U_VS_AGR_TOHX", item.U_VS_AGR_TOHX)
+                       body5.addProperty("U_VS_AGR_TOPL", item.U_VS_AGR_TOPL)
                        body3.add(body5)
 
 

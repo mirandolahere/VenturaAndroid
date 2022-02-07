@@ -13,10 +13,10 @@
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.190625" />
         <entry key="app/src/main/res/layout/activity_add_labor_cultural.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_automatic.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_cosecha_articulo.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_cosecha_articulo.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_labor_cultural.xml" value="0.17572463768115942" />
         <entry key="app/src/main/res/layout/activity_labor_cultural_detalle.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_labor_cultural_personal.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_labor_cultural_personal.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.17481884057971014" />
         <entry key="app/src/main/res/layout/activity_network.xml" value="0.2164855072463768" />
         <entry key="app/src/main/res/layout/activity_personal_add.xml" value="0.335" />
@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_sincronizacion.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/item_fertilizante.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_fertilizante_detalle.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_insumos.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_labor_cultural.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_labor_cultural_pep.xml" value="0.496227525067166" />
         <entry key="app/src/main/res/layout/item_labor_detalle.xml" value="0.25" />

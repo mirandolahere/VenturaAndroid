@@ -196,6 +196,7 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                     for(item in campaniasList.iterator()){
 
                         if(item.VS_AGR_CAPPCollection.size!=0) {
+
                             for (pep in item.VS_AGR_CAPPCollection.iterator()) {
                                 peps.Code = pep.U_VS_AGR_CDPP
                                 peps.Name = pep.U_VS_AGR_DSPP
@@ -220,8 +221,6 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
                                     "","","","","","",
                                     "","","","","","",
                                     "","","","")
-
-
                             }
 
                         }
@@ -615,6 +614,8 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
         })*/
         fbAdd.setOnClickListener {
             val intent = Intent(activity, automaticActivity::class.java)
+            intent.putExtra("ISLABOR","TRUE")
+
             startActivity(intent)
         }
     }
@@ -628,7 +629,6 @@ class laborCulturalFragment  : Fragment(), LaborItemListener {
     }
 
     private fun enableViews(enable: Boolean) {
-        fbAdd.isEnabled = enable
 
     }
     private fun filter(pep: String, CodeFundo: String, CodeSector: String, CodeLote: String)

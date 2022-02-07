@@ -1,5 +1,7 @@
 package com.application.venturaapp.api
 
+import com.application.venturaapp.fertilizante.entity.Almacen
+import com.application.venturaapp.fertilizante.entity.UnidadMedida
 import com.application.venturaapp.fitosanitario.entity.*
 import com.application.venturaapp.maquinarias.entity.VSAGRRMAQ
 import com.application.venturaapp.home.fragment.entities.*
@@ -111,6 +113,8 @@ interface ApiService {
     @GET("/Items({ItemCode})/ManageBatchNumbers")
     fun  existeLote(@Header ("Cookie") session : String, @Header("Prefer") str2:String ): Call<PersonalResponse<UnidadMedida>>
 
+    @GET("/b1s/v1/Warehouses")
+    fun  listarAlmacen(@Header ("Cookie") session : String, @Header("Prefer") str2:String ): Call<PersonalResponse<Almacen>>
 
     /*CONTABILIZACION*/
 

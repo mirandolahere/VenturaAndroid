@@ -112,6 +112,7 @@
                 android:layout_height="40dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:background="@drawable/edtx_personal_list"
                 android:inputType="number"
                 android:paddingStart="13sp"
@@ -127,6 +128,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/edtx_personal_list"
                 android:inputType="number"
+                android:enabled="false"
                 android:paddingStart="13sp"
                 android:textColor="@color/marcaHeader"
                 android:textSize="13sp"
@@ -248,13 +250,13 @@
             android:orientation="horizontal"
             android:paddingBottom="10dp">
 
-            <EditText
+            <Spinner
                 android:id="@+id/etLaborDefecto"
                 style="@style/SpinnerTheme"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/top_shadow_gradient"
+                android:background="@drawable/edtx_personal_list"
                 android:gravity="left"
                 android:paddingStart="13sp"
                 android:textColor="@color/marcaHeader"

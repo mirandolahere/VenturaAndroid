@@ -35,7 +35,7 @@ class FertilizantePEPAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(viewHolder: FertilizantePEPAdapter.ViewHolder, i: Int) {
         val name = options[i]
-        val options2 = options2[i]
+        val options2 = options2[0]
         viewHolder.bindItem(name,options2, i)
     }
 

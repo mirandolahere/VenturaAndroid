@@ -1,4 +1,4 @@
-package com.application.venturaapp.fitosanitario.entity
+package com.application.venturaapp.fertilizante.entity
 
 import com.google.gson.annotations.SerializedName
 import java.text.DecimalFormat

@@ -4,18 +4,14 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.application.venturaapp.R
-import com.application.venturaapp.home.fragment.entities.LaborCultural
 import com.application.venturaapp.home.fragment.entities.PEPDato
-import com.application.venturaapp.home.fragment.entities.PersonalDato
 import com.application.venturaapp.home.listener.FitosanitarioItemListener
-import com.application.venturaapp.home.listener.LaborItemListener
-import com.application.venturaapp.home.listener.MenuItemListener
-import kotlinx.android.synthetic.main.activity_personal_add.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
@@ -28,7 +24,7 @@ class FitosanitarioAdapter(internal var listener: FitosanitarioItemListener, per
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_labor_cultural, viewGroup, false)
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_insumos, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -47,16 +43,13 @@ class FitosanitarioAdapter(internal var listener: FitosanitarioItemListener, per
 
         var tvCodigo: TextView = itemView.findViewById(R.id.tvCodigo)
         var tvUltimoRegistro: TextView = itemView.findViewById(R.id.tvUltimoRegistro)
-        var tvJornales: TextView = itemView.findViewById(R.id.tvJornales)
-        var txtJornales: TextView = itemView.findViewById(R.id.TextJornales)
         var Campaña1: TextView = itemView.findViewById(R.id.tvCampaña)
-        var item: LinearLayout = itemView.findViewById(R.id.llItem)
-
+        var ivView: ImageView = itemView.findViewById(R.id.ivView)
+        var ivEdit : ImageView = itemView.findViewById(R.id.ivEdit)
+        var ivDelete : ImageView = itemView.findViewById(R.id.ivDelete)
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun bindItem(name: PEPDato, position: Int) {
-            txtJornales.visibility=View.GONE
-            tvJornales.visibility = View.GONE
             var simpleFormat = DateTimeFormatter.ISO_DATE;
             var convertedDate = LocalDate.parse(name.UpdateDate, simpleFormat)
             val mes: String
@@ -72,11 +65,18 @@ class FitosanitarioAdapter(internal var listener: FitosanitarioItemListener, per
             else
                 dia = convertedDate.dayOfMonth.toString()
             val fecha: String = dia + "-" + mes + "-" + convertedDate.year.toString()
-            tvUltimoRegistro.setText(fecha)
+             tvCodigo.setText(fecha)
 
-            tvCodigo.text = name.Code
-            Campaña1.text = name.U_VS_AGR_DSCA
-            item.setOnClickListener {
+            tvUltimoRegistro.text = name.U_VS_AGR_DSCA
+            Campaña1.text = name.Code
+            ivView.setOnClickListener {
+                listener.laborItemClickListener(name)
+            }
+
+            ivEdit.setOnClickListener {
+                listener.laborItemClickListener(name)
+            }
+            ivDelete.setOnClickListener {
                 listener.laborItemClickListener(name)
             }
         }
